@@ -1,0 +1,77 @@
+import React, { Component } from "react";
+import ElectionCreation from "./contracts/ElectionCreation.json";
+import getWeb3 from "./getWeb3";
+import {BrowserRouter as Router,Switch,Route} from 'react-router-dom'
+import login from './Components/login'
+import './css/style.css'
+
+import Header from './Components/Header'
+import Footer from './Components/Footer'
+import Admin from './Components/Admin'
+
+class App extends Component {
+  state = { web3: null, accounts: null, contract: null };
+
+  componentDidMount = async () => {
+    try {
+      // Get network provider and web3 instance.
+      const web3 = await getWeb3();
+
+      // Use web3 to get the user's accounts.
+      const accounts = await web3.eth.getAccounts();
+
+      // Get the contract instance.
+      const networkId = await web3.eth.net.getId();
+      const deployedNetwork = ElectionCreation.networks[networkId];
+      const instance = new web3.eth.Contract(
+        ElectionCreation.abi,
+        deployedNetwork && deployedNetwork.address,
+      );
+console.log(this.state)
+      // Set web3, accounts, and contract to the state, and then proceed with an
+      // example of interacting with the contract's methods.
+      this.setState({ web3, accounts, contract: instance });
+    } catch (error) {
+      // Catch any errors for any of the above operations.
+      alert(
+        error
+      );
+      console.error(error);
+    }
+  };
+
+  runExample = async () => {
+    const { accounts, contract } = this.state;
+
+    // Stores a given value, 5 by default.
+    await contract.methods.set(5).send({ from: accounts[0] });
+
+    // Get the value from the contract to prove it worked.
+    const response = await contract.methods.get().call();
+
+    // Update state with the result.
+    this.setState({ storageValue: response });
+  };
+
+  render() {
+    if (!this.state.web3) {
+      return <div>Loading Web3, accounts, and contract...</div>;
+    }
+    return (
+      <div className="App">
+      <Router>
+        <Switch>
+          <Route exact path='/'  component={login}/>
+          <Route exaact path='/admin'  component={Admin}/>
+        </Switch>
+      </Router>
+{/* <Header/>
+      <Admin init={this.state}/>
+
+      <Footer/> */}
+        </div>
+    );
+  }
+}
+
+export default App;
