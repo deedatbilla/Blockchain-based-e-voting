@@ -4,10 +4,7 @@ import getWeb3 from "./getWeb3";
 import {BrowserRouter as Router,Switch,Route} from 'react-router-dom'
 import login from './Components/login'
 import './css/style.css'
-
-import Header from './Components/Header'
-import Footer from './Components/Footer'
-import Admin from './Components/Admin'
+import Dashboard from './Components/AdminPage/Dashboard'
 
 class App extends Component {
   state = { web3: null, accounts: null, contract: null };
@@ -62,7 +59,7 @@ console.log(this.state)
       <Router>
         <Switch>
           <Route exact path='/'  component={login}/>
-          <Route exaact path='/admin'  component={Admin}/>
+          <Route exaact path='/admin/login'  component={Dashboard}/>
         </Switch>
       </Router>
 {/* <Header/>
