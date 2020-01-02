@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import Header from './Header'
 import Footer from './Footer'
 import Form from './Form'
-
+import Sidebar from './AdminPage/Sidebar'
 import  HeaderSecondary from './HeaderSecondary'
 import '../css/login.css'
 import '../css/style.css'
@@ -20,6 +20,7 @@ onSubmit=(e)=>{
         return (
             <div>
             <Header/>
+            <Sidebar/>
             <HeaderSecondary/>
             <Form name="Admin Login"/>
             <Footer/>
