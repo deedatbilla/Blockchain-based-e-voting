@@ -6,9 +6,11 @@ import AdminHeader from './AdminHeader'
  class Dashboard extends Component {
     render() {
         return (
-            <div class="wrapper">
+            <div className="skin-green sidebar-mini">
+            <div className="wrapper">
                <AdminHeader/>
                <Sidebar/> 
+            </div>
             </div>
         )
     }

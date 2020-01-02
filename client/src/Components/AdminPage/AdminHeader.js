@@ -1,55 +1,56 @@
 import React from 'react'
+import person from '../../assets/person.png'
 
 export default function AdminHeader() {
     return (
         <div>
-             <header class="main-header">
-      <a href="https://www.themashabrand.com/scripts/Voting/" class="logo">
+             <header className="main-header">
+      <a href="https://www.themashabrand.com/scripts/Voting/" className="logo">
       
-       <span class="logo-mini"><b><i class="fa fa-user-md"></i></b></span>
+       <span className="logo-mini"><b><i className="fa fa-user-md"></i></b></span>
        
-       <span class="logo-lg"><b>
+       <span className="logo-lg"><b>
        	Voting</b></span>
       </a>
 
      
-      <nav class="navbar navbar-static-top" role="navigation">
+      <nav className="navbar navbar-static-top" role="navigation">
     
-       <a href="https://www.themashabrand.com/scripts/Voting/admin/dashboard#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
-        <span class="sr-only">Toggle navigation</span>
+       <a href="https://www.themashabrand.com/scripts/Voting/admin/dashboard#" className="sidebar-toggle" data-toggle="offcanvas" role="button">
+        <span className="sr-only">Toggle navigation</span>
        </a>
       
-       <div class="navbar-custom-menu">
-        <ul class="nav navbar-nav">
+       <div className="navbar-custom-menu">
+        <ul className="nav navbar-nav">
        
-			  <li><a href="https://www.themashabrand.com/scripts/Voting/"><i class="fa fa-home"></i> Home Page</a></li>
+			  <li><a href="https://www.themashabrand.com/scripts/Voting/"><i className="fa fa-home"></i> Home Page</a></li>
                             
-              <li class="dropdown user user-menu">
+              <li className="dropdown user user-menu">
                 
-                <a href="https://www.themashabrand.com/scripts/Voting/admin/dashboard#" class="dropdown-toggle" data-toggle="dropdown">
+                <a href="https://www.themashabrand.com/scripts/Voting/admin/dashboard#" className="dropdown-toggle" data-toggle="dropdown">
                   
 				 <strong>Languages</strong>	
                 </a>
-                <ul class="dropdown-menu">
-                	<li class="m_2"><a  style={{cursor: 'pointer'}}>English</a></li><li class="m_2"><a style={{cursor: 'pointer'}}>Spanish</a></li>        		</ul>
+                <ul className="dropdown-menu">
+                	<li className="m_2"><a  style={{cursor: 'pointer'}}>English</a></li><li className="m_2"><a style={{cursor: 'pointer'}}>Spanish</a></li>        		</ul>
               </li>
                          
-              <li class="dropdown user user-menu">
+              <li className="dropdown user user-menu">
                 
-                <a href="https://www.themashabrand.com/scripts/Voting/admin/dashboard#" class="dropdown-toggle" data-toggle="dropdown">
+                <a href="https://www.themashabrand.com/scripts/Voting/admin/dashboard#" className="dropdown-toggle" data-toggle="dropdown">
                   
-            	                  <img src="./Admin_files/default.png" class="user-image" alt="User Image"/>
+            	                  <img src={person} className="user-image" alt="User Image"/>
                 
                   
-                  <span class="hidden-xs">Admin</span>
+                  <span className="hidden-xs">Admin</span>
                 </a>
-                <ul class="dropdown-menu">
-						<li class="dropdown-menu-header text-center">
+                <ul className="dropdown-menu">
+						<li className="dropdown-menu-header text-center">
 							<strong>Settings</strong>						
 						</li>
-						<li class="m_2"><a href="https://www.themashabrand.com/scripts/Voting/admin/settings/site"><i class="fa fa-cogs"></i> Settings</a></li>
-						<li class="m_2"><a href="https://www.themashabrand.com/scripts/Voting/admin/profile"><i class="fa fa-user"></i> Profile</a></li>
-						<li class="m_2"><a href="https://www.themashabrand.com/scripts/Voting/admin/logout"><i class="fa fa-lock"></i> Logout</a></li>	
+						<li className="m_2"><a href="https://www.themashabrand.com/scripts/Voting/admin/settings/site"><i className="fa fa-cogs"></i> Settings</a></li>
+						<li className="m_2"><a href="https://www.themashabrand.com/scripts/Voting/admin/profile"><i className="fa fa-user"></i> Profile</a></li>
+						<li className="m_2"><a href="https://www.themashabrand.com/scripts/Voting/admin/logout"><i className="fa fa-lock"></i> Logout</a></li>	
         		</ul>
               </li>
             </ul>
