@@ -7,7 +7,7 @@ import './css/style.css'
 import Dashboard from './Components/AdminPage/Dashboard'
 import Clientlogin from './Components/Clientlogin'
 import VoterListPage  from './Components/AdminPage/VoterListPage'
-
+import CreateElection  from './Components/AdminPage/CreateElection'
 class App extends Component {
   state = { web3: null, accounts: null, contract: null };
 
@@ -64,6 +64,7 @@ console.log(this.state)
           <Route exaact path='/admin/login'  component={Adminlogin}/>
           <Route exaact path='/admin/dashboard'  component={Dashboard}/>
           <Route exaact path='/admin/voterlist'  component={VoterListPage}/>
+          <Route exaact path='/admin/createElection'  component={CreateElection}/>
 
         </Switch>
       </Router>

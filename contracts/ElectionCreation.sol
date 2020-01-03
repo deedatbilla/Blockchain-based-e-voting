@@ -9,11 +9,16 @@ contract ElectionCreation {
     address public electionAdministrator;
     uint candidateCount=0;
     struct Candidate{
+        uint id;
         string name;
+        string party;
         uint voteCount;
+        string electionType;
         uint creationDate;
         uint expirationDate;
     }
+
+    enum position{presidential,parliamentary}
 
 modifier restricted(){ 
     require(msg.sender == electionAdministrator);

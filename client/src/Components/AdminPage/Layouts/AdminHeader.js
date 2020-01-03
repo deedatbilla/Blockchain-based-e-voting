@@ -1,6 +1,6 @@
 import React from "react";
-import person from "../../assets/person.png";
-
+import person from "../../../assets/person.png";
+import { Link } from "react-router-dom";
 export default function AdminHeader() {
   return (
     <div>
@@ -39,21 +39,9 @@ export default function AdminHeader() {
               </li>
 
               <li className="dropdown user user-menu">
-                <a
-                  href="https://www.themashabrand.com/scripts/Voting/admin/dashboard#"
-                  className="dropdown-toggle"
-                  data-toggle="dropdown"
-                >
-                  <strong>Languages</strong>
-                </a>
-                <ul className="dropdown-menu">
-                  <li className="m_2">
-                    <a style={{ cursor: "pointer" }}>English</a>
-                  </li>
-                  <li className="m_2">
-                    <a style={{ cursor: "pointer" }}>Spanish</a>
-                  </li>{" "}
-                </ul>
+                <Link to="/admin/createElection">
+                  <strong>Create Election</strong>
+                </Link>
               </li>
 
               <li className="dropdown user user-menu">

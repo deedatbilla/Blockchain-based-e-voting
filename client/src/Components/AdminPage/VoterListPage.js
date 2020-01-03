@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import "../../css/Admin/style.css";
 import "../../css/Admin/AdminLTE.min.css";
-import Sidebar from "./Sidebar";
-import AdminHeader from "./AdminHeader";
-import Voterlist from "./Voterlist";
-import Footer from "./Footer";
+import Sidebar from "./Layouts/Sidebar";
+import AdminHeader from "./Layouts/AdminHeader";
+import Voterlist from "./Layouts/Voterlist";
+import Footer from "./Layouts/Footer";
 
 export default class VoterListPage extends Component {
     componentDidMount() {

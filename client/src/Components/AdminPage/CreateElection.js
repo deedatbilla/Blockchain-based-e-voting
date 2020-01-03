@@ -3,32 +3,28 @@ import "../../css/Admin/style.css";
 import "../../css/Admin/AdminLTE.min.css";
 import Sidebar from "./Layouts/Sidebar";
 import AdminHeader from "./Layouts/AdminHeader";
-import Summary from "./Layouts/Summary";
+import NewElectionForm from './Layouts/NewElectionForm'
 import Footer from "./Layouts/Footer";
-import { useEffect } from "react";
-import Safe from "react-safe";
-class Dashboard extends Component {
+export default class CreateElection extends Component {
   componentDidMount() {
     const script = document.createElement("script");
 
-    script.src = "https://www.themashabrand.com/scripts/Voting/source/assets/js/app.min.js";
+    script.src =
+      "https://www.themashabrand.com/scripts/Voting/source/assets/js/app.min.js";
     script.async = true;
-    //script.onload = () => this.scriptLoaded();
+   
     document.body.appendChild(script);
   }
-
- 
   render() {
     return (
       <div className="skin-green sidebar-mini">
         <div className="wrapper">
           <AdminHeader />
           <Sidebar />
-          <Summary />
+          <NewElectionForm/>
           <Footer />
         </div>
       </div>
     );
   }
 }
-export default Dashboard;
