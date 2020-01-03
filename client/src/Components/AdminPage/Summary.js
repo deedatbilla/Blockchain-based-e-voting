@@ -3,23 +3,23 @@ import React from 'react'
 export default function Summary() {
     return (
         <div>
-             <div classNameName="content-wrapper" style={{minHeight: '475px'}}>
+             <div className="content-wrapper" style={{minHeight: '475px'}}>
         
-        <section classNameName="content-header">
+        <section className="content-header">
           <h1>Dashboard</h1>
         </section>
 
         
-        <section classNameName="content">
+        <section className="content">
           
           
-          <div classNameName="row">
-            <div classNameName="col-md-3 col-sm-6 col-xs-12">
-              <div classNameName="info-box">
-                <span classNameName="info-box-icon bg-aqua"><i classNameName="fa fa-globe"></i></span>
-                <div classNameName="info-box-content">
-                  <span classNameName="info-box-text">Parties</span>
-                  <span classNameName="info-box-number">
+          <div className="row">
+            <div className="col-md-3 col-sm-6 col-xs-12">
+              <div className="info-box">
+                <span className="info-box-icon bg-aqua"><i className="fa fa-globe"></i></span>
+                <div className="info-box-content">
+                  <span className="info-box-text">Parties</span>
+                  <span className="info-box-number">
                     9	
                     </span>
                 </div>
@@ -27,38 +27,38 @@ export default function Summary() {
             </div>
 
             
-            <div classNameName="clearfix visible-sm-block"></div>
+            <div className="clearfix visible-sm-block"></div>
             
-            <div classNameName="col-md-3 col-sm-6 col-xs-12">
-              <div classNameName="info-box">
-                <span classNameName="info-box-icon bg-aqua"><i classNameName="fa fa-money"></i></span>
-                <div classNameName="info-box-content">
-                  <span classNameName="info-box-text">Positions</span>
-                  <span classNameName="info-box-number">
+            <div className="col-md-3 col-sm-6 col-xs-12">
+              <div className="info-box">
+                <span className="info-box-icon bg-aqua"><i className="fa fa-money"></i></span>
+                <div className="info-box-content">
+                  <span className="info-box-text">Positions</span>
+                  <span className="info-box-number">
                     21	
                     </span>
                 </div>
               </div>
             </div>
             
-            <div classNameName="col-md-3 col-sm-6 col-xs-12">
-              <div classNameName="info-box">
-                <span classNameName="info-box-icon bg-aqua"><i classNameName="fa fa-users"></i></span>
-                <div classNameName="info-box-content">
-                  <span classNameName="info-box-text">Candidates</span>
-                  <span classNameName="info-box-number">
+            <div className="col-md-3 col-sm-6 col-xs-12">
+              <div className="info-box">
+                <span className="info-box-icon bg-aqua"><i className="fa fa-users"></i></span>
+                <div className="info-box-content">
+                  <span className="info-box-text">Candidates</span>
+                  <span className="info-box-number">
                     17	
                     </span>
                 </div>
               </div>
             </div>
             
-            <div classNameName="col-md-3 col-sm-6 col-xs-12">
-              <div classNameName="info-box">
-                <span classNameName="info-box-icon bg-aqua"><i classNameName="fa fa-align-left"></i></span>
-                <div classNameName="info-box-content">
-                  <span classNameName="info-box-text">Voters</span>
-                  <span classNameName="info-box-number">
+            <div className="col-md-3 col-sm-6 col-xs-12">
+              <div className="info-box">
+                <span className="info-box-icon bg-aqua"><i className="fa fa-align-left"></i></span>
+                <div className="info-box-content">
+                  <span className="info-box-text">Voters</span>
+                  <span className="info-box-number">
                     20	
                     </span>
                 </div>
@@ -69,6 +69,8 @@ export default function Summary() {
           
 
           {/* chart */}
+          <div className="row">
+                {/* chart */}
 
           <div className="col-md-12">
           <div className="box">
@@ -144,7 +146,7 @@ export default function Summary() {
                     <span className="progress-number"><b>250</b>/500</span>
 
                     <div className="progress sm">
-                      <div className="progress-bar progress-bar-yellow" style={{width: 80%"></div>
+                      <div className="progress-bar progress-bar-yellow" style={{width: '80%'}}></div>
                     </div>
                   </div>
                 
@@ -199,6 +201,8 @@ export default function Summary() {
           
         </div>
           
+           
+          </div>
                     
                 </section></div>
               </div>
