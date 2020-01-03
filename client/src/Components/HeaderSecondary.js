@@ -5,9 +5,9 @@ export default function HeaderSecondary() {
     var bg='https://www.themashabrand.com/scripts/Voting/source/admin/uploads/157121554052709.jpg&#39) no-repeat center center fixed'
     return (
        
-        <div>
+        <div> 
             
-             <header class="header-login top-page" style={{
+             <header className="header-login top-page" style={{
             background: 'url('+ pic +')',
             backgroundize: 'cover',
             backgroundPosition: 'center center',
@@ -26,10 +26,10 @@ export default function HeaderSecondary() {
     }}
 
 >
-    <div class="container">
-     <div class="content">
-      <div class="row">
-       <h1 class="revealOnScroll" data-animation="fadeInDown"> Voting</h1>
+    <div className="container">
+     <div className="content">
+      <div className="row">
+       <h1 className="revealOnScroll" data-animation="fadeInDown"> Voting</h1>
       </div>
      </div>
     </div>

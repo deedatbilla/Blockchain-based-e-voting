@@ -1,5 +1,6 @@
 import React from "react";
 import person from "../../assets/person.png";
+import {Link} from 'react-router-dom'
 function Sidebar() {
   return (
     <div>
@@ -12,7 +13,7 @@ function Sidebar() {
             <div className="pull-left info">
               <p>Admin</p>
 
-              <a href="https://www.themashabrand.com/scripts/Voting/admin/profile">
+              <a href="">
                 <i className="fa fa-circle text-success"></i> Online
               </a>
             </div>
@@ -22,41 +23,41 @@ function Sidebar() {
             <li className="header">Header</li>
 
             <li className=" active">
-              <a href="https://www.themashabrand.com/scripts/Voting/admin/dashboard">
+              <Link to='/admin/Dashboard'>
                 <i className="fa fa-dashboard"></i> <span>Dashboard</span>
-              </a>
+              </Link>
             </li>
             <li className="treeview">
-              <a href="https://www.themashabrand.com/scripts/Voting/admin/dashboard#">
+              <a href="#">
                 <i className="fa fa-users"></i> <span>Voters</span>{" "}
                 <i className="fa fa-angle-left pull-right"></i>
               </a>
               <ul className="treeview-menu">
                 <li>
-                  <a href="https://www.themashabrand.com/scripts/Voting/admin/voterlist">
+                  <Link to='/admin/voterlist'>
                     Voters List
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="https://www.themashabrand.com/scripts/Voting/admin/addvoter">
+                  <a href="#">
                     Add Voter
                   </a>
                 </li>
               </ul>
             </li>
             <li className="treeview">
-              <a href="https://www.themashabrand.com/scripts/Voting/admin/dashboard#">
+              <a href="#">
                 <i className="fa fa-align-left"></i> <span>Organizations</span>{" "}
                 <i className="fa fa-angle-left pull-right"></i>
               </a>
               <ul className="treeview-menu">
                 <li>
-                  <a href="https://www.themashabrand.com/scripts/Voting/admin/organizationlist">
+                  <a href="">
                     Organization List
                   </a>
                 </li>
                 <li>
-                  <a href="https://www.themashabrand.com/scripts/Voting/admin/addorganization">
+                  <a href="">
                     Add Organization
                   </a>
                 </li>

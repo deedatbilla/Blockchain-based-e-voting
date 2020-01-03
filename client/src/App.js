@@ -2,9 +2,11 @@ import React, { Component } from "react";
 import ElectionCreation from "./contracts/ElectionCreation.json";
 import getWeb3 from "./getWeb3";
 import {BrowserRouter as Router,Switch,Route} from 'react-router-dom'
-import login from './Components/login'
+import Adminlogin from './Components/AdminPage/Adminlogin'
 import './css/style.css'
 import Dashboard from './Components/AdminPage/Dashboard'
+import Clientlogin from './Components/Clientlogin'
+import VoterListPage  from './Components/AdminPage/VoterListPage'
 
 class App extends Component {
   state = { web3: null, accounts: null, contract: null };
@@ -58,8 +60,11 @@ console.log(this.state)
       <div className="App">
       <Router>
         <Switch>
-          <Route exact path='/'  component={login}/>
-          <Route exaact path='/admin/login'  component={Dashboard}/>
+          <Route exact path='/'  component={Clientlogin}/>
+          <Route exaact path='/admin/login'  component={Adminlogin}/>
+          <Route exaact path='/admin/dashboard'  component={Dashboard}/>
+          <Route exaact path='/admin/voterlist'  component={VoterListPage}/>
+
         </Switch>
       </Router>
 {/* <Header/>
