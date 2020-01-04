@@ -6,47 +6,53 @@ Candidate[] public allCandidates;
 mapping(address => bool) public voters;
 address public electionAdministrator;
 uint candidateCount=0;
-mapping(address => bool) public voters;
-
-
+address public manager;
+string public votingDistrict;
 struct Candidate{
         uint id;
         string name;
         string party;
         uint voteCount;
-        string district;
         string electionType;
         uint creationDate;
         uint expirationDate;
-        //voters[msg.sender] = true;
+        
     }
 
-    enum position{presidential,parliamentary}
+   
 
 modifier restricted(){ 
-    require(msg.sender == electionAdministrator);
+    require(msg.sender == manager);
     _;
     }
-constructor()public{
-    
-}
-    function addCandidates(string[] memory candidateNames, uint amountofHours)public {
-    if(!proceed){
-    for (uint i = 0;i < candidateNames.length; i++){
+constructor(Candidate[] memory candidates, string memory district,address creator, uint amountofHours)public{
+    uint id = 0;
+    voters[msg.sender] = false;
+    manager = creator;
+    votingDistrict = district;
+    for (uint i = 0;i < candidates.length; i++){
         allCandidates.push(Candidate({
-            name: candidateNames[i],
-            voteCount : 0, 
-            creationDate : now, 
-            expirationDate: now + amountofHours
+            id:id,
+            name: candidates[i].name,
+            party:candidates[i].party,
+            voteCount:0,  
+            electionType:candidates[i].electionType,
+            creationDate:now, 
+            expirationDate:now + amountofHours
         }));
 
     }
-    }
-    else {
-        revert("you have already added candidates");
-    }
-    proceed = true;
+
 }
+//     function addCandidates(string[] memory candidateNames, uint amountofHours)public {
+//     if(!proceed){
+    
+//     }
+//     else {
+//         revert("you have already added candidates");
+//     }
+//     proceed = true;
+// }
 
 function vote(uint candidate)public { 
 

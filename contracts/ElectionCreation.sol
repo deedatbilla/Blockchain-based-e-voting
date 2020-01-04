@@ -5,11 +5,13 @@ contract ElectionCreation {
 candidate[] allcandidates;
 address[] public deployedBallots;
 struct candidate{
-    uint id;
-    string name;
-    string party;
-    string electionType;
-    string position;
+     uint id;
+        string name;
+        string party;
+        uint voteCount;
+        string electionType;
+        uint creationDate;
+        uint expirationDate;
 }
 enum position{presidential,parliamentary}
 
@@ -20,7 +22,7 @@ constructor () public {
 function addcandidates(candidate[] memory candidatesDetails,string[] memory district,
 uint amounthours)public {
      for(uint i = 0; i < district.length; i++){
-        address newBallot = new Ballot(candidatesDetails[i], district[i], msg.sender, amounthours);
+        address newBallot = new Ballot(candidatesDetails, district[i], msg.sender, amounthours);
         deployedBallots.push(newBallot);
      }
 }
