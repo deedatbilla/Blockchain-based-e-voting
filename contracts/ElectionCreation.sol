@@ -1,38 +1,78 @@
-pragma solidity >=0.4.21 <0.7.0;
+pragma solidity >=0.4.22 <0.6.0;
 pragma experimental ABIEncoderV2;
 
+
 contract ElectionCreation {
-candidate[] allcandidates;
-address[] public deployedBallots;
-struct candidate{
-     uint id;
-        string name;
-        string party;
-        uint voteCount;
-        string electionType;
+
+mapping(uint=>Ballot) public deployedBallots;
+struct Ballot{
+        uint ballotid;
+        Presidential[] presidentialCandidates;
+        Parliamentary[] parliamentaryCandidates;
         uint creationDate;
         uint expirationDate;
 }
-enum position{presidential,parliamentary}
+ struct Presidential{
+     uint id;
+     string name;
+     string partyName;
+     uint voteCount;
+
+ }
+
+ struct Parliamentary{
+     uint id;
+     string name;
+     string partyName;
+     uint voteCount;
+     string district;
+ }
 
 constructor () public { 
    
 }
 
-function addcandidates(candidate[] memory candidatesDetails,string[] memory district,
+function CreateElection(Presidential[] memory presCands,Parliamentary[] memory parlCands,
 uint amounthours)public {
-     for(uint i = 0; i < district.length; i++){
-        address newBallot = new Ballot(candidatesDetails, district[i], msg.sender, amounthours);
-        deployedBallots.push(newBallot);
-     }
+    uint ballotid = 0;
+    uint ballotCount=0;
+    deployedBallots[ballotCount].ballotid = ballotid;
+    deployedBallots[ballotCount].creationDate = now;
+    deployedBallots[ballotCount].expirationDate = now + amounthours;
+    for (uint i = 0;i < presCands.length; i++){
+    deployedBallots[ballotCount].presidentialCandidates.push(Presidential(
+        {
+            id:presCands[i].id,
+            name:presCands[i].name,
+            partyName: presCands[i].partyName,
+            voteCount: 0
+        }
+    ));
+
+    for (uint i = 0;i < parlCands.length; i++){
+    deployedBallots[ballotCount].parliamentaryCandidates.push(Parliamentary(
+        {
+            id:parlCands[i].id,
+            name:parlCands[i].name,
+            partyName: parlCands[i].partyName,
+            voteCount: 0,
+            district: parlCands[i].district
+        }
+    ));
+    
+    
+    }
+
+    ballotCount++;
+    ballotid++;
+     
 }
 
-function getDeployedBallots() public view returns(address[] ) { 
-    return deployedBallots;
+// function getDeployedBallots() public view returns(mapping(uint=>Ballot) ) { 
+//     return deployedBallots;
+// }
+
 }
-
-
-
 
 
 }
