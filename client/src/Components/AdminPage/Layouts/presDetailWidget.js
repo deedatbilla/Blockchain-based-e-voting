@@ -3,7 +3,7 @@ import React from 'react'
 export default function DetailWidget(props) {
     return (
         <div>
-            
+            <div className="row">
               <div className="col-md-3">
           <div className="box box-success box-solid">
             <div className="box-header with-border">
@@ -22,7 +22,7 @@ export default function DetailWidget(props) {
           </div>
           
         </div>
-        
+        </div>
         </div>
     )
 }

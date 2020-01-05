@@ -5,6 +5,7 @@ import Sidebar from "./Layouts/Sidebar";
 import AdminHeader from "./Layouts/AdminHeader";
 import NewElectionForm from "./Layouts/NewElectionForm";
 import Footer from "./Layouts/Footer";
+
 const uuid = require('uuid/v1');
 export default class CreateElection extends Component {
   state = {

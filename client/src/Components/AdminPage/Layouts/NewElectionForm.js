@@ -1,6 +1,6 @@
-import React, { Component } from "react";
-import DetailWidget from "./presDetailWidget";
-import parlDetailWidget from "./parlDetailWidget";
+import React, { Component } from "react"
+import DetailWidget from './presDetailWidget'
+import parlDetailWidget from './parlDetailWidget'
 
 class NewElectionForm extends Component {
   render() {
@@ -8,7 +8,7 @@ class NewElectionForm extends Component {
       <div>
         <div className="content-wrapper" style={{ minHeight: "475px" }}>
           <section className="content">
-            <div className="row">
+          
               {this.props.state.presidential.map(prez => (
                 <DetailWidget
                   prezname={prez.prezname}
@@ -23,7 +23,7 @@ class NewElectionForm extends Component {
                   district={parl.district}
                 />
               ))}
-            </div>
+        
             <div className="row">
               <div className="col-md-6">
                 <div className="box box-primary">
@@ -31,7 +31,7 @@ class NewElectionForm extends Component {
                     <h3 className="box-title">Add a presidential candidate</h3>
                   </div>
 
-                  <form role="form" onSubmit={this.props.onSubmitPrez}>
+                  <form  onSubmit={this.props.onSubmitPrez}>
                     <div className="box-body">
                       <div className="form-group">
                         <label htmlFor="exampleInputEmail1">
@@ -76,7 +76,7 @@ class NewElectionForm extends Component {
                     <h3 className="box-title">Add a parliamentary candidate</h3>
                   </div>
 
-                  <form role="form" onSubmit={this.props.onSubmitParl}>
+                  <form  onSubmit={this.props.onSubmitParl}>
                     <div className="box-body">
                       <div className="form-group">
                         <label htmlFor="exampleInputEmail1">

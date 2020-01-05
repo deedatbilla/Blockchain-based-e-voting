@@ -4562,12 +4562,12 @@
     "5777": {
       "events": {},
       "links": {},
-      "address": "0x050Fe49da506d4a5E6AC916ac30536588Aa6067D",
-      "transactionHash": "0x5f50e71e15009d868548fe1006ce905a81dd340d6fd2bead0b546961a45314bf"
+      "address": "0x0fD4708a71657d9A4eB203f34385616556e695d6",
+      "transactionHash": "0x3c01d73317e56b9fc6a07fe2f65216624730967b08f3cccc4bf1e0c8f06f82f3"
     }
   },
   "schemaVersion": "3.0.16",
-  "updatedAt": "2020-01-04T15:48:15.375Z",
+  "updatedAt": "2020-01-05T17:53:02.684Z",
   "devdoc": {
     "methods": {}
   },
