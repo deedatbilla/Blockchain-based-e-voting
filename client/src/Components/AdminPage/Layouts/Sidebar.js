@@ -43,7 +43,7 @@ function Sidebar() {
                   <a href="">Party List</a>
                 </li>
                 <li>
-                  <a href="">Add Organization</a>
+                  <Link to='/admin/addparty' >Add Party</Link>
                 </li>
               </ul>
             </li>

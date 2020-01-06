@@ -1,39 +1,50 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import {Provider} from 'react-redux'
+import store from '../store'
+import {getconnection} from '../actions/connectActions'
+import rootComponent from './rootComponent'
 class Admin extends Component {
-  state = {
-    names: [],
-    temp: ""
-  };
+
+  componentDidMount(){
+   console.log(this.props.getconnection())
+  }
   onSubmit = async e => {
     e.preventDefault();
-    const { accounts, contract, web3 } = this.props.init;
-    const { names } = this.state;
-    await contract.methods.addCandidates(names, 5).send({ from: accounts[0] });
-    const response = await contract.methods.getallCandidates().call();
-    console.log(response);
-    this.setState({ temp: "" });
+    // const { accounts, contract, web3 } = this.props;
+    // const { names } = this.state;
+    // await contract.methods.addCandidates(names, 5).send({ from: accounts[0] });
+    // const response = await contract.methods.getallCandidates().call();
+    // console.log(response);
+    // this.setState({ temp: "" });
   };
   AddCandidate = e => {
-    this.setState(state => {
-      const names = state.names.concat(state.temp);
-      return {
-        names,
-        temp: ""
-      };
-    });
+    // this.setState(state => {
+    //   const names = state.names.concat(state.temp);
+    //   return {
+    //     names,
+    //     temp: ""
+    //   };
+    // });
   };
-  onChange = e => this.setState({ [e.target.name]: e.target.value });
+  onChange = e => {
+
+  };
   render() {
-    const { names, temp } = this.state;
+    
+    //const { names, temp } = this.state;
 
     return (
+      <Provider store={store}>
       <div className="container ">
         <div className="nav">
-          <ul>
+         
+          {/* <ul>
             {this.state.names.map(name => (
               <li key={name}>{name}</li>
             ))}
-          </ul>
+          </ul> */}
         </div>
         <form onSubmit={this.onSubmit}>
           <div className="form-group">
@@ -41,7 +52,7 @@ class Admin extends Component {
               type="text"
               required
               onChange={this.onChange}
-              value={temp}
+              
               placeholder="Candidate name"
               name="temp"
               className="form-control"
@@ -64,7 +75,12 @@ class Admin extends Component {
           </div>
         </form>
       </div>
+      </Provider>
     );
   }
 }
-export default Admin;
+
+const mapStateToProps = state => ({
+  connect: state.connect.accounts
+});
+export default connect(mapStateToProps,{getconnection})(Admin);

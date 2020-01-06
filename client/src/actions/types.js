@@ -1,0 +1,1 @@
+export const GET_CONNECTION = 'GET_CONNECTION'
