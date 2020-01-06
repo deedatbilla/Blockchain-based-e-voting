@@ -14,16 +14,16 @@ struct Ballot{
 }
  struct Presidential{
      uint id;
-     string name;
-     string partyName;
+     string presname;
+     string party;
      uint voteCount;
 
  }
 
  struct Parliamentary{
      uint id;
-     string name;
-     string partyName;
+     string parlname;
+     string party;
      uint voteCount;
      string district;
  }
@@ -43,8 +43,8 @@ uint amounthours)public {
     deployedBallots[ballotCount].presidentialCandidates.push(Presidential(
         {
             id:presCands[i].id,
-            name:presCands[i].name,
-            partyName: presCands[i].partyName,
+            presname:presCands[i].presname,
+            party: presCands[i].party,
             voteCount: 0
         }
     ));
@@ -53,8 +53,8 @@ uint amounthours)public {
     deployedBallots[ballotCount].parliamentaryCandidates.push(Parliamentary(
         {
             id:parlCands[i].id,
-            name:parlCands[i].name,
-            partyName: parlCands[i].partyName,
+            parlname:parlCands[i].parlname,
+            party: parlCands[i].party,
             voteCount: 0,
             district: parlCands[i].district
         }
@@ -68,11 +68,16 @@ uint amounthours)public {
      
 }
 
-// function getDeployedBallots() public view returns(mapping(uint=>Ballot) ) { 
-//     return deployedBallots;
-// }
+
 
 }
 
+ function getDeployedBallots(uint id) public view returns(Presidential[] memory) { 
+     return deployedBallots[id].presidentialCandidates;
+ }
+// function getallCandidates() public view returns(Candidate[] memory){
+//      return allCandidates;
+
+//  }
 
 }

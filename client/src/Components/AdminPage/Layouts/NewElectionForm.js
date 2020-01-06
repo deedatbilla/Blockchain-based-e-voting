@@ -4,39 +4,62 @@ import parlDetailWidget from "./parlDetailWidget";
 import { connect } from "react-redux";
 import { createElection } from "../../../actions/createElectionAction";
 import { setconnection } from "../../../actions/connectActions";
-
+import uuid from 'uuid'
 class NewElectionForm extends Component {
+
+
   state = {
-    party: '',
-    presname: '',
-    parlname: '',
-    district: ''
+    party: "",
+    presname: "",
+    parlname: "",
+    district: ""
   };
-  onSubmit = e => {};
+
+  componentDidMount(){
+    this.props.setconnection()
+  }
+  onSubmit = async e => {
+    e.preventDefault();
+    const {web3,accounts,contract,presidential,parliamentary}=this.props
+    
+    // // candidates arrays.
+     await contract.methods.CreateElection(presidential,parliamentary,5).send({ from: accounts[0] });
+    // // Get the value from the contract to prove it worked.
+     const response = await contract.methods.getDeployedBallots(0).call();
+    // // Update state with the result.
+    // this.setState({ storageValue: response });
+    console.log(response)
+    
+   
+  };
 
   addCandidates = e => {
+   
     const { party, presname, parlname, district } = this.state;
     const pres = {
+      id:20,
       party,
       presname
     };
     const parl = {
+      id:93,
       parlname,
       party,
       district
     };
     this.setState({
-      party: '',
-      presname: '',
-      parlname: '',
-      district: ''
+      party: "",
+      presname: "",
+      parlname: "",
+      district: ""
     });
 
     this.props.createElection(pres, parl);
-   
+    
   };
   onChange = e => this.setState({ [e.target.name]: e.target.value });
   render() {
+    const {party,presname,parlname,district} =this.state
     return (
       <div>
         <div className="content-wrapper" style={{ minHeight: "475px" }}>
@@ -52,6 +75,7 @@ class NewElectionForm extends Component {
                           onChange={this.onChange}
                           className="form-control J_E_dates"
                           type="text"
+                          value={party}
                           name="party"
                         />
                       </div>
@@ -65,6 +89,7 @@ class NewElectionForm extends Component {
                         onChange={this.onChange}
                         className="form-control"
                         type="text"
+                        value={presname}
                         name="presname"
                       />
                     </div>
@@ -79,6 +104,7 @@ class NewElectionForm extends Component {
                         <input
                           className="form-control J_E_dates"
                           type="text"
+                          value={parlname}
                           name="parlname"
                           onChange={this.onChange}
                         />
@@ -92,6 +118,7 @@ class NewElectionForm extends Component {
                       <input
                         className="form-control"
                         type="text"
+                        value={district}
                         name="district"
                         onChange={this.onChange}
                       />
@@ -131,6 +158,14 @@ class NewElectionForm extends Component {
     );
   }
 }
-export default connect(null, { createElection, setconnection })(
+const mapStateToProps = state => ({
+  accounts: state.connect.accounts,
+  web3 : state.connect.web3,
+  contract: state.connect.contract,
+  presidential:state.createElection.presidential,
+  parliamentary:state.createElection.parliamentary
+
+});
+export default connect(mapStateToProps, { createElection, setconnection })(
   NewElectionForm
 );
