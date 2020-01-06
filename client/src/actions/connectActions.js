@@ -1,14 +1,14 @@
-import { GET_CONNECTION } from "./types";
+import { GET_CONNECTION, SET_CONNECTION } from "./types";
 import ElectionCreation from "../contracts/ElectionCreation.json";
 import getWeb3 from "../getWeb3";
 
-export const getconnection = () => async dispatch => {
+export const setconnection = () => async dispatch => {
   const web3 = await getWeb3();
 
   // Use web3 to get the user's accounts.
   const accounts = await web3.eth.getAccounts();
 
-//   Get the contract instance.
+  //   Get the contract instance.
   const networkId = await web3.eth.net.getId();
   const deployedNetwork = ElectionCreation.networks[networkId];
   const instance = new web3.eth.Contract(
@@ -16,9 +16,11 @@ export const getconnection = () => async dispatch => {
     deployedNetwork && deployedNetwork.address
   );
   dispatch({
-    type: GET_CONNECTION,
+    type: SET_CONNECTION,
     web3: web3,
-    accounts:accounts,
-    contract:instance
+    accounts: accounts,
+    contract: instance
   });
 };
+
+export const getconnection = () => {};

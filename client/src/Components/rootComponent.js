@@ -8,11 +8,11 @@ import VoterListPage from "./AdminPage/VoterListPage";
 import CreateElection from "./AdminPage/CreateElection";
 import Addparty from "./AdminPage/Addparty";
 import {BrowserRouter as Router,Switch,Route} from 'react-router-dom'
-import {getconnection} from '../actions/connectActions'
+import {setconnection} from '../actions/connectActions'
 class rootComponent extends Component {
 
     componentDidMount(){
-        this.props.getconnection()
+        this.props.setconnection()
     }
   render() {
     if (!this.props.web3) {
@@ -45,4 +45,4 @@ const mapStateToProps = state => ({
     contract: state.connect.instance
 
   });
-export default connect(mapStateToProps,{getconnection}) (rootComponent);
+export default connect(mapStateToProps,{setconnection}) (rootComponent);

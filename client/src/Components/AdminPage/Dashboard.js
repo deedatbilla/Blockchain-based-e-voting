@@ -5,8 +5,6 @@ import Sidebar from "./Layouts/Sidebar";
 import AdminHeader from "./Layouts/AdminHeader";
 import Summary from "./Layouts/Summary";
 import Footer from "./Layouts/Footer";
-import { useEffect } from "react";
-import Safe from "react-safe";
 class Dashboard extends Component {
   componentDidMount() {
     const script = document.createElement("script");
