@@ -44,16 +44,16 @@ modifier restricted() {
     require(msg.sender == manager); _;
 }
 constructor () public { 
-    manager = msg.sender;
+    
    voters[msg.sender].pres = false;
    voters[msg.sender].parl = false;
 }
 
 function CreateElection(Presidential[] memory presCands,Parliamentary[] memory parlCands,
-uint amounthours)public {
+uint amounthours, address creator)public {
     uint ballotid = 0;
     uint ballotCount = 0;
-    
+    manager = creator;
     
     deployedBallots[ballotCount].ballotid = ballotid;
     deployedBallots[ballotCount].creationDate = now;

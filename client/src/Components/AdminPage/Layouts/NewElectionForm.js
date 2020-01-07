@@ -23,7 +23,7 @@ class NewElectionForm extends Component {
     const {web3,accounts,contract,presidential,parliamentary}=this.props
     
     // // candidates arrays.
-     await contract.methods.CreateElection(presidential,parliamentary,500000000000000).send({ from: accounts[0] });
+     await contract.methods.CreateElection(presidential,parliamentary,500000000000000,accounts[0]).send({ from: accounts[0] });
     // // Get the value from the contract to prove it worked.
      const response = await contract.methods.getDeployedBallots(0).call();
     // // Update state with the result.
