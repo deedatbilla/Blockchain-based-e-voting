@@ -113,7 +113,9 @@ voters[msg.sender].parl = true;
 }
 
 
-
+function getPresidentialVoteCount(uint candidateid,uint electionid) public view returns(uint){
+    return deployedBallots[electionid].presidentialCandidates[candidateid].voteCount;
+}
  function getDeployedBallots(uint id) public view returns(Parliamentary[] memory) { 
      return deployedBallots[id].parliamentaryCandidates;
  }
