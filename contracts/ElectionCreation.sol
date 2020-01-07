@@ -5,10 +5,17 @@ pragma experimental ABIEncoderV2;
 contract ElectionCreation {
 
 mapping(uint=>Ballot) public deployedBallots;
+mapping(address=>vote_right) public voters;
+
+struct vote_right{
+    bool pres;
+    bool parl;
+}
 struct Ballot{
         uint ballotid;
         Presidential[] presidentialCandidates;
         Parliamentary[] parliamentaryCandidates;
+        mapping(uint=>district) districts;
         uint creationDate;
         uint expirationDate;
 }
@@ -24,18 +31,24 @@ struct Ballot{
      uint id;
      string parlname;
      string party;
+     string districtname;
      uint voteCount;
-     string district;
+     
  }
-
+struct district{
+    string districtname;
+    uint voteCount;
+}
 constructor () public { 
-   
+   voters[msg.sender].pres = false;
+   voters[msg.sender].parl = false;
 }
 
 function CreateElection(Presidential[] memory presCands,Parliamentary[] memory parlCands,
 uint amounthours)public {
     uint ballotid = 0;
     uint ballotCount = 0;
+    
     
     deployedBallots[ballotCount].ballotid = ballotid;
     deployedBallots[ballotCount].creationDate = now;
@@ -56,10 +69,14 @@ uint amounthours)public {
             id:parlCands[i].id,
             parlname:parlCands[i].parlname,
             party: parlCands[i].party,
-            voteCount: parlCands[i].voteCount ,
-            district: parlCands[i].district
+            districtname:parlCands[i].districtname,
+            voteCount:parlCands[i].voteCount
+           
         }
     ));
+    deployedBallots[ballotCount].districts[parlCands[i].id].districtname = parlCands[i].districtname;
+    deployedBallots[ballotCount].districts[parlCands[i].id].voteCount = parlCands[i].voteCount;
+
     
     
     }
@@ -73,8 +90,32 @@ uint amounthours)public {
 
 }
 
- function getDeployedBallots(uint id) public view returns(Presidential[] memory) { 
-     return deployedBallots[id].presidentialCandidates;
+function voteForPresident(uint candidateid, uint electionid)public { 
+
+    require(!voters[msg.sender].pres); 
+
+    if(now > deployedBallots[electionid].expirationDate){ 
+        revert();
+} 
+deployedBallots[electionid].presidentialCandidates[candidateid].voteCount += 1;
+voters[msg.sender].pres = true; 
+}
+
+function voteForParliament(uint candidateid, uint electionid)public { 
+
+    require(!voters[msg.sender].parl); 
+
+    if(now > deployedBallots[electionid].expirationDate){ 
+        revert();
+} 
+deployedBallots[electionid].districts[candidateid].voteCount += 1;
+voters[msg.sender].parl = true; 
+}
+
+
+
+ function getDeployedBallots(uint id) public view returns(Parliamentary[] memory) { 
+     return deployedBallots[id].parliamentaryCandidates;
  }
 // function getallCandidates() public view returns(Candidate[] memory){
 //      return allCandidates;

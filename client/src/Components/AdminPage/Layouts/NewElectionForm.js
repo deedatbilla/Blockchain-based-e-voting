@@ -12,7 +12,7 @@ class NewElectionForm extends Component {
     party: "",
     presname: "",
     parlname: "",
-    district: ""
+    districtname: ""
   };
 
   componentDidMount(){
@@ -35,7 +35,7 @@ class NewElectionForm extends Component {
 
   addCandidates = e => {
    
-    const { party, presname, parlname, district } = this.state;
+    const { party, presname, parlname, districtname } = this.state;
     const pres = {
       id:20,
       party,
@@ -46,14 +46,14 @@ class NewElectionForm extends Component {
       id:93,
       parlname,
       party,
-      district,
+      districtname,
       voteCount:0
     };
     this.setState({
       party: "",
       presname: "",
       parlname: "",
-      district: ""
+      districtname: ""
     });
 
     this.props.createElection(pres, parl);
@@ -61,7 +61,7 @@ class NewElectionForm extends Component {
   };
   onChange = e => this.setState({ [e.target.name]: e.target.value });
   render() {
-    const {party,presname,parlname,district} =this.state
+    const {party,presname,parlname,districtname} =this.state
     return (
       <div>
         <div className="content-wrapper" style={{ minHeight: "475px" }}>
@@ -116,12 +116,12 @@ class NewElectionForm extends Component {
 
                   <div className="col-md-6">
                     <div className="form-group">
-                      <label>Parliamentary candidate district</label>
+                      <label>Parliamentary candidate districtname</label>
                       <input
                         className="form-control"
                         type="text"
-                        value={district}
-                        name="district"
+                        value={districtname}
+                        name="districtname"
                         onChange={this.onChange}
                       />
                     </div>
