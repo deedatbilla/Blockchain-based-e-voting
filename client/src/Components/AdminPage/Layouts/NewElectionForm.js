@@ -23,7 +23,7 @@ class NewElectionForm extends Component {
     const {web3,accounts,contract,presidential,parliamentary}=this.props
     
     // // candidates arrays.
-     await contract.methods.CreateElection(presidential,parliamentary,5).send({ from: accounts[0] });
+     await contract.methods.CreateElection(presidential,parliamentary,50).send({ from: accounts[0] });
     // // Get the value from the contract to prove it worked.
      const response = await contract.methods.getDeployedBallots(0).call();
     // // Update state with the result.
@@ -33,6 +33,17 @@ class NewElectionForm extends Component {
    
   };
 
+  vote= async (e)=>{
+    const {web3,accounts,contract,presidential,parliamentary}=this.props
+    
+    // // candidates arrays.
+    // await contract.methods.voteForPresident(20,0).send({ from: accounts[0] });
+    // // Get the value from the contract to prove it worked.
+     const response = await contract.methods.getPresidentialVoteCount(0,0).call();
+    // // Update state with the result.
+    // this.setState({ storageValue: response });
+    console.log(response)
+  }
   addCandidates = e => {
    
     const { party, presname, parlname, districtname } = this.state;
@@ -40,7 +51,7 @@ class NewElectionForm extends Component {
       id:20,
       party,
       presname,
-      voteCount:0
+      voteCount:15
     };
     const parl = {
       id:93,
@@ -149,6 +160,8 @@ class NewElectionForm extends Component {
                       >
                         Submit to blockchain
                       </button>
+
+                      <button type="button" onClick={this.vote}  className="btn btn-block btn-warning">vote</button>
                     </div>
                   </div>
                 </div>
