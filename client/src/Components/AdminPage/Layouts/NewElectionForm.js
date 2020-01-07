@@ -23,7 +23,7 @@ class NewElectionForm extends Component {
     const {web3,accounts,contract,presidential,parliamentary}=this.props
     
     // // candidates arrays.
-     await contract.methods.CreateElection(presidential,parliamentary,50).send({ from: accounts[0] });
+     await contract.methods.CreateElection(presidential,parliamentary,500000000000000).send({ from: accounts[0] });
     // // Get the value from the contract to prove it worked.
      const response = await contract.methods.getDeployedBallots(0).call();
     // // Update state with the result.
@@ -37,9 +37,9 @@ class NewElectionForm extends Component {
     const {web3,accounts,contract,presidential,parliamentary}=this.props
     
     // // candidates arrays.
-    // await contract.methods.voteForPresident(20,0).send({ from: accounts[0] });
+     await contract.methods.voteForPresident(20,0).send({ from: accounts[0] });
     // // Get the value from the contract to prove it worked.
-     const response = await contract.methods.getPresidentialVoteCount(0,0).call();
+     const response = await contract.methods.getPresidentialVoteCount(20,0).call();
     // // Update state with the result.
     // this.setState({ storageValue: response });
     console.log(response)
@@ -51,7 +51,7 @@ class NewElectionForm extends Component {
       id:20,
       party,
       presname,
-      voteCount:15
+      voteCount:0
     };
     const parl = {
       id:93,

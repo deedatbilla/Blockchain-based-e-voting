@@ -45,8 +45,8 @@ modifier restricted() {
 }
 constructor () public { 
     manager = msg.sender;
-//    voters[msg.sender].pres = false;
-//    voters[msg.sender].parl = false;
+   voters[msg.sender].pres = false;
+   voters[msg.sender].parl = false;
 }
 
 function CreateElection(Presidential[] memory presCands,Parliamentary[] memory parlCands,
@@ -61,10 +61,10 @@ uint amounthours)public {
     
 
     for (uint i = 0;i < presCands.length; i++){
-        deployedBallots[ballotCount].presidentialCandidates[presCands[i].id].id=presCands[i].id;
-        deployedBallots[ballotCount].presidentialCandidates[presCands[i].id].presname=presCands[i].presname;
-        deployedBallots[ballotCount].presidentialCandidates[presCands[i].id].party=presCands[i].party;
-        deployedBallots[ballotCount].presidentialCandidates[presCands[i].id].voteCount=presCands[i].voteCount;
+        deployedBallots[ballotCount].presidentialCandidates[presCands[i].id].id = presCands[i].id;
+        deployedBallots[ballotCount].presidentialCandidates[presCands[i].id].presname = presCands[i].presname;
+        deployedBallots[ballotCount].presidentialCandidates[presCands[i].id].party = presCands[i].party;
+        deployedBallots[ballotCount].presidentialCandidates[presCands[i].id].voteCount = presCands[i].voteCount;
 
     }
 
@@ -90,12 +90,12 @@ ballotid++;
 
 function voteForPresident(uint candidateid, uint electionid)public { 
 
-   // require(!voters[msg.sender].pres); 
+   require(!voters[msg.sender].pres); 
 
-//     if(now > deployedBallots[electionid].expirationDate){ 
-//         revert();
-// } 
-//deployedBallots[0].presidentialCandidates[20].voteCount += 1;
+    if(now > deployedBallots[electionid].expirationDate){ 
+        revert();
+ } 
+deployedBallots[electionid].presidentialCandidates[candidateid].voteCount += 1;
 voters[msg.sender].pres = true; 
 }
 
