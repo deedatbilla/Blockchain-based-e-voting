@@ -35,7 +35,8 @@ constructor () public {
 function CreateElection(Presidential[] memory presCands,Parliamentary[] memory parlCands,
 uint amounthours)public {
     uint ballotid = 0;
-    uint ballotCount=0;
+    uint ballotCount = 0;
+    
     deployedBallots[ballotCount].ballotid = ballotid;
     deployedBallots[ballotCount].creationDate = now;
     deployedBallots[ballotCount].expirationDate = now + amounthours;
@@ -45,7 +46,7 @@ uint amounthours)public {
             id:presCands[i].id,
             presname:presCands[i].presname,
             party: presCands[i].party,
-            voteCount: 0
+            voteCount: presCands[i].voteCount
         }
     ));
 
@@ -55,7 +56,7 @@ uint amounthours)public {
             id:parlCands[i].id,
             parlname:parlCands[i].parlname,
             party: parlCands[i].party,
-            voteCount: 0,
+            voteCount: parlCands[i].voteCount ,
             district: parlCands[i].district
         }
     ));

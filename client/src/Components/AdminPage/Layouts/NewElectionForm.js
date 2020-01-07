@@ -39,13 +39,15 @@ class NewElectionForm extends Component {
     const pres = {
       id:20,
       party,
-      presname
+      presname,
+      voteCount:0
     };
     const parl = {
       id:93,
       parlname,
       party,
-      district
+      district,
+      voteCount:0
     };
     this.setState({
       party: "",
