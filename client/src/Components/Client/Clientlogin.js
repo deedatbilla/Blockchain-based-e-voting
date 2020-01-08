@@ -1,9 +1,9 @@
 import React, { Component } from "react";
-import Header from "./Header";
-import Footer from "./Footer";
-import Form from "./Form";
+import Header from "./Layouts/Header";
+import Footer from "./Layouts/Footer";
+import Form from "./Layouts/Form";
 
-import HeaderSecondary from "./HeaderSecondary";
+import HeaderSecondary from "./Layouts/HeaderSecondary";
 export default class Clientlogin extends Component {
     state = {
         IDnumber: "",

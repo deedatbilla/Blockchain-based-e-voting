@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import Adminlogin from "./AdminPage/Adminlogin";
 import Dashboard from "./AdminPage/Dashboard";
-import Clientlogin from "./Clientlogin";
+import Clientlogin from "./Client/Clientlogin";
 import VoterListPage from "./AdminPage/VoterListPage";
 import CreateElection from "./AdminPage/CreateElection";
 import Addparty from "./AdminPage/Addparty";

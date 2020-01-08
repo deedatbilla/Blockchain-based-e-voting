@@ -1,5 +1,5 @@
 import React from 'react'
-import pic from '../assets/what-is-blockchain-the-technology-explained.jpg'
+import pic from '../../../assets/what-is-blockchain-the-technology-explained.jpg'
 
 export default function HeaderSecondary() {
     var bg='https://www.themashabrand.com/scripts/Voting/source/admin/uploads/157121554052709.jpg&#39) no-repeat center center fixed'

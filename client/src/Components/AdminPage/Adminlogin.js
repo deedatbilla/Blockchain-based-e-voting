@@ -1,9 +1,9 @@
 import React, { Component } from "react";
-import Header from "../Header";
-import Footer from "../Footer";
-import Form from "../Form";
+import Header from "../Client/Layouts/Header";
+import Footer from "../Client/Layouts/Footer";
+import Form from "../Client/Layouts/Form";
 
-import HeaderSecondary from "../HeaderSecondary";
+import HeaderSecondary from "../Client/Layouts/HeaderSecondary";
 import "../../css/login.css";
 import "../../css/style.css";
 class Adminlogin extends Component {
