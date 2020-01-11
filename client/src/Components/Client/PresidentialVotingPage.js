@@ -11,14 +11,12 @@ class PresidentialVotingPage extends Component {
     }
   componentDidMount() {
     this.props.setconnection();
-    const {web3,accounts,contract}=this.props
+    const {web3,accounts,contract} = this.props
     
-    // // candidates arrays.
-     await contract.methods.CreateElection(presidential,parliamentary,500000000000000,accounts[0]).send({ from: accounts[0] });
-    // // Get the value from the contract to prove it worked.
-     const response = await contract.methods.getDeployedBallots(0).call();
-    // // Update state with the result.
-    // this.setState({ storageValue: response });
+   // fetch the list of all presidential candidates
+     
+     const response = await contract.methods.getPresidentialCandidates(0,).call();
+  
     console.log(response)
   }
 

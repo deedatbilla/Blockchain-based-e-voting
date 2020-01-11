@@ -3,7 +3,7 @@ pragma experimental ABIEncoderV2;
 
 
 contract ElectionCreation {
-
+uint public candidateCount = 0;
 mapping(uint=>Ballot) public deployedBallots;
 mapping(address=>vote_right) public voters;
 address public manager;
@@ -84,6 +84,7 @@ uint amounthours, address creator)public {
 
 ballotCount++;
 ballotid++;
+candidateCount++;
      
 
 }
@@ -122,9 +123,17 @@ function getParliamentaryVoteCount(uint candidateid,uint electionid) public view
  function getDeployedBallots(uint id) public view returns(uint ballotid,uint creationDate,uint expirationDate) { 
      return (deployedBallots[id].ballotid,deployedBallots[id].creationDate,deployedBallots[id].expirationDate);
  }
-// function getallCandidates() public view returns(Candidate[] memory){
-//      return allCandidates;
 
-//  }
+ 
+function getPresidentialCandidates(uint electionid,uint i) public view returns(uint id,string memory name,
+ string memory party,uint count){
+ uint cid = deployedBallots[electionid].presidentialCandidates[i].id;
+ string memory cname = deployedBallots[electionid].presidentialCandidates[i].presname;
+ string memory cparty = deployedBallots[electionid].presidentialCandidates[i].party;
+ uint  votecount = deployedBallots[electionid].presidentialCandidates[i].voteCount;
+ return(cid,cname,cparty,votecount);
+    
+
+ }
 
 }
