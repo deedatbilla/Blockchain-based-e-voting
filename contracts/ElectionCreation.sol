@@ -124,7 +124,9 @@ function getParliamentaryVoteCount(uint candidateid,uint electionid) public view
      return (deployedBallots[id].ballotid,deployedBallots[id].creationDate,deployedBallots[id].expirationDate);
  }
 
- 
+ function getPresidentialCount() public view returns(uint count){
+     return candidateCount+1;
+ }
 function getPresidentialCandidates(uint electionid,uint i) public view returns(uint id,string memory name,
  string memory party,uint count){
  uint cid = deployedBallots[electionid].presidentialCandidates[i].id;
