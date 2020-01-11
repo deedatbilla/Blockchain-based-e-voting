@@ -7,17 +7,17 @@ import Clientlogin from "./Client/Clientlogin";
 import VoterListPage from "./AdminPage/VoterListPage";
 import CreateElection from "./AdminPage/CreateElection";
 import Addparty from "./AdminPage/Addparty";
-import {BrowserRouter as Router,Switch,Route} from 'react-router-dom'
-import {setconnection} from '../actions/connectActions'
+import PresidentialVotingPage  from './Client/PresidentialVotingPage'
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { setconnection } from "../actions/connectActions";
 class rootComponent extends Component {
-
-    componentDidMount(){
-        this.props.setconnection()
-    }
+  componentDidMount() {
+    this.props.setconnection();
+  }
   render() {
     if (!this.props.web3) {
-        return <div>Loading Web3, accounts, and contract...</div>;
-      }
+      return <div>Loading Web3, accounts, and contract...</div>;
+    }
     return (
       <Router>
         <div>
@@ -26,6 +26,7 @@ class rootComponent extends Component {
             <Route exact path="/admin/login" component={Adminlogin} />
             <Route exaact path="/admin/dashboard" component={Dashboard} />
             <Route exact path="/admin/voterlist" component={VoterListPage} />
+            <Route exact path="/client/president" component={PresidentialVotingPage} />
             <Route
               exact
               path="/admin/createElection"
@@ -40,9 +41,8 @@ class rootComponent extends Component {
   }
 }
 const mapStateToProps = state => ({
-    accounts: state.connect.accounts,
-    web3 : state.connect.web3,
-    contract: state.connect.instance
-
-  });
-export default connect(mapStateToProps,{setconnection}) (rootComponent);
+  accounts: state.connect.accounts,
+  web3: state.connect.web3,
+  contract: state.connect.instance
+});
+export default connect(mapStateToProps, { setconnection })(rootComponent);
