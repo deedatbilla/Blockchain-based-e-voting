@@ -63,7 +63,7 @@ export default class CreateElection extends Component {
         district: ""
       };
     });
-  };
+  }; 
   componentDidMount() {
     const script = document.createElement("script");
 
