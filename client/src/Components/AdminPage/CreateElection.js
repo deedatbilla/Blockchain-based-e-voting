@@ -6,7 +6,7 @@ import AdminHeader from "./Layouts/AdminHeader";
 import NewElectionForm from "./Layouts/NewElectionForm";
 import Footer from "./Layouts/Footer";
 
-const uuid = require('uuid/v1');
+const uuid = require("uuid/v1");
 export default class CreateElection extends Component {
   state = {
     presidential: [],
@@ -15,7 +15,7 @@ export default class CreateElection extends Component {
     prezparty: "",
     parlname: "",
     parlparty: "",
-    district: "" 
+    district: ""
   };
 
   onChange = e => this.setState({ [e.target.name]: e.target.value });
@@ -28,7 +28,6 @@ export default class CreateElection extends Component {
       prezparty
     };
 
-   
     this.setState(state => {
       const presidential = state.presidential.concat(NewPrezCandidate);
       return {
@@ -63,7 +62,7 @@ export default class CreateElection extends Component {
         district: ""
       };
     });
-  }; 
+  };
   componentDidMount() {
     const script = document.createElement("script");
 

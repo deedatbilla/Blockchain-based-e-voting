@@ -4,11 +4,8 @@ import { Link } from "react-router-dom";
 export default function AdminHeader() {
   return (
     <div>
-      <header className="main-header" >
-        <a
-          href=""
-          className="logo"
-        >
+      <header className="main-header">
+        <a href="" className="logo">
           <span className="logo-mini">
             <b>
               <i className="fa fa-user-md"></i>
@@ -40,7 +37,7 @@ export default function AdminHeader() {
 
               <li className="dropdown user user-menu">
                 <Link to="/admin/createElection">
-                <i className="fa fa-plus"></i> Create Election
+                  <i className="fa fa-plus"></i> Create Election
                 </Link>
               </li>
 
