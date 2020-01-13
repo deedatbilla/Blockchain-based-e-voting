@@ -9,14 +9,14 @@ export default class Addparty extends Component {
   render() {
     return (
       <div>
-          <div className="skin-green sidebar-mini">
-        <div className="wrapper">
-        <AdminHeader />
-        <Sidebar />
-        <AddpartyForm />
-        <Footer />
+        <div className="skin-green sidebar-mini">
+          <div className="wrapper">
+            <AdminHeader />
+            <Sidebar />
+            <AddpartyForm />
+            <Footer />
+          </div>
         </div>
-</div>
       </div>
     );
   }
