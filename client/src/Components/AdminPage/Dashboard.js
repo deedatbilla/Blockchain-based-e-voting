@@ -18,14 +18,14 @@ class Dashboard extends Component {
  
   render() {
     return (
-      <div className="skin-green sidebar-mini">
+     
         <div className="wrapper">
           <AdminHeader />
           <Sidebar />
           <Summary />
           <Footer />
         </div>
-      </div>
+      
     );
   }
 }

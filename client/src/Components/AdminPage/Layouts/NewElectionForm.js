@@ -4,75 +4,90 @@ import parlDetailWidget from "./parlDetailWidget";
 import { connect } from "react-redux";
 import { createElection } from "../../../actions/createElectionAction";
 import { setconnection } from "../../../actions/connectActions";
-import uuid from 'uuid'
+import uuid from "uuid";
 class NewElectionForm extends Component {
-
-
   state = {
     party: "",
     presname: "",
     parlname: "",
-    districtname: ""
+    districtname: "",
+    id: 1
   };
 
-  componentDidMount(){
-    this.props.setconnection()
+  async componentDidMount() {
+    this.props.setconnection();
   }
   onSubmit = async e => {
     e.preventDefault();
-    const {web3,accounts,contract,presidential,parliamentary}=this.props
-    
+    const {
+      web3,
+      accounts,
+      contract,
+      presidential,
+      parliamentary
+    } = this.props;
+
     // // candidates arrays.
-     await contract.methods.CreateElection(presidential,parliamentary,500000000000000,accounts[0]).send({ from: accounts[0] });
+    await contract.methods
+      .CreateElection(presidential, parliamentary, 500000000000000, accounts[0])
+      .send({ from: accounts[0] });
     // // Get the value from the contract to prove it worked.
-     const response = await contract.methods.getDeployedBallots(0).call();
+    const response = await contract.methods.getDeployedBallots(0).call();
+
     // // Update state with the result.
     // this.setState({ storageValue: response });
-    console.log(response)
-    
-   
+    console.log(response);
   };
 
-  vote= async (e)=>{
-    const {web3,accounts,contract,presidential,parliamentary}=this.props
-    
+  vote = async e => {
+    const {
+      web3,
+      accounts,
+      contract,
+      presidential,
+      parliamentary
+    } = this.props;
+
     // // candidates arrays.
-     await contract.methods.voteForPresident(20,0).send({ from: accounts[0] });
+    await contract.methods.voteForPresident(20, 0).send({ from: accounts[0] });
     // // Get the value from the contract to prove it worked.
-     const response = await contract.methods.getPresidentialVoteCount(20,0).call();
+    const response = await contract.methods
+      .getPresidentialVoteCount(20, 0)
+      .call();
+
     // // Update state with the result.
     // this.setState({ storageValue: response });
-    console.log(response)
-  }
+    console.log(response);
+  };
   addCandidates = e => {
-   
-    const { party, presname, parlname, districtname } = this.state;
+    const { party, presname, parlname, districtname, id } = this.state;
     const pres = {
-      id:20,
+      id: id,
       party,
       presname,
-      voteCount:0
+      voteCount: 0
     };
     const parl = {
-      id:93,
+      id: id,
       parlname,
       party,
       districtname,
-      voteCount:0
+      voteCount: 0
     };
-    this.setState({
+    this.setState(state => ({
       party: "",
       presname: "",
       parlname: "",
-      districtname: ""
-    });
+      districtname: "",
+      id: state.id + 1
+    }));
 
     this.props.createElection(pres, parl);
-    
   };
+
   onChange = e => this.setState({ [e.target.name]: e.target.value });
   render() {
-    const {party,presname,parlname,districtname} =this.state
+    const { party, presname, parlname, districtname } = this.state;
     return (
       <div>
         <div className="content-wrapper" style={{ minHeight: "475px" }}>
@@ -161,7 +176,13 @@ class NewElectionForm extends Component {
                         Submit to blockchain
                       </button>
 
-                      <button type="button" onClick={this.vote}  className="btn btn-block btn-warning">vote</button>
+                      <button
+                        type="button"
+                        onClick={this.vote}
+                        className="btn btn-block btn-warning"
+                      >
+                        vote
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -175,11 +196,10 @@ class NewElectionForm extends Component {
 }
 const mapStateToProps = state => ({
   accounts: state.connect.accounts,
-  web3 : state.connect.web3,
+  web3: state.connect.web3,
   contract: state.connect.contract,
-  presidential:state.createElection.presidential,
-  parliamentary:state.createElection.parliamentary
-
+  presidential: state.createElection.presidential,
+  parliamentary: state.createElection.parliamentary
 });
 export default connect(mapStateToProps, { createElection, setconnection })(
   NewElectionForm

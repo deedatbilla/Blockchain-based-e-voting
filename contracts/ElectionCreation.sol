@@ -89,6 +89,7 @@ candidateCount++;
 
 }
 
+
 function voteForPresident(uint candidateid, uint electionid)public { 
 
    require(!voters[msg.sender].pres); 
