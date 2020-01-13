@@ -15,7 +15,7 @@ export default class CreateElection extends Component {
     prezparty: "",
     parlname: "",
     parlparty: "",
-    district: ""
+    district: "" 
   };
 
   onChange = e => this.setState({ [e.target.name]: e.target.value });
