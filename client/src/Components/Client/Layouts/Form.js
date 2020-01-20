@@ -1,7 +1,19 @@
 
 import React, { Component } from "react";
+import {isSignedIn} from '../../../actions/Auth'
+import {connect} from 'react-redux'
  class Form extends Component {
-
+	onSubmit = async (e) => {
+        e.preventDefault()
+        const { IDnumber, password } = this.props.inputs;
+        const data={
+          voter_id:IDnumber,
+          password:password 
+		}
+		//alert("dgd")
+       this.props.isSignedIn(data)
+        
+      };
 	render() {
     return (
         <div>
@@ -12,7 +24,7 @@ import React, { Component } from "react";
         <div className="col-lg-6 col-lg-offset-3 text-center">
 
         <div className="form-sign">
-		   <form  onSubmit={this.props.onSubmit}>
+		   <form  onSubmit={this.onSubmit}>
 		    <div className="form-head">
 			 <h3>{this.props.name}</h3>
 			</div>
@@ -61,4 +73,4 @@ import React, { Component } from "react";
     )
 }
  }
- export default Form
+ export default connect(null,{isSignedIn}) (Form)

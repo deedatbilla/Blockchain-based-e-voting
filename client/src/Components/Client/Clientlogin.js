@@ -2,18 +2,16 @@ import React, { Component } from "react";
 import Header from "./Layouts/Header";
 import Footer from "./Layouts/Footer";
 import Form from "./Layouts/Form";
+import {isSignedIn} from '../../actions/Auth'
+import {connect} from 'react-redux'
 
 import HeaderSecondary from "./Layouts/HeaderSecondary";
-export default class Clientlogin extends Component {
+ class Clientlogin extends Component {
     state = {
         IDnumber: "",
         password: ""
       };
-      onSubmit = (e) => {
-        e.preventDefault()
-        const { IDnumber, password } = this.state;
-        console.log(password)
-      };
+     
       onChange = e => this.setState({ [e.target.name]: e.target.value });
   onChange = e => this.setState({ [e.target.name]: e.target.value });
   render() {
@@ -21,9 +19,12 @@ export default class Clientlogin extends Component {
       <div>
         <Header />
         <HeaderSecondary />
-        <Form name="Voter Login" onChange={this.onChange} onSubmit={this.onSubmit} />
+        <Form name="Voter Login" onChange={this.onChange} inputs={this.state} />
         <Footer />
       </div>
     );
   }
 }
+
+
+export default connect(null,{isSignedIn}) (Clientlogin)

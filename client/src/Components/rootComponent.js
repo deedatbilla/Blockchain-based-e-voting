@@ -7,13 +7,21 @@ import Clientlogin from "./Client/Clientlogin";
 import VoterListPage from "./AdminPage/VoterListPage";
 import CreateElection from "./AdminPage/CreateElection";
 import Addparty from "./AdminPage/Addparty";
-import PresidentialVotingPage  from './Client/PresidentialVotingPage'
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import PresidentialVotingPage from "./Client/PresidentialVotingPage";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect
+} from "react-router-dom";
 import { setconnection } from "../actions/connectActions";
+
 class rootComponent extends Component {
-  componentDidMount() {
-    this.props.setconnection();
-  }
+
+   componentDidMount(){
+     this.props.setconnection()
+   }
+ 
   render() {
     if (!this.props.web3) {
       return <div>Loading Web3, accounts, and contract...</div>;
@@ -24,9 +32,18 @@ class rootComponent extends Component {
           <Switch>
             <Route exact path="/" component={Clientlogin} />
             <Route exact path="/admin/login" component={Adminlogin} />
-            <Route exaact path="/admin/dashboard" component={Dashboard} />
+            <PrivateRoute
+              exact
+              path="/admin/dashboard"
+              component={Dashboard}
+              
+            />
             <Route exact path="/admin/voterlist" component={VoterListPage} />
-            <Route exact path="/client/president" component={PresidentialVotingPage} />
+            <Route
+              exact
+              path="/client/president"
+              component={PresidentialVotingPage}
+            />
             <Route
               exact
               path="/admin/createElection"
@@ -40,6 +57,17 @@ class rootComponent extends Component {
     );
   }
 }
+const AuthenticationStatus=JSON.parse(localStorage.getItem("authData"))
+const PrivateRoute = ({ component: Component, ...rest }) => (
+  <Route {...rest} render={(props) => (
+    AuthenticationStatus.isAuthenticated === true
+      ? <Component {...props} />
+      : <Redirect to={{
+          pathname: '/admin/login',
+          state: { from: props.location }
+        }} />
+  )} />
+)
 const mapStateToProps = state => ({
   accounts: state.connect.accounts,
   web3: state.connect.web3,
