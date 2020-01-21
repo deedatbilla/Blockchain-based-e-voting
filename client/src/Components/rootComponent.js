@@ -32,14 +32,14 @@ class rootComponent extends Component {
           <Switch>
             <Route exact path="/" component={Clientlogin} />
             <Route exact path="/admin/login" component={Adminlogin} />
-            <PrivateRoute
+            <Route
               exact
               path="/admin/dashboard"
               component={Dashboard}
               
             />
             <Route exact path="/admin/voterlist" component={VoterListPage} />
-            <Route
+            <PrivateRoute
               exact
               path="/client/president"
               component={PresidentialVotingPage}
@@ -63,7 +63,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
     AuthenticationStatus.isAuthenticated === true
       ? <Component {...props} />
       : <Redirect to={{
-          pathname: '/admin/login',
+          pathname: '/',
           state: { from: props.location }
         }} />
   )} />
