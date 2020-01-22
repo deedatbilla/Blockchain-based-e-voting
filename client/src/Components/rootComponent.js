@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
+
 import Adminlogin from "./AdminPage/Adminlogin";
 import Dashboard from "./AdminPage/Dashboard";
 import Clientlogin from "./Client/Clientlogin";
@@ -14,34 +15,31 @@ import {
   Route,
   Redirect
 } from "react-router-dom";
+
 import { setconnection } from "../actions/connectActions";
-
+const AuthenticationStatus = JSON.parse(localStorage.getItem("authdata"));
 class rootComponent extends Component {
+  
+  componentDidMount() {
+    this.props.setconnection();
+  }
 
-   componentDidMount(){
-     this.props.setconnection()
-   }
- 
   render() {
     if (!this.props.web3) {
       return <div>Loading Web3, accounts, and contract...</div>;
     }
+
     return (
       <Router>
         <div>
           <Switch>
-            <Route exact path="/" component={Clientlogin} />
+            <Route exact path="/login" component={Clientlogin} />
             <Route exact path="/admin/login" component={Adminlogin} />
-            <Route
-              exact
-              path="/admin/dashboard"
-              component={Dashboard}
-              
-            />
+            <Route exact path="/admin/dashboard" component={Dashboard} />
             <Route exact path="/admin/voterlist" component={VoterListPage} />
             <PrivateRoute
               exact
-              path="/client/president"
+              path="/"
               component={PresidentialVotingPage}
             />
             <Route
@@ -50,27 +48,31 @@ class rootComponent extends Component {
               component={CreateElection}
             />
             <Route exact path="/admin/addparty" component={Addparty} />
-            {/* <Route exact path='/admin' component={Admin}/> */}
           </Switch>
         </div>
       </Router>
     );
   }
 }
-const AuthenticationStatus=JSON.parse(localStorage.getItem("authData"))
+
+
 const PrivateRoute = ({ component: Component, ...rest }) => (
   <Route {...rest} render={(props) => (
     AuthenticationStatus.isAuthenticated === true
       ? <Component {...props} />
+      
+      
       : <Redirect to={{
-          pathname: '/',
+          pathname: '/login',
           state: { from: props.location }
         }} />
   )} />
 )
+
 const mapStateToProps = state => ({
   accounts: state.connect.accounts,
   web3: state.connect.web3,
-  contract: state.connect.instance
+  contract: state.connect.instance,
+  authStatus: state.auth.isAuthenticated
 });
 export default connect(mapStateToProps, { setconnection })(rootComponent);

@@ -14,7 +14,7 @@ class PresidentialVotingPage extends Component {
 
   async componentDidMount() {
     this.props.setconnection();
-    
+  
     // TODO: - this code will be used to build the block explorer
     // const decoder = new InputDataDecoder(
     //   abi
@@ -59,7 +59,7 @@ class PresidentialVotingPage extends Component {
     const { contract, accounts } = this.props;
     return (
       <div>
-        <Votingpageheader />
+        <Votingpageheader hist={this.props.history} />
         <div className="featured-users">
           <div className="container">
             <div className="row">

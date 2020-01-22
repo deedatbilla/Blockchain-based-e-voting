@@ -1,13 +1,14 @@
 import { AUTHENTICATION_STATUS, SIGN_IN, SIGN_OUT } from "../actions/types";
 
-if (localStorage.getItem('authData') == null) {
-  const authStatus={
-    isAuthenticated:false,
-    token:""
-  }
-  localStorage.setItem("authData", JSON.stringify(authStatus))
+if (localStorage.getItem("authdata") == null) {
+  const authStatus = {
+    isAuthenticated: false,
+    token: "",
+    user:{}
+  };
+  localStorage.setItem("authdata", JSON.stringify(authStatus));
 }
-const status= JSON.parse(localStorage.getItem("authData"))
+const status = JSON.parse(localStorage.getItem("authdata"));
 const initialState = status;
 
 export default function(state = initialState, action) {
@@ -15,12 +16,15 @@ export default function(state = initialState, action) {
     case SIGN_IN:
       return {
         ...state,
-        isAuthenticated: true,
-       
+        isAuthenticated: true
       };
     case SIGN_OUT:
-      return {};
-      
+      return {
+        ...state,
+        isAuthenticated: false,
+        token: ""
+      };
+
     default:
       return state;
   }
