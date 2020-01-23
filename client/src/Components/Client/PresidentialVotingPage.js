@@ -4,26 +4,27 @@ import CandidateCard from "./Layouts/CandidateCard";
 import { createElection } from "../../actions/createElectionAction";
 import { setconnection } from "../../actions/connectActions";
 import { connect } from "react-redux";
-import InputDataDecoder from 'ethereum-input-data-decoder';
-import  {abi} from './abi.json'
+import InputDataDecoder from "ethereum-input-data-decoder";
+import { abi } from "./abi.json";
 
 class PresidentialVotingPage extends Component {
   state = {
-    Presidential: []
+    Presidential: [],
+    thereIsElection: false
   };
 
   async componentDidMount() {
     this.props.setconnection();
-  
+
     // TODO: - this code will be used to build the block explorer
     // const decoder = new InputDataDecoder(
     //   abi
     // );
     // const data =
     // "";
-     const { web3, accounts, contract } = this.props;
+    const { web3, accounts, contract } = this.props;
     // const result= decoder.decodeData(data)
-    // console.log(result) 
+    // console.log(result)
     // const trx_data={
     //   from : accounts[0],
     //   to: '0x611d853e6099b12c28dC95AEF16665011e59D702',
@@ -40,29 +41,44 @@ class PresidentialVotingPage extends Component {
     // fetch the list of all presidential candidates
 
     const count = await contract.methods.getPresidentialCount().call();
-    for (var i = 1; i <= count; i++) {
-      const response = await contract.methods
-        .getPresidentialCandidates(0, i)
-        .call();
-      this.setState(state => {
-        const Presidential = state.Presidential.concat(response);
-        return {
-          Presidential
-        };
+    if (count > 0) {
+      this.setState({
+        thereIsElection: true
       });
-    }
 
-    console.log(this.state.Presidential);
+      for (var i = 1; i <= count; i++) {
+        const response = await contract.methods
+          .getPresidentialCandidates(0, i)
+          .call();
+        this.setState(state => {
+          const Presidential = state.Presidential.concat(response);
+          return {
+            Presidential
+          };
+        });
+      }
+
+      console.log(this.state.Presidential);
+    }
   }
 
   render() {
+    const { thereIsElection } = this.state;
+    if (!thereIsElection) {
+      return (
+        <div>
+           <Votingpageheader hist={this.props.history} />
+          <div>No election today</div>
+        </div>
+      );
+    }
     const { contract, accounts } = this.props;
     return (
       <div>
         <Votingpageheader hist={this.props.history} />
         <div className="featured-users">
           <div className="container">
-            <div className="row">
+            <div classN ame="row">
               <div className="section-title" style={{ paddingTop: "20px" }}>
                 <h1>Presidential Candidates</h1>
               </div>

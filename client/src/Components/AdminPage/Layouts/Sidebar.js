@@ -29,9 +29,21 @@ function Sidebar() {
             </li>
             <li className="treeview">
               <Link to="/admin/voterlist">
-                <i className="fa fa-users"></i> <span>Voters List</span>{" "}
+                <i className="fa fa-users"></i> <span>Voters</span>{" "}
                 <i className="fa fa-angle-left pull-right"></i>
               </Link>
+              <ul className="treeview-menu">
+                <li>
+                  <a href="https://www.themashabrand.com/scripts/Voting/admin/positionlist">
+                    Add Voter
+                  </a>
+                </li>
+                <li>
+                  <a href="https://www.themashabrand.com/scripts/Voting/admin/addposition">
+                    Voter List
+                  </a>
+                </li>
+              </ul>
             </li>
             <li className="treeview">
               <a href="#">
