@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
-export default class Addvoter extends Component {
+class Addvoter extends Component {
     render() {
         return (
             <div>
@@ -9,3 +9,4 @@ export default class Addvoter extends Component {
         )
     }
 }
+export default Addvoter

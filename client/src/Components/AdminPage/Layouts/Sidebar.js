@@ -34,14 +34,14 @@ function Sidebar() {
               </Link>
               <ul className="treeview-menu">
                 <li>
-                  <a href="https://www.themashabrand.com/scripts/Voting/admin/positionlist">
+                <Link to="/admin/addvoter">
                     Add Voter
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="https://www.themashabrand.com/scripts/Voting/admin/addposition">
+                <Link to="/admin/voterlist">
                     Voter List
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </li>
