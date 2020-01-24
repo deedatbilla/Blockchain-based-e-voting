@@ -13,7 +13,7 @@ export const isSignedIn = data => async dispatch => {
 
   const token = response.data.token;
   localStorage.setItem("authdata", JSON.stringify(authData));
-  setAuthToken(token);
+  
   
   dispatch({
     type: SIGN_IN,

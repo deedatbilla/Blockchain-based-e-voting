@@ -31,7 +31,7 @@ export default function AddvoterForm(props) {
                     <div className="form-group">
                       <input
                         type="text"
-                        name="id"
+                        name="voter_id"
                         className="form-control"
                         placeholder="ID number"
                         
@@ -60,7 +60,7 @@ export default function AddvoterForm(props) {
                     <div className="form-group">
                       <input
                         type="password"
-                        name="pin"
+                        name="password"
                         className="form-control"
                         placeholder="Pin"
                         onChange={props.onChange}

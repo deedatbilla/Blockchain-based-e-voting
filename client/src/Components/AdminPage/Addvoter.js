@@ -5,20 +5,34 @@ import "../../css/Admin/AdminLTE.min.css";
 import Sidebar from "./Layouts/Sidebar";
 import AdminHeader from "./Layouts/AdminHeader";
 import Footer from "./Layouts/Footer";
+import axios from "axios";
 class Addvoter extends Component {
     state = {
         name: "",
-        id: "",
+        voter_id: "",
         email: "",
         constituency: "",
-        pin: ""
+        password: ""
       };
   render() {
    
     onchange = e => {
       this.setState({ [e.target.name]: e.target.value });
     };
-    onsubmit = e => {};
+    onsubmit = async e => {
+        e.preventDefault()
+        
+       const response = await axios.post("http://localhost:5000/users", this.state);
+        this.setState({
+            name: "",
+            voter_id: "",
+            email: "",
+            constituency: "",
+            password: ""
+        })
+
+        console.log(this.state)
+    };
     return (
       <div>
         <div className="skin-green sidebar-mini">
