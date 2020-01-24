@@ -14,7 +14,8 @@ class Addvoter extends Component {
     voter_id: "",
     email: "",
     constituency: "",
-    password: ""
+    password: "",
+    success:false
   };
   render() {
     onchange = e => {
@@ -23,6 +24,7 @@ class Addvoter extends Component {
 
     onsubmit = async e => {
       e.preventDefault();
+      try{
       const { web3 } = this.props;
 
       const { privateKey, address } = web3.eth.accounts.create();
@@ -41,9 +43,14 @@ class Addvoter extends Component {
         voter_id: "",
         email: "",
         constituency: "",
-        password: ""
+        password: "",
+        success:true
       });
-      console.log(response);
+      
+    }
+    catch(err){
+      console.log(err);
+    }
     };
     return (
       <div>
