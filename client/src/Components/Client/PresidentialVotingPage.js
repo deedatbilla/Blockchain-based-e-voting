@@ -69,6 +69,7 @@ class PresidentialVotingPage extends Component {
         <div>
            <Votingpageheader hist={this.props.history} />
           <div>No election today</div>
+          
         </div>
       );
     }

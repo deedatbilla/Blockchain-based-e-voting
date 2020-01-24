@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Header from "./Layouts/Header";
 import Footer from "./Layouts/Footer";
 import Form from "./Layouts/Form";
-import { isSignedIn } from "../../actions/Auth";
+import { isSignedIn } from "../../actions/ClientAuthAction";
 import { connect } from "react-redux";
 
 import HeaderSecondary from "./Layouts/HeaderSecondary";

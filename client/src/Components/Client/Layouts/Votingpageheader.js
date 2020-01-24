@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { isSignedOut } from "../../../actions/Auth";
+import { isSignedOut } from "../../../actions/ClientAuthAction";
 import { connect } from "react-redux";
 class Votingpageheader extends Component {
 

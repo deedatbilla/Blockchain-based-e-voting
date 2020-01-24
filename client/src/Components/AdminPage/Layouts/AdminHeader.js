@@ -19,7 +19,7 @@ export default function AdminHeader() {
 
         <nav className="navbar navbar-static-top" role="navigation">
           <a
-            href="https://www.themashabrand.com/scripts/Voting/admin/dashboard#"
+            href="#"
             className="sidebar-toggle"
             data-toggle="offcanvas"
             role="button"
@@ -30,7 +30,7 @@ export default function AdminHeader() {
           <div className="navbar-custom-menu">
             <ul className="nav navbar-nav">
               <li>
-                <a href="https://www.themashabrand.com/scripts/Voting/">
+                <a href="">
                   <i className="fa fa-home"></i> Home Page
                 </a>
               </li>
@@ -42,11 +42,7 @@ export default function AdminHeader() {
               </li>
 
               <li className="dropdown user user-menu">
-                <a
-                  href="https://www.themashabrand.com/scripts/Voting/admin/dashboard#"
-                  className="dropdown-toggle"
-                  data-toggle="dropdown"
-                >
+                <a href="#" className="dropdown-toggle" data-toggle="dropdown">
                   <img src={person} className="user-image" alt="User Image" />
 
                   <span className="hidden-xs">Admin</span>
@@ -56,12 +52,12 @@ export default function AdminHeader() {
                     <strong>Settings</strong>
                   </li>
                   <li className="m_2">
-                    <a href="https://www.themashabrand.com/scripts/Voting/admin/settings/site">
+                    <a href="">
                       <i className="fa fa-cogs"></i> Settings
                     </a>
                   </li>
                   <li className="m_2">
-                    <a href="https://www.themashabrand.com/scripts/Voting/admin/profile">
+                    <a href="">
                       <i className="fa fa-user"></i> Profile
                     </a>
                   </li>

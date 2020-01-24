@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-
+import Addvoter from './AdminPage/Addvoter'
 import Adminlogin from "./AdminPage/Adminlogin";
 import Dashboard from "./AdminPage/Dashboard";
 import Clientlogin from "./Client/Clientlogin";
@@ -24,6 +24,8 @@ class rootComponent extends Component {
     this.props.setconnection();
   }
 
+ 
+
   render() {
     if (!this.props.web3) {
       return <div>Loading Web3, accounts, and contract...</div>;
@@ -36,6 +38,7 @@ class rootComponent extends Component {
             <Route exact path="/login" component={Clientlogin} />
             <Route exact path="/admin/login" component={Adminlogin} />
             <Route exact path="/admin/dashboard" component={Dashboard} />
+            <Route exact path="/admin/addvoter" component={Addvoter} />
             <Route exact path="/admin/voterlist" component={VoterListPage} />
             <PrivateRoute
               exact

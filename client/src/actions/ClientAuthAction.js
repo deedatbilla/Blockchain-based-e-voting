@@ -1,7 +1,7 @@
 import { AUTHENTICATION_STATUS, SIGN_IN, SIGN_OUT } from "./types";
 import axios from "axios";
 import { host } from "../config/config";
-import setAuthToken from "../setAuthToken";
+
 
 export const isSignedIn = data => async dispatch => {
   const response = await axios.post("http://localhost:5000/users/login", data);
