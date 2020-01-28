@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import { createElection } from "../../../actions/createElectionAction";
 import { setconnection } from "../../../actions/connectActions";
 import uuid from "uuid";
+import CandidatesListTable from './CandidatesListTable'
 class NewElectionForm extends Component {
   state = {
     party: "",
@@ -72,9 +73,11 @@ class NewElectionForm extends Component {
     return (
       <div>
         <div className="content-wrapper" style={{ minHeight: "475px" }}>
-        <section className="content-header"><h1>Presidential Candidates</h1></section>
+        
           <section className="content">
-            <div>
+
+<CandidatesListTable/>
+            {/* <div>
               <form onSubmit={this.onSubmit}>
                 <div className="row">
                   <div className="col-md-6">
@@ -163,7 +166,7 @@ class NewElectionForm extends Component {
                   </div>
                 </div>
               </form>
-            </div>
+            </div> */}
           </section>
         </div>
       </div>

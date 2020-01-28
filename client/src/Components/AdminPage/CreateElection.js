@@ -5,7 +5,7 @@ import Sidebar from "./Layouts/Sidebar";
 import AdminHeader from "./Layouts/AdminHeader";
 import NewElectionForm from "./Layouts/NewElectionForm";
 import Footer from "./Layouts/Footer";
-
+import PresidentListTable from './Layouts/CandidatesListTable'
 const uuid = require("uuid/v1");
 export default class CreateElection extends Component {
   state = {
@@ -78,12 +78,13 @@ export default class CreateElection extends Component {
         <div className="wrapper">
           <AdminHeader />
           <Sidebar />
-          <NewElectionForm
+          <PresidentListTable/>
+          {/* <NewElectionForm
             onChange={this.onChange}
             onSubmitPrez={this.onSubmitPrez}
             onSubmitParl={this.onSubmitParl}
             state={this.state}
-          />
+          /> */}
           <Footer />
         </div>
       </div>
