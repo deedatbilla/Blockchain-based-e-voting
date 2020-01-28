@@ -8,6 +8,7 @@ import Clientlogin from "./Client/Clientlogin";
 import VoterListPage from "./AdminPage/VoterListPage";
 import CreateElection from "./AdminPage/CreateElection";
 import Addparty from "./AdminPage/Addparty";
+import 'bootstrap/dist/css/bootstrap.min.css'
 import PresidentialVotingPage from "./Client/PresidentialVotingPage";
 import {
   BrowserRouter as Router,

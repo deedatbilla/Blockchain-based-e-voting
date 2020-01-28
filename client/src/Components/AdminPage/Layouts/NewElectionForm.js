@@ -72,6 +72,7 @@ class NewElectionForm extends Component {
     return (
       <div>
         <div className="content-wrapper" style={{ minHeight: "475px" }}>
+        <section className="content-header"><h1>Presidential Candidates</h1></section>
           <section className="content">
             <div>
               <form onSubmit={this.onSubmit}>

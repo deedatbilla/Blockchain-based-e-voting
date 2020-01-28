@@ -17,57 +17,43 @@ export default function AdminHeader() {
           </span>
         </a>
 
-        <nav className="navbar navbar-static-top" role="navigation">
+        <nav className="navbar  navbar-expand-lg navbar-light" role="navigation">
           <a
             href="#"
-            className="sidebar-toggle"
+            className="sidebar-toggl e"
             data-toggle="offcanvas"
             role="button"
           >
-            <span className="sr-only">Toggle navigation</span>
+            <span className=""><i style={{color:'white'}} className="fa fa-bars "></i></span>
           </a>
 
           <div className="navbar-custom-menu">
             <ul className="nav navbar-nav">
-              <li>
-                <a href="">
+              <li className="nav-item">
+                <a href="" className="nav-link">
                   <i className="fa fa-home"></i> Home Page
                 </a>
               </li>
 
-              <li className="dropdown user user-menu">
-                <Link to="/admin/createElection">
+              <li className="nav-item">
+                <Link to="/admin/createElection" className="nav-link">
                   <i className="fa fa-plus"></i> Create Election
                 </Link>
               </li>
 
-              <li className="dropdown user user-menu">
-                <a href="#" className="dropdown-toggle" data-toggle="dropdown">
-                  <img src={person} className="user-image" alt="User Image" />
 
-                  <span className="hidden-xs">Admin</span>
-                </a>
-                <ul className="dropdown-menu">
-                  <li className="dropdown-menu-header text-center">
-                    <strong>Settings</strong>
-                  </li>
-                  <li className="m_2">
-                    <a href="">
-                      <i className="fa fa-cogs"></i> Settings
-                    </a>
-                  </li>
-                  <li className="m_2">
-                    <a href="">
-                      <i className="fa fa-user"></i> Profile
-                    </a>
-                  </li>
-                  <li className="m_2">
-                    <a href="https://www.themashabrand.com/scripts/Voting/admin/logout">
-                      <i className="fa fa-lock"></i> Logout
-                    </a>
-                  </li>
-                </ul>
-              </li>
+              <li className="nav-item dropdown">
+        <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Admin
+        </a>
+        <div className="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a className="dropdown-item" href="#">Settings</a>
+          <a className="dropdown-item" href="#">Profile</a>
+          <div className="dropdown-divider"></div>
+          <a className="dropdown-item" href="#">Logout</a>
+        </div>
+      </li>
+              
             </ul>
           </div>
         </nav>
