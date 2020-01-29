@@ -1,18 +1,34 @@
-import { CREATE_ELECTION } from "../actions/types";
+import { ADD_PREZ,ADD_PARL } from "../actions/types";
 
+if (localStorage.getItem("prescandidates")== null || localStorage.getItem("parlcandidates")== null) {
+  
+    const presidential=[]
+   const  parliamentary=[]
+  
+  localStorage.setItem("prescandidates", JSON.stringify(presidential));
+  localStorage.setItem("parlcandidates", JSON.stringify(parliamentary));
+}
+const pres = JSON.parse(localStorage.getItem("prescandidates"));
+const parl= JSON.parse(localStorage.getItem("parlcandidates"));
 const initialState = {
-  presidential: [],
-  parliamentary: []
-};
+  presidential:pres,
+  parliamentary:parl
+}
 
 export default function(state = initialState, action) {
   switch (action.type) {
-    case CREATE_ELECTION:
+    case ADD_PREZ:
       return {
         ...state,
-        presidential: [action.pres, ...state.presidential],
-        parliamentary: [action.parl, ...state.parliamentary]
+        presidential: [action.payload, ...state.presidential],
+       
       };
+
+      case ADD_PARL:
+        return{
+          ...state,
+          parliamentary:[action.payload, ...state.parliamentary]
+        }
 
     default:
       return state;

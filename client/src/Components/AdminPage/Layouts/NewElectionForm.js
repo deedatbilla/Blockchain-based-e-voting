@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import DetailWidget from "./presDetailWidget";
 import parlDetailWidget from "./parlDetailWidget";
 import { connect } from "react-redux";
-import { createElection } from "../../../actions/createElectionAction";
+import { AddPresCand } from "../../../actions/createElectionAction";
 import { setconnection } from "../../../actions/connectActions";
 import uuid from "uuid";
 import CandidatesListTable from './CandidatesListTable'
@@ -64,7 +64,7 @@ class NewElectionForm extends Component {
       id: state.id + 1
     }));
 
-    this.props.createElection(pres, parl);
+    this.props.AddPresCand(pres);
   };
 
   onChange = e => this.setState({ [e.target.name]: e.target.value });
@@ -76,8 +76,8 @@ class NewElectionForm extends Component {
         
           <section className="content">
 
-<CandidatesListTable/>
-            {/* <div>
+{/* <CandidatesListTable/> */}
+            <div>
               <form onSubmit={this.onSubmit}>
                 <div className="row">
                   <div className="col-md-6">
@@ -166,7 +166,7 @@ class NewElectionForm extends Component {
                   </div>
                 </div>
               </form>
-            </div> */}
+            </div>
           </section>
         </div>
       </div>
@@ -180,6 +180,6 @@ const mapStateToProps = state => ({
   presidential: state.createElection.presidential,
   parliamentary: state.createElection.parliamentary
 });
-export default connect(mapStateToProps, { createElection, setconnection })(
+export default connect(mapStateToProps, { AddPresCand, setconnection })(
   NewElectionForm
 );

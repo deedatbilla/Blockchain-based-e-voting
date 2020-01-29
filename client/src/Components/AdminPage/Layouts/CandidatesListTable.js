@@ -1,86 +1,82 @@
-import React from 'react'
-
-export default function CandidatesListTable() {
-    return (
-        <div>
-             <div class="content-wrapper">
-    
-    <section class="content-header">
-      <h1>
-    Presidential Candidates
-        
-      </h1>
-      <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#">Tables</a></li>
-        <li class="active">Data tables</li>
-      </ol>
-    </section>
-
-    
-    <section class="content">
-      <div class="row">
-        <div class="col-md-12">
-          <div class="box">
-            <div class="box-header">
-              <h3 class="box-title">Hover Data Table</h3>
-            </div>
-            
-            <div class="box-body">
-              <table id="example2" class="table table-bordered table-hover">
-                <thead>
-                <tr>
-                  <th>Rendering engine</th>
-                  <th>Browser</th>
-                  <th>Platform(s)</th>
-                  <th>Engine version</th>
-                  <th>CSS grade</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                  <td>Trident</td>
-                  <td>Internet
-                    Explorer 4.0
-                  </td>
-                  <td>Win 95+</td>
-                  <td> 4</td>
-                  <td>X</td>
-                </tr>
-                <tr>
-                  <td>Trident</td>
-                  <td>Internet
-                    Explorer 5.0
-                  </td>
-                  <td>Win 95+</td>
-                  <td>5</td>
-                  <td>C</td>
-                </tr>
-               
-                </tbody>
-                <tfoot>
-                <tr>
-                  <th>Rendering engine</th>
-                  <th>Browser</th>
-                  <th>Platform(s)</th>
-                  <th>Engine version</th>
-                  <th>CSS grade</th>
-                </tr>
-                </tfoot>
-              </table>
-            </div>
-           
-          </div>
-          
-
-       
-        </div>
-        
-      </div>
-   
-    </section>
-
+import React from "react";
+const districtHeader = <th>District</th>;
+var district = "";
+const empty = "";
+const buttons = (
+  <div
+    class="btn-group breadcrumb"
+    role="group"
+    aria-label="Basic example"
+  >
+    <button
+      type="button"
+      class="btn btn-secondary mr-2"
+      data-toggle="modal"
+      data-target="#presidentModal"
+    >
+      Add Presidential Candidate
+    </button>
+    <button
+      type="button"
+      class="btn btn-primary"
+      data-toggle="modal"
+      data-target="#parliamentaryModal"
+    >
+      Add Parliamentary Candidate
+    </button>
   </div>
+);
+export default function CandidatesListTable(props) {
+  if (props.isparl) {
+    district = <td>{props.district}</td>;
+  }
+  return (
+    <div>
+      <section className="content-header mb-2">
+        <h1>{props.type}</h1>
+        {!props.isparl ? buttons : empty}
+      </section>
+
+      <section className="content">
+        <div className="row">
+          <div className="col-xs-12 col-md-12">
+            <div className="box">
+              <div className="box-header">
+                <h3 className="box-title"> Data Table</h3>
+              </div>
+
+              <div className="box-body">
+                <table
+                  id="example2"
+                  className="table table-bordered table-hover"
+                >
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>Candidate Name</th>
+                      <th>Candidate Party</th>
+                      <th>Manifesto</th>
+                      {props.isparl ? districtHeader : empty}
+                      <th>Image</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {props.cands.map(data => (
+                      <tr>
+                        <td>{data.id}</td>
+                        <td>{data.presname}</td>
+                        <td>{data.party}</td>
+                        {props.isparl ? district : empty}
+                        <td>{props.image}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
         </div>
-    )
+      </section>
+    </div>
+  );
 }
