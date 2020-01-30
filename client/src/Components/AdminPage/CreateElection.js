@@ -16,10 +16,10 @@ const uuid = require("uuid/v1");
 
 class CreateElection extends Component {
   state = {
-    prezname: "",
-    prezparty: "",
-    parlname: "",
-    parlparty: "",
+  
+    party: "",
+    name: "",
+    
     district: "",
     profileImg: "",
     manifesto: ""
@@ -28,29 +28,38 @@ class CreateElection extends Component {
   onChange = e => this.setState({ [e.target.name]: e.target.value });
   onSubmitPrez = async e => {
     e.preventDefault();
-    const { prezname, prezparty } = this.state;
+    const { name, party, manifesto } = this.state;
+    const formData = new FormData();
+    formData.append("profileImg", this.state.profileImg);
+    formData.append("cid", uuid());
+    const res = await axios.post(
+      "http://localhost:5000/candidate/image",
+      formData
+    );
+    const imgURL = res.data.candidate.profileImg;
+    const id = res.data.candidate.cid;
+
     const NewPrezCandidate = {
-      id: uuid,
-      prezname,
-      prezparty
+      id: id,
+      name,
+      party,
+      manifesto,
+      imgURL
     };
 
-    this.setState(state => {
-
-      return {
-      
-        prezname: "",
-        prezparty: "",
-        parlname: "",
-        parlparty: "",
-        district: ""
-      };
+    this.props.AddPresCand(NewPrezCandidate)
+    this.setState({
+  
+      name: "",
+      party: "",
+      district: "",
+      manifesto: ""
     });
   };
 
   onSubmitParl = async e => {
     e.preventDefault();
-    const { parlname, parlparty, district, manifesto } = this.state;
+    const { name, party, district, manifesto } = this.state;
     const formData = new FormData();
     formData.append("profileImg", this.state.profileImg);
     formData.append("cid", uuid());
@@ -60,27 +69,25 @@ class CreateElection extends Component {
       formData
     );
     const imgURL = res.data.candidate.profileImg;
+    const id = res.data.candidate.cid;
 
     const NewParlCandidate = {
-      id: uuid(),
-      parlname,
-      parlparty,
+      id: id,
+      name,
+      party,
       district,
       manifesto,
       imgURL,
       voteCount: 0
     };
-    this.setState( {
-      
-        prezname: "",
-        prezparty: "",
-        parlname: "",
-        parlparty: "",
-        district: "",
-        profileImg: "",
-        manifesto:""
-      }
-    );
+    this.setState({
+     
+      name: "",
+      party: "",
+      district: "",
+      profileImg: "",
+      manifesto: ""
+    });
 
     this.props.AddParlCand(NewParlCandidate);
   };
@@ -88,11 +95,7 @@ class CreateElection extends Component {
   onFileChange = e => {
     this.setState({ profileImg: e.target.files[0] });
   };
-  onSubmit = e => {
-    this.setState({
-      profileImg: e.target.files[0]
-    });
-  };
+  
   componentDidMount() {
     const script = document.createElement("script");
 
@@ -104,13 +107,17 @@ class CreateElection extends Component {
   }
   render() {
     const { presidential, parliamentary } = this.props;
-    const { parlparty, presname, parlname, districtname,manifesto } = this.state;
-    console.log(parliamentary)
+    const {
+      party,
+      name,
+      manifesto
+    } = this.state;
+
     return (
       <div className="skin-green sidebar-mini">
         <div className="wrapper">
           <AdminHeader />
-          <Sidebar />
+          <Sidebar/>
           <div class="content-wrapper">
             <CandidatesListTable
               type="Presidential Candidates"
@@ -119,7 +126,6 @@ class CreateElection extends Component {
             <CandidatesListTable
               type="Parliamentary Candidates"
               cands={parliamentary}
-              
               isparl={true}
             />
           </div>
@@ -154,6 +160,7 @@ class CreateElection extends Component {
                     <span aria-hidden="true">&times;</span>
                   </button>
                 </div>
+                <form onSubmit={this.onSubmitPrez}>
                 <div className="modal-body mx-3">
                   <div className="row">
                     <div className="md-form mb-5 col-md-6">
@@ -165,7 +172,10 @@ class CreateElection extends Component {
                         Name
                       </label>
                       <input
+                        name="name"
+                        onChange={this.onChange}
                         type="text"
+                        value={name}
                         placeholder="Name"
                         id="orangeForm-name"
                         className="form-control validate"
@@ -181,7 +191,11 @@ class CreateElection extends Component {
                         Party
                       </label>
                       <input
+                        name="party"
+                        onChange={this.onChange}
+                        value={party}
                         placeholder="Party"
+
                         type="text"
                         id="orangeForm-email"
                         className="form-control validate"
@@ -197,23 +211,25 @@ class CreateElection extends Component {
                       Manifesto
                     </label>
                     <textarea
+                      name="manifesto"
+                      onChange={this.onChange}
+                      value={manifesto}
                       id="orangeForm-pass"
                       className="form-control validate"
                     />
                   </div>
-                  <div className=" pull-right">
-                    <ImageUploader
-                      withIcon={false}
-                      buttonText="Choose images"
-                      onChange={this.onDrop}
-                      imgExtension={[".jpg", ".gif", ".png", ".gif"]}
-                      maxFileSize={5242880}
-                    />
+                  <div className="pull-right">
+                  <input
+                        type="file"
+                        className="form control btn btn-primary"
+                        onChange={this.onFileChange}
+                      />
                   </div>
                 </div>
                 <div className="modal-footer d-flex justify-content-center">
                   <button className="btn btn-warning">Submit</button>
                 </div>
+                </form>
               </div>
             </div>
           </div>
@@ -254,8 +270,8 @@ class CreateElection extends Component {
                         </label>
                         <input
                           type="text"
-                          name="parlname"
-                          value={parlname}
+                          name="name"
+                          value={name}
                           onChange={this.onChange}
                           placeholder="Name"
                           id="orangeForm-name"
@@ -272,10 +288,10 @@ class CreateElection extends Component {
                           Party
                         </label>
                         <input
-                          name="parlparty"
+                          name="party"
                           placeholder="Party"
                           type="text"
-                          value={parlparty}
+                          value={party}
                           onChange={this.onChange}
                           id="orangeForm-email"
                           className="form-control validate"
@@ -290,7 +306,7 @@ class CreateElection extends Component {
                       >
                         District
                       </label>
-                      <Districts onChange={this.onChange}/>
+                      <Districts onChange={this.onChange} />
                     </div>
                     <div className="md-form mb-4">
                       <label
@@ -335,4 +351,6 @@ const mapStateToProps = state => ({
   presidential: state.createElection.presidential,
   parliamentary: state.createElection.parliamentary
 });
-export default connect(mapStateToProps, { AddPresCand,AddParlCand })(CreateElection);
+export default connect(mapStateToProps, { AddPresCand, AddParlCand })(
+  CreateElection
+);

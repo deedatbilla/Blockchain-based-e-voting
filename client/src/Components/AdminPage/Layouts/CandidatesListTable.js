@@ -64,8 +64,8 @@ export default function CandidatesListTable(props) {
                     {props.cands.map(data => (
                       <tr>
                         <td>{data.id}</td>
-                        <td>{data.parlname}</td>
-                        <td>{data.parlparty}</td>
+                        <td>{data.name}</td>
+                        <td>{data.party}</td>
                         <td>{data.manifesto}</td>
 
                     {props.isparl ? (<td>{data.district}</td>) : empty}
