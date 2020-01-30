@@ -1,4 +1,4 @@
-import { ADD_PREZ } from "../actions/types";
+import { ADD_PREZ,ADD_PARL } from "../actions/types";
 
 export const AddPresCand = presidential => {
   let tempArray = [];
@@ -28,7 +28,7 @@ export const AddParlCand = parliamentary => {
   
 
   return {
-    type: ADD_PREZ,
+    type: ADD_PARL,
     payload: parliamentary,
    
   };

@@ -64,10 +64,12 @@ export default function CandidatesListTable(props) {
                     {props.cands.map(data => (
                       <tr>
                         <td>{data.id}</td>
-                        <td>{data.presname}</td>
-                        <td>{data.party}</td>
-                        {props.isparl ? district : empty}
-                        <td>{props.image}</td>
+                        <td>{data.parlname}</td>
+                        <td>{data.parlparty}</td>
+                        <td>{data.manifesto}</td>
+
+                    {props.isparl ? (<td>{data.district}</td>) : empty}
+                        <td><img src={data.imgURL} width={30} height={30}/></td>
                       </tr>
                     ))}
                   </tbody>
