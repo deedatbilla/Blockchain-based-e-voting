@@ -22,22 +22,24 @@ struct Ballot{
 }
  struct Presidential{
      uint id;
-     string presname;
+     string name;
      string party;
+     string manifesto;
      uint voteCount;
 
  }
 
  struct Parliamentary{
      uint id;
-     string parlname;
+     string manifesto;
+     string name;
      string party;
-     string districtname;
+     string district;
      uint voteCount;
      
  }
 struct district{
-    string districtname;
+    string district;
     uint voteCount;
 }
 modifier restricted() { 
@@ -62,19 +64,21 @@ uint amounthours, address creator)public {
 
     for (uint i = 0;i < presCands.length; i++){
         deployedBallots[ballotCount].presidentialCandidates[presCands[i].id].id = presCands[i].id;
-        deployedBallots[ballotCount].presidentialCandidates[presCands[i].id].presname = presCands[i].presname;
+        deployedBallots[ballotCount].presidentialCandidates[presCands[i].id].name = presCands[i].name;
         deployedBallots[ballotCount].presidentialCandidates[presCands[i].id].party = presCands[i].party;
+        deployedBallots[ballotCount].presidentialCandidates[presCands[i].id].manifesto = presCands[i].manifesto;
         deployedBallots[ballotCount].presidentialCandidates[presCands[i].id].voteCount = presCands[i].voteCount;
 
     }
 
     for (uint i = 0;i < parlCands.length; i++){
         deployedBallots[ballotCount].parliamentaryCandidates[parlCands[i].id].id = parlCands[i].id;
-        deployedBallots[ballotCount].parliamentaryCandidates[parlCands[i].id].parlname = parlCands[i].parlname;
+        deployedBallots[ballotCount].parliamentaryCandidates[parlCands[i].id].name = parlCands[i].name;
+        deployedBallots[ballotCount].parliamentaryCandidates[parlCands[i].id].manifesto = parlCands[i].manifesto;
         deployedBallots[ballotCount].parliamentaryCandidates[parlCands[i].id].party = parlCands[i].party;
-        deployedBallots[ballotCount].parliamentaryCandidates[parlCands[i].id].districtname = parlCands[i].districtname;
+        deployedBallots[ballotCount].parliamentaryCandidates[parlCands[i].id].district = parlCands[i].district;
         deployedBallots[ballotCount].parliamentaryCandidates[parlCands[i].id].voteCount = parlCands[i].voteCount;
-        deployedBallots[ballotCount].districts[parlCands[i].id].districtname = parlCands[i].districtname;
+        deployedBallots[ballotCount].districts[parlCands[i].id].district = parlCands[i].district;
         deployedBallots[ballotCount].districts[parlCands[i].id].voteCount = parlCands[i].voteCount;
     
     }
@@ -129,12 +133,13 @@ function getParliamentaryVoteCount(uint candidateid,uint electionid) public view
      return candidateCount+1;
  }
 function getPresidentialCandidates(uint electionid,uint i) public view returns(uint id,string memory name,
- string memory party,uint count){
+ string memory party, string memory manifesto,uint count){
  uint cid = deployedBallots[electionid].presidentialCandidates[i].id;
- string memory cname = deployedBallots[electionid].presidentialCandidates[i].presname;
+ string memory cname = deployedBallots[electionid].presidentialCandidates[i].name;
+ string memory manifesto = deployedBallots[electionid].presidentialCandidates[i].manifesto;
  string memory cparty = deployedBallots[electionid].presidentialCandidates[i].party;
  uint  votecount = deployedBallots[electionid].presidentialCandidates[i].voteCount;
- return(cid,cname,cparty,votecount);
+ return(cid,cname,cparty,manifesto,votecount);
     
 
  }

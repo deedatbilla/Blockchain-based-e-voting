@@ -36,6 +36,7 @@ class PresidentialVotingPage extends Component {
       id: "",
       name: "",
       party: "",
+      manifesto: "",
       votecount: ""
     };
     // fetch the list of all presidential candidates
@@ -66,10 +67,9 @@ class PresidentialVotingPage extends Component {
     const { thereIsElection } = this.state;
     if (!thereIsElection) {
       return (
-        <div>
-           <Votingpageheader hist={this.props.history} />
+        <div className="container">
+          <Votingpageheader hist={this.props.history} />
           <div>No election today</div>
-          
         </div>
       );
     }
@@ -90,6 +90,7 @@ class PresidentialVotingPage extends Component {
                   name={data.name}
                   count={data.count}
                   party={data.party}
+                  manifesto={data.manifesto}
                   contract={contract}
                   accounts={accounts}
                   state={this.state}

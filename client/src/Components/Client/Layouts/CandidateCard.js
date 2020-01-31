@@ -77,9 +77,7 @@ export default class CandidateCard extends Component {
                     textAlign: "center"
                   }}
                 >
-                  Hi I'm Johnathn Deo,has been the industry's standard dummy
-                  text ever since the 1500s, when an unknown printer took a
-                  galley of type.
+                  {this.props.manifesto}
                 </span>
               </p>
               <br />

@@ -2,31 +2,43 @@ import React from "react";
 const districtHeader = <th>District</th>;
 var district = "";
 const empty = "";
-const buttons = (
-  <div
-    class="btn-group breadcrumb"
-    role="group"
-    aria-label="Basic example"
-  >
-    <button
-      type="button"
-      class="btn btn-secondary mr-2"
-      data-toggle="modal"
-      data-target="#presidentModal"
-    >
-      Add Presidential Candidate
-    </button>
-    <button
-      type="button"
-      class="btn btn-primary"
-      data-toggle="modal"
-      data-target="#parliamentaryModal"
-    >
-      Add Parliamentary Candidate
-    </button>
-  </div>
-);
+
 export default function CandidatesListTable(props) {
+
+  const buttons = (
+    <div
+      class="btn-group breadcrumb"
+      role="group"
+      aria-label="Basic example"
+    >
+      <button
+        type="button"
+        class="btn btn-secondary mr-2"
+        data-toggle="modal"
+        data-target="#presidentModal"
+      >
+        Add presidential candidate
+      </button>
+      <button
+        type="button"
+        
+        class="btn btn-primary"
+        data-toggle="modal"
+        data-target="#parliamentaryModal"
+      >
+        Add parliamentary candidate
+      </button>
+  
+      <button
+        type="button"
+        class="btn btn-success ml-2"
+        onClick={props.onSubmit}
+      >
+        Submit to blockchain
+      </button>
+      
+    </div>
+  );
   if (props.isparl) {
     district = <td>{props.district}</td>;
   }
@@ -50,7 +62,7 @@ export default function CandidatesListTable(props) {
                   id="example2"
                   className="table table-bordered table-hover"
                 >
-                  <thead>
+                   <thead class="thead-dark">
                     <tr>
                       <th>#</th>
                       <th>Candidate Name</th>
@@ -69,7 +81,7 @@ export default function CandidatesListTable(props) {
                         <td>{data.manifesto}</td>
 
                     {props.isparl ? (<td>{data.district}</td>) : empty}
-                        <td><img src={data.imgURL} width={30} height={30}/></td>
+                        <td><img src={data.imgURL} width={40} height={40} style={{borderRadius:'50px'}}/></td>
                       </tr>
                     ))}
                   </tbody>

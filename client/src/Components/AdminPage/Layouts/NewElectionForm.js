@@ -18,7 +18,7 @@ class NewElectionForm extends Component {
   async componentDidMount() {
     this.props.setconnection();
   }
-  onSubmit = async e => {
+  onSubmitToBlockchain = async e => {
     e.preventDefault();
     const {
       web3,
