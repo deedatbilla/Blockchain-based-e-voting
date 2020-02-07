@@ -14,6 +14,8 @@ if (
 
   localStorage.setItem("prescandidates", JSON.stringify(presidential));
   localStorage.setItem("parlcandidates", JSON.stringify(parliamentary));
+
+  //these are used to assign ids to candidates in an increasing mana
   localStorage.setItem("presCID", JSON.stringify(presCID));
   localStorage.setItem("parlCID", JSON.stringify(parlCID));
 }

@@ -12,7 +12,7 @@ this.props.isSignedOut(this.props.hist)
     return (
       <div>
         <header className="tr-header">
-          <nav className="navbar navbar-default">
+          <nav className="navbar  navbar-expand-lg navbar-light">
             <div className="container">
               <div className="navbar-header">
                 <button
@@ -33,11 +33,11 @@ this.props.isSignedOut(this.props.hist)
               <div className="navbar-left">
                 <div className="collapse navbar-collapse" id="navbar-collapse">
                   <ul className="nav navbar-nav">
-                    <li className="active">
-                      <a href="">Home</a>
+                    <li className="active nav-item">
+                      <a href="" className="nav-link">Home</a>
                     </li>
-                    <li className="">
-                      <a href="">How it works</a>
+                    <li className="mav-item">
+                      <a href=""  className="nav-link">How it works</a>
                     </li>
                   </ul>
                 </div>
@@ -46,7 +46,7 @@ this.props.isSignedOut(this.props.hist)
                 <ul className="nav navbar-nav">
                   <li className="dropdown mega-avatar">
                     <a
-                      href=""
+                      href=""  className="nav-link"
                       className="dropdown-toggle"
                       data-toggle="dropdown"
                       aria-expanded="true"

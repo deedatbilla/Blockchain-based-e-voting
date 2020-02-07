@@ -1,20 +1,41 @@
 import React, { Component } from "react";
 import Votingpageheader from "./Layouts/Votingpageheader";
 import CandidateCard from "./Layouts/CandidateCard";
+import Footer  from "../Client/Layouts/Footer"
 import { createElection } from "../../actions/createElectionAction";
 import { setconnection } from "../../actions/connectActions";
 import { connect } from "react-redux";
 import InputDataDecoder from "ethereum-input-data-decoder";
 import { abi } from "./abi.json";
+import axios from 'axios'
+
 
 class PresidentialVotingPage extends Component {
   state = {
     Presidential: [],
+    profile: [],
     thereIsElection: false
   };
 
+
+  fetchData = async () => {
+
+    const res = await axios.get("http://localhost:5000/candidate/profile")
+    this.setState({
+      profile: this.state.profile.concat(...res.data.candidate)
+    })
+
+    // const all=this.state.profile.filter(data=>data.cid !== 2)
+    // console.log(all)
+
+
+  }
   async componentDidMount() {
     this.props.setconnection();
+    const res = await axios.get("http://localhost:5000/candidate/profile")
+    // this.setState({
+    //   profile: this.state.profile.concat(...res.data.candidate)
+    // })
 
     // TODO: - this code will be used to build the block explorer
     // const decoder = new InputDataDecoder(
@@ -23,6 +44,7 @@ class PresidentialVotingPage extends Component {
     // const data =
     // "";
     const { web3, accounts, contract } = this.props;
+
     // const result= decoder.decodeData(data)
     // console.log(result)
     // const trx_data={
@@ -51,8 +73,16 @@ class PresidentialVotingPage extends Component {
         const response = await contract.methods
           .getPresidentialCandidates(0, i)
           .call();
+        const img = res.data.candidate.filter(data => data.cid == parseInt(response.id))
+        
+        const cands = {
+          ...response,
+          img
+    
+        }
+
         this.setState(state => {
-          const Presidential = state.Presidential.concat(response);
+          const Presidential = state.Presidential.concat(cands);
           return {
             Presidential
           };
@@ -67,9 +97,11 @@ class PresidentialVotingPage extends Component {
     const { thereIsElection } = this.state;
     if (!thereIsElection) {
       return (
-        <div className="container">
+        <div className="container ">
           <Votingpageheader hist={this.props.history} />
           <div>No election today</div>
+
+          <Footer/>
         </div>
       );
     }
@@ -79,7 +111,7 @@ class PresidentialVotingPage extends Component {
         <Votingpageheader hist={this.props.history} />
         <div className="featured-users">
           <div className="container">
-            <div classN ame="row">
+            <div >
               <div className="section-title" style={{ paddingTop: "20px" }}>
                 <h1>Presidential Candidates</h1>
               </div>
@@ -90,6 +122,7 @@ class PresidentialVotingPage extends Component {
                   name={data.name}
                   count={data.count}
                   party={data.party}
+                  profile={data.img}
                   manifesto={data.manifesto}
                   contract={contract}
                   accounts={accounts}
@@ -99,6 +132,8 @@ class PresidentialVotingPage extends Component {
             </div>
           </div>
         </div>
+
+        <Footer/>
       </div>
     );
   }

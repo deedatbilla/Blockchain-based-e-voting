@@ -26,6 +26,7 @@ struct Ballot{
      string party;
      string manifesto;
      uint voteCount;
+     string imgURL;
 
  }
 
@@ -36,6 +37,7 @@ struct Ballot{
      string party;
      string district;
      uint voteCount;
+     string imgURL;
      
  }
 struct district{
@@ -68,6 +70,7 @@ uint amounthours, address creator)public {
         deployedBallots[ballotCount].presidentialCandidates[presCands[i].id].party = presCands[i].party;
         deployedBallots[ballotCount].presidentialCandidates[presCands[i].id].manifesto = presCands[i].manifesto;
         deployedBallots[ballotCount].presidentialCandidates[presCands[i].id].voteCount = presCands[i].voteCount;
+        deployedBallots[ballotCount].presidentialCandidates[presCands[i].id].imgURL = presCands[i].imgURL;
 
     }
 
@@ -79,6 +82,7 @@ uint amounthours, address creator)public {
         deployedBallots[ballotCount].parliamentaryCandidates[parlCands[i].id].district = parlCands[i].district;
         deployedBallots[ballotCount].parliamentaryCandidates[parlCands[i].id].voteCount = parlCands[i].voteCount;
         deployedBallots[ballotCount].districts[parlCands[i].id].district = parlCands[i].district;
+        deployedBallots[ballotCount].presidentialCandidates[presCands[i].id].imgURL = presCands[i].imgURL;
         deployedBallots[ballotCount].districts[parlCands[i].id].voteCount = parlCands[i].voteCount;
     
     }

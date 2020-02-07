@@ -32,8 +32,13 @@ class CreateElection extends Component {
       .send({ from: accounts[0] });
     // // Get the value from the contract to prove it worked.
     const response = await contract.methods.getDeployedBallots(0).call();
-
-    // // Update state with the result.
+    //clear election data from localstorage and redirect to dashboard
+    localStorage.removeItem("prescandidates")
+    localStorage.removeItem("parlcandidates")
+    localStorage.removeItem("presCID")
+    localStorage.removeItem("parlCID")
+     this.props.history.push("/admin/dashboard")
+    
 
     console.log(response);
   };
@@ -49,7 +54,7 @@ class CreateElection extends Component {
 
     const formData = new FormData();
     formData.append("profileImg", this.state.profileImg);
-    formData.append("cid", id);
+ 
     const res = await axios.post(
       "http://localhost:5000/candidate/image",
       formData
@@ -71,7 +76,7 @@ class CreateElection extends Component {
       party: "",
       district: "",
       manifesto: ""
-      
+
     });
     id++;
     localStorage.setItem("presCID", JSON.stringify(id));
@@ -84,7 +89,7 @@ class CreateElection extends Component {
     var id = JSON.parse(localStorage.getItem("parlCID"));
     const formData = new FormData();
     formData.append("profileImg", this.state.profileImg);
-    formData.append("cid", id);
+    
 
     const res = await axios.post(
       "http://localhost:5000/candidate/image",
@@ -152,7 +157,7 @@ class CreateElection extends Component {
           <Footer />
 
           <div
-            className="modal fade"
+            className="modal"
             id="presidentModal"
             tabindex="-1"
             role="dialog"
@@ -248,7 +253,7 @@ class CreateElection extends Component {
           </div>
 
           <div
-            className="modal fade"
+            className="modal"
             id="parliamentaryModal"
             tabindex="-1"
             role="dialog"

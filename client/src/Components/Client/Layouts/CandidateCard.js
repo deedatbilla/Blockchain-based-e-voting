@@ -27,6 +27,7 @@ export default class CandidateCard extends Component {
     console.log(response);
   };
   render() {
+   console.log(this.props.profile)
    
     return (
       <div>
@@ -36,12 +37,16 @@ export default class CandidateCard extends Component {
           <div className="text-center card-box">
             <div className="clearfix"></div>
             <div className="member-card">
-              <div className="thumb-xl member-thumb m-b-10 center-block">
+              <div className="thumb-xl member-thumb m-b-10 center-block ">
+              <div className="container">
                 <img
-                  src={profile}
-                  className="img-circle img-thumbnail"
+                width={283}
+                height={283}
+                  src={this.props.profile[0].profileImg}
+                  className="img-circle img-responsive img-fluid img-thumbnail  rounded-circle " 
                   alt="profile-image"
                 />
+                </div>
                 <i
                   className="mdi mdi-star-circle member-star text-success"
                   title="verified user"
