@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import profile from "../../../assets/151713187001792.jpg";
 export default class CandidateCard extends Component {
-	
- vote = async()=> {
+	vote = async()=> {
     const { accounts, contract, id, state} = this.props;
+    
 
     // // candidates arrays.
     await contract.methods.voteForPresident(id, 0).send({ from: accounts[0] });
@@ -15,19 +15,17 @@ export default class CandidateCard extends Component {
       const response = await contract.methods
         .getPresidentialCandidates(0, i)
         .call();
-    //   this.setState(state => {
-    //     const Presidential = state.Presidential.concat(response);
-    //     return {
-    //       Presidential
-    //     };
-	//   });
+    this.setState({
+      Presidential:response
+    })
 	
      }
 //this.props.history.push('/client/president')
     console.log(response);
   };
+ 
   render() {
-   console.log(this.props.profile)
+  
    
     return (
       <div>
@@ -42,7 +40,7 @@ export default class CandidateCard extends Component {
                 <img
                 width={283}
                 height={283}
-                  src={this.props.profile[0].profileImg}
+                  src={this.props.profile}
                   className="img-circle img-responsive img-fluid img-thumbnail  rounded-circle " 
                   alt="profile-image"
                 />

@@ -9,6 +9,7 @@ import Footer from "./Layouts/Footer";
 import Districts from "./Layouts/Districts";
 import { connect } from "react-redux";
 import axios from "axios";
+import { host } from "../../config/config";
 import CandidatesListTable from "./Layouts/CandidatesListTable";
 import { AddPresCand, AddParlCand } from "../../actions/createElectionAction";
 const uuid = require("uuid/v1");
@@ -19,9 +20,11 @@ class CreateElection extends Component {
     name: "",
     district: "",
     profileImg: "",
-    manifesto: ""
+    manifesto: "",
+    parties: []
   };
 
+  
   onSubmitToBlockchain = async e => {
     e.preventDefault();
     const { accounts, contract, presidential, parliamentary } = this.props;
@@ -33,12 +36,11 @@ class CreateElection extends Component {
     // // Get the value from the contract to prove it worked.
     const response = await contract.methods.getDeployedBallots(0).call();
     //clear election data from localstorage and redirect to dashboard
-    localStorage.removeItem("prescandidates")
-    localStorage.removeItem("parlcandidates")
-    localStorage.removeItem("presCID")
-    localStorage.removeItem("parlCID")
-     this.props.history.push("/admin/dashboard")
-    
+    // localStorage.removeItem("prescandidates")
+    // localStorage.removeItem("parlcandidates")
+    // localStorage.removeItem("presCID")
+    // localStorage.removeItem("parlCID")
+    this.props.history.push("/admin/dashboard");
 
     console.log(response);
   };
@@ -54,11 +56,8 @@ class CreateElection extends Component {
 
     const formData = new FormData();
     formData.append("profileImg", this.state.profileImg);
- 
-    const res = await axios.post(
-      "http://localhost:5000/candidate/image",
-      formData
-    );
+
+    const res = await axios.post(host + "/candidate/image", formData);
     const imgURL = res.data.candidate.profileImg;
 
     const NewPrezCandidate = {
@@ -76,7 +75,6 @@ class CreateElection extends Component {
       party: "",
       district: "",
       manifesto: ""
-
     });
     id++;
     localStorage.setItem("presCID", JSON.stringify(id));
@@ -89,7 +87,6 @@ class CreateElection extends Component {
     var id = JSON.parse(localStorage.getItem("parlCID"));
     const formData = new FormData();
     formData.append("profileImg", this.state.profileImg);
-    
 
     const res = await axios.post(
       "http://localhost:5000/candidate/image",
@@ -123,7 +120,7 @@ class CreateElection extends Component {
     this.setState({ profileImg: e.target.files[0] });
   };
 
-  componentDidMount() {
+  async componentDidMount() {
     const script = document.createElement("script");
 
     script.src =
@@ -131,6 +128,10 @@ class CreateElection extends Component {
     script.async = true;
 
     document.body.appendChild(script);
+
+    const res =await axios.get(host + "/fetchallparties")
+    this.setState({parties:[...res.data.party]})
+    console.log(this.state.parties)
   }
   render() {
     const { presidential, parliamentary } = this.props;
@@ -209,15 +210,14 @@ class CreateElection extends Component {
                         >
                           Party
                         </label>
-                        <input
-                          name="party"
-                          onChange={this.onChange}
-                          value={party}
-                          placeholder="Party"
-                          type="text"
-                          id="orangeForm-email"
-                          className="form-control validate"
-                        />
+
+                        <select name="party" className="form-control validate" onChange={this.onChange}>
+                        {this.state.parties.map(party=>(
+                          <option value = {party.partyName}>{party.partyName}</option>
+                        ))}
+
+                        </select>
+                        
                       </div>
                     </div>
                     <div className="md-form mb-4">
@@ -305,15 +305,12 @@ class CreateElection extends Component {
                         >
                           Party
                         </label>
-                        <input
-                          name="party"
-                          placeholder="Party"
-                          type="text"
-                          value={party}
-                          onChange={this.onChange}
-                          id="orangeForm-email"
-                          className="form-control validate"
-                        />
+                        <select name="party" className="form-control validate" onChange={this.onChange}>
+                        {this.state.parties.map(party=>(
+                          <option value = {party.partyName}>{party.partyName}</option>
+                        ))}
+
+                        </select>
                       </div>
                     </div>
                     <div className="md-form mb-4">

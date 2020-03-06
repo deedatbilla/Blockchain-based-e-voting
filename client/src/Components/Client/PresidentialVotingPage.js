@@ -13,7 +13,7 @@ import axios from 'axios'
 class PresidentialVotingPage extends Component {
   state = {
     Presidential: [],
-    profile: [],
+    
     thereIsElection: false
   };
 
@@ -30,6 +30,8 @@ class PresidentialVotingPage extends Component {
 
 
   }
+
+  
   async componentDidMount() {
     this.props.setconnection();
     const res = await axios.get("http://localhost:5000/candidate/profile")
@@ -73,16 +75,12 @@ class PresidentialVotingPage extends Component {
         const response = await contract.methods
           .getPresidentialCandidates(0, i)
           .call();
-        const img = res.data.candidate.filter(data => data.cid == parseInt(response.id))
         
-        const cands = {
-          ...response,
-          img
-    
-        }
+        
+      
 
         this.setState(state => {
-          const Presidential = state.Presidential.concat(cands);
+          const Presidential = state.Presidential.concat(response);
           return {
             Presidential
           };
@@ -122,11 +120,11 @@ class PresidentialVotingPage extends Component {
                   name={data.name}
                   count={data.count}
                   party={data.party}
-                  profile={data.img}
+                  profile={data.imgURL}
                   manifesto={data.manifesto}
                   contract={contract}
                   accounts={accounts}
-                  state={this.state}
+                  vote={this.vote}
                 />
               ))}
             </div>

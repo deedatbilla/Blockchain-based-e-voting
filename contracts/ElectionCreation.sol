@@ -137,13 +137,14 @@ function getParliamentaryVoteCount(uint candidateid,uint electionid) public view
      return candidateCount+1;
  }
 function getPresidentialCandidates(uint electionid,uint i) public view returns(uint id,string memory name,
- string memory party, string memory manifesto,uint count){
+ string memory party, string memory manifesto,uint count, string memory imgURL){
  uint cid = deployedBallots[electionid].presidentialCandidates[i].id;
  string memory cname = deployedBallots[electionid].presidentialCandidates[i].name;
  string memory manifesto = deployedBallots[electionid].presidentialCandidates[i].manifesto;
  string memory cparty = deployedBallots[electionid].presidentialCandidates[i].party;
+ string memory img = deployedBallots[electionid].presidentialCandidates[i].imgURL;
  uint  votecount = deployedBallots[electionid].presidentialCandidates[i].voteCount;
- return(cid,cname,cparty,manifesto,votecount);
+ return(cid,cname,cparty,manifesto,votecount,img);
     
 
  }

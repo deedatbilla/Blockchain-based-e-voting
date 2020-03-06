@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function AddpartyForm() {
+export default function AddpartyForm(props) {
   return (
     <div className="content-wrapper" style={{ minHeight: "475px" }}>
       <section className="content">
@@ -11,16 +11,17 @@ export default function AddpartyForm() {
                 <h3 className="box-title">Add Party</h3>
               </div>
               <div className="box-body">
-                <form>
+                <form onSubmit={props.onSubmit}>
                   <div className="form-group">
                     <div className="input-group">
                       {/* <span className="input-group-addon"><i className="fa fa-info"></i></span> */}
                       <input
                         type="text"
-                        name="name"
+                        name="partyName"
                         className="form-control"
                         placeholder="party name"
-                        value=""
+                        onChange={props.onNameChange}
+                        value={props.partyName}
                       />
                     </div>
                   </div>
@@ -28,13 +29,12 @@ export default function AddpartyForm() {
                   <br></br>
                   <div style={{ position: "relative" }}>
                     <a className="btn btn-primary">
-                      Choose Image...
+                      Choose party image...
                       <input
                         type="file"
-                        name="photoimg"
-                        id="photoimg"
-                        name="file_source"
-                        size="40"
+                        name="partyImg"
+                        required
+                        onChange={props.onFileChange}
                       />
                       <input type="hidden" name="image_name" id="image_name" />
                     </a>
@@ -50,11 +50,12 @@ export default function AddpartyForm() {
                     <input
                       type="hidden"
                       name="token"
-                      value="9e489bfe03caaccc329eb888a7a8f278"
+                     
                     />
+
+                    {props.loading ? <p>uploading...</p> : null}
                     <button
                       type="submit"
-                      name="data"
                       className="btn btn-primary full-width"
                     >
                       Submit
