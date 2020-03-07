@@ -28,21 +28,21 @@ export default function Partylist(props) {
                           >
                             <thead class="thead-dark">
                               <tr>
-                                <th> Voter ID</th>
-                                <th>Voter Name</th>
-                                <th>Voter Email</th>
-                                <th>Constituency</th>
+                                <th> Party ID</th>
+                                <th>Party Name</th>
+                                <th>Party Image</th>
+                               
                                 <th>Action</th>
                                 <th></th>
                               </tr>
                             </thead>
                             <tbody>
-                              {props.voters.map(data => (
+                              {props.parties.map(data => (
                                 <tr>
-                                  <td>{data.voter_id}</td>
-                                  <td>{data.name}</td>
-                                  <td>{data.email}</td>
-                                  <td>{data.constituency}</td>
+                                  <td>{data._id}</td>
+                                  <td>{data.partyName}</td>
+                                  <td><img src={data.partyImg} height={50} width={50} className="img-circle"/></td>
+                                 
                                   <td>
                                     <a href="#" className="btn btn-primary">
                                       {" "}

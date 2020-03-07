@@ -52,7 +52,7 @@ function Sidebar() {
               </a>
               <ul className="treeview-menu">
                 <li>
-                  <a href="">Party List</a>
+                  <Link to="/admin/parties">Party List</Link>
                 </li>
                 <li>
                   <Link to="/admin/addparty">Add Party</Link>

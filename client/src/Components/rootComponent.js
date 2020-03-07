@@ -8,6 +8,7 @@ import Clientlogin from "./Client/Clientlogin";
 import VoterListPage from "./AdminPage/VoterListPage";
 import CreateElection from "./AdminPage/CreateElection";
 import Addparty from "./AdminPage/Addparty";
+import PartyListPage from '../Components/AdminPage/PartyListPage'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import PresidentialVotingPage from "./Client/PresidentialVotingPage";
 import {
@@ -41,6 +42,7 @@ class rootComponent extends Component {
             <Route exact path="/admin/dashboard" component={Dashboard} />
             <Route exact path="/admin/addvoter" component={Addvoter} />
             <Route exact path="/admin/voterlist" component={VoterListPage} />
+            <Route exact path="/admin/parties" component={PartyListPage} />
             <PrivateRoute
               exact
               path="/"
