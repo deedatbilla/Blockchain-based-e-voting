@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function Summary() {
+export default function Summary(props) {
   return (
     <div>
       <div className="content-wrapper" style={{ minHeight: "475px" }}>
@@ -10,33 +10,23 @@ export default function Summary() {
 
         <section className="content">
           <div className="row">
-            <div className="col-md-3 col-sm-6 col-xs-12">
+            <div className="col-md-4 col-sm-6 col-xs-12">
               <div className="info-box">
                 <span className="info-box-icon bg-aqua">
                   <i className="fa fa-globe"></i>
                 </span>
                 <div className="info-box-content">
                   <span className="info-box-text">Parties</span>
-                  <span className="info-box-number">9</span>
+                  <span className="info-box-number">{props.partycount}</span>
                 </div>
               </div>
             </div>
 
             <div className="clearfix visible-sm-block"></div>
 
-            <div className="col-md-3 col-sm-6 col-xs-12">
-              <div className="info-box">
-                <span className="info-box-icon bg-aqua">
-                  <i className="fa fa-money"></i>
-                </span>
-                <div className="info-box-content">
-                  <span className="info-box-text">Positions</span>
-                  <span className="info-box-number">21</span>
-                </div>
-              </div>
-            </div>
+           
 
-            <div className="col-md-3 col-sm-6 col-xs-12">
+            <div className="col-md-4 col-sm-6 col-xs-12">
               <div className="info-box">
                 <span className="info-box-icon bg-aqua">
                   <i className="fa fa-users"></i>
@@ -48,14 +38,14 @@ export default function Summary() {
               </div>
             </div>
 
-            <div className="col-md-3 col-sm-6 col-xs-12">
+            <div className="col-md-4 col-sm-6 col-xs-12">
               <div className="info-box">
                 <span className="info-box-icon bg-aqua">
                   <i className="fa fa-align-left"></i>
                 </span>
                 <div className="info-box-content">
                   <span className="info-box-text">Voters</span>
-                  <span className="info-box-number">20</span>
+                  <span className="info-box-number">{props.votercount}</span>
                 </div>
               </div>
             </div>

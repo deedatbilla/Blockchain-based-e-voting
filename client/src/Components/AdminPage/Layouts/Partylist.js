@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function Voterlist(props) {
+export default function Partylist(props) {
   return (
     <div>
       <div className="content-wrapper" style={{ minHeight: "475px" }}>
@@ -11,7 +11,7 @@ export default function Voterlist(props) {
             <div className="col-md-12">
               <div className="box box-info">
                 <div className="box-header">
-                  <h3 className="box-title"> Voter List</h3>
+                  <h3 className="box-title"> Party List</h3>
                 </div>
                 <div className="box-body">
                   <div className="table-responsive">

@@ -3,6 +3,7 @@ import Sidebar from "./Layouts/Sidebar";
 import AdminHeader from "./Layouts/AdminHeader";
 import AddpartyForm from "./Layouts/AddpartyForm";
 import axios from "axios";
+
 import Footer from "./Layouts/Footer";
 import { host } from "../../config/config";
 import "../../css/Admin/style.css";
@@ -11,7 +12,7 @@ export default class Addparty extends Component {
   state = {
     partyName: "",
     partyImg: "",
-    loading: false
+    loading: 0
   };
 
   onFileChange = e => {
@@ -20,13 +21,13 @@ export default class Addparty extends Component {
   onNameChange = e => this.setState({ [e.target.name]: e.target.value });
   onSubmit = async e => {
     e.preventDefault();
-    this.setState({ loading: true });
+    this.setState({ loading: 1 });
     const { partyName } = this.state;
     const formData = new FormData();
     formData.append("partyImg", this.state.partyImg);
     formData.append("partyName", this.state.partyName);
     const res = await axios.post(host + "/party", formData);
-    this.setState({ loading: false, partyName: "", partyImg: "" });
+    this.setState({ loading: 2, partyName: "", partyImg: "" });
     console.log(res.data.party)
   };
   render() {

@@ -192,6 +192,14 @@ export default function AddvoterForm(props) {
                     <br></br>
 
                     <div className="box-footer">
+                      {props.loading == 1 ? (
+                        <p>
+                          adding voter{" "}
+                          <i class="fa fa-spinner" aria-hidden="true"></i>
+                        </p>
+                      ) : props.loading == 2 ? (
+                        <p>Added voter successfully</p>
+                      ) : null}
                       <button
                         type="submit"
                         className="btn btn-primary full-width"

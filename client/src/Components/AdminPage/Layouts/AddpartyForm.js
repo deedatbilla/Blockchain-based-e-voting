@@ -1,6 +1,11 @@
 import React from "react";
+import { useToast, immediateToast } from 'izitoast-react'
 
 export default function AddpartyForm(props) {
+  const showMessage = useToast({
+    message: 'party added successfully',
+  });
+ 
   return (
     <div className="content-wrapper" style={{ minHeight: "475px" }}>
       <section className="content">
@@ -53,7 +58,7 @@ export default function AddpartyForm(props) {
                      
                     />
 
-                    {props.loading ? <p>uploading...</p> : null}
+                    {props.loading==1 ? <p>uploading...</p>: props.loading==2? <p>Party added successfully</p>:null}
                     <button
                       type="submit"
                       className="btn btn-primary full-width"

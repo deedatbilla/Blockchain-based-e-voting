@@ -5,6 +5,7 @@ import "../../css/Admin/AdminLTE.min.css";
 import Sidebar from "./Layouts/Sidebar";
 import AdminHeader from "./Layouts/AdminHeader";
 import Footer from "./Layouts/Footer";
+import { host } from "../../config/config";
 import axios from "axios";
 import { setconnection } from "../../actions/connectActions";
 import { connect } from "react-redux";
@@ -15,7 +16,7 @@ class Addvoter extends Component {
     email: "",
     constituency: "",
     password: "",
-    success:false
+    loading: 0
   };
   render() {
     onchange = e => {
@@ -24,33 +25,29 @@ class Addvoter extends Component {
 
     onsubmit = async e => {
       e.preventDefault();
-      try{
-      const { web3 } = this.props;
+      this.setState({loading:1})
+      try {
+        const { web3 } = this.props;
 
-      const { privateKey, address } = web3.eth.accounts.create();
-      const cred = this.state;
-      const user_data = {
-        ...cred,
-        privateKey,
-        address
-      };
-      const response = await axios.post(
-        "http://localhost:5000/users",
-        user_data
-      );
-      this.setState({
-        name: "",
-        voter_id: "",
-        email: "",
-        constituency: "",
-        password: "",
-        success:true
-      });
-      
-    }
-    catch(err){
-      console.log(err);
-    }
+        const { privateKey, address } = web3.eth.accounts.create();
+        const cred = this.state;
+        const user_data = {
+          ...cred,
+          privateKey,
+          address
+        };
+        const response = await axios.post(host + "/users", user_data);
+        this.setState({
+          name: "",
+          voter_id: "",
+          email: "",
+          constituency: "",
+          password: "",
+          loading: 2
+        });
+      } catch (err) {
+        console.log(err);
+      }
     };
     return (
       <div>
@@ -62,6 +59,7 @@ class Addvoter extends Component {
               onchange={this.onchange}
               onsubmit={this.onsubmit}
               state={this.state}
+              loading={this.state.loading}
             />
             <Footer />
           </div>
