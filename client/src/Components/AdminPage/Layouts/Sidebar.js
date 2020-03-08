@@ -59,24 +59,7 @@ function Sidebar() {
                 </li>
               </ul>
             </li>
-            <li className="treeview">
-              <a href="https://www.themashabrand.com/scripts/Voting/admin/dashboard#">
-                <i className="fa fa-align-left"></i> <span>Positions</span>{" "}
-                <i className="fa fa-angle-left pull-right"></i>
-              </a>
-              <ul className="treeview-menu">
-                <li>
-                  <a href="https://www.themashabrand.com/scripts/Voting/admin/positionlist">
-                    Position List
-                  </a>
-                </li>
-                <li>
-                  <a href="https://www.themashabrand.com/scripts/Voting/admin/addposition">
-                    Add Position
-                  </a>
-                </li>
-              </ul>
-            </li>
+            
 
             <li className="">
               <a href="https://www.themashabrand.com/scripts/Voting/admin/settings/site">

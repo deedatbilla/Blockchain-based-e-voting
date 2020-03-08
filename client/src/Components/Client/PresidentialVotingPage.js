@@ -6,6 +6,7 @@ import { createElection } from "../../actions/createElectionAction";
 import { setconnection } from "../../actions/connectActions";
 import { connect } from "react-redux";
 import InputDataDecoder from "ethereum-input-data-decoder";
+import {host} from '../../config/config'
 import { abi } from "./abi.json";
 import axios from 'axios'
 
@@ -13,28 +14,17 @@ import axios from 'axios'
 class PresidentialVotingPage extends Component {
   state = {
     Presidential: [],
-    
+    count:0,
     thereIsElection: false
   };
 
 
-  fetchData = async () => {
-
-    const res = await axios.get("http://localhost:5000/candidate/profile")
-    this.setState({
-      profile: this.state.profile.concat(...res.data.candidate)
-    })
-
-    // const all=this.state.profile.filter(data=>data.cid !== 2)
-    // console.log(all)
-
-
-  }
+  
 
   
   async componentDidMount() {
     this.props.setconnection();
-    const res = await axios.get("http://localhost:5000/candidate/profile")
+   
     // this.setState({
     //   profile: this.state.profile.concat(...res.data.candidate)
     // })
@@ -66,28 +56,14 @@ class PresidentialVotingPage extends Component {
     // fetch the list of all presidential candidates
 
     const count = await contract.methods.getPresidentialCount().call();
+    this.setState({count:count})
+    console.log(count)
     if (count > 0) {
       this.setState({
         thereIsElection: true
       });
 
-      for (var i = 1; i <= count; i++) {
-        const response = await contract.methods
-          .getPresidentialCandidates(0, i)
-          .call();
-        
-        
-      
-
-        this.setState(state => {
-          const Presidential = state.Presidential.concat(response);
-          return {
-            Presidential
-          };
-        });
-      }
-
-      console.log(this.state.Presidential);
+     
     }
   }
 
@@ -113,20 +89,14 @@ class PresidentialVotingPage extends Component {
               <div className="section-title" style={{ paddingTop: "20px" }}>
                 <h1>Presidential Candidates</h1>
               </div>
-              {this.state.Presidential.map(data => (
+              
                 <CandidateCard
-                  key={data.id}
-                  id={data.id}
-                  name={data.name}
-                  count={data.count}
-                  party={data.party}
-                  profile={data.imgURL}
-                  manifesto={data.manifesto}
                   contract={contract}
                   accounts={accounts}
-                  vote={this.vote}
+                  count ={this.state.count}
+                
                 />
-              ))}
+             
             </div>
           </div>
         </div>

@@ -29,6 +29,7 @@ class CreateElection extends Component {
     e.preventDefault();
     const { accounts, contract, presidential, parliamentary } = this.props;
 
+
     // // candidates arrays.
     await contract.methods
       .CreateElection(presidential, parliamentary, 500000000000000, accounts[0])
@@ -89,7 +90,7 @@ class CreateElection extends Component {
     formData.append("profileImg", this.state.profileImg);
 
     const res = await axios.post(
-      "http://localhost:5000/candidate/image",
+      host + "/candidate/image",
       formData
     );
     const imgURL = res.data.candidate.profileImg;
@@ -131,7 +132,8 @@ class CreateElection extends Component {
 
     const res =await axios.get(host + "/fetchallparties")
     this.setState({parties:[...res.data.party]})
-    console.log(this.state.parties)
+    
+    console.log(this.props.presidential)
   }
   render() {
     const { presidential, parliamentary } = this.props;

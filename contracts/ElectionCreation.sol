@@ -71,6 +71,7 @@ uint amounthours, address creator)public {
         deployedBallots[ballotCount].presidentialCandidates[presCands[i].id].manifesto = presCands[i].manifesto;
         deployedBallots[ballotCount].presidentialCandidates[presCands[i].id].voteCount = presCands[i].voteCount;
         deployedBallots[ballotCount].presidentialCandidates[presCands[i].id].imgURL = presCands[i].imgURL;
+        candidateCount++;
 
     }
 
@@ -92,7 +93,7 @@ uint amounthours, address creator)public {
 
 ballotCount++;
 ballotid++;
-candidateCount++;
+
      
 
 }
@@ -134,7 +135,7 @@ function getParliamentaryVoteCount(uint candidateid,uint electionid) public view
  }
 
  function getPresidentialCount() public view returns(uint count){
-     return candidateCount+1;
+     return candidateCount;
  }
 function getPresidentialCandidates(uint electionid,uint i) public view returns(uint id,string memory name,
  string memory party, string memory manifesto,uint count, string memory imgURL){

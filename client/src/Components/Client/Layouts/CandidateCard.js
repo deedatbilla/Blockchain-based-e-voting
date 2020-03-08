@@ -1,105 +1,130 @@
 import React, { Component } from "react";
 import profile from "../../../assets/151713187001792.jpg";
-export default class CandidateCard extends Component {
-	vote = async()=> {
-    const { accounts, contract, id, state} = this.props;
-    
+class CandidateCard extends Component {
+  state = {
+    Presidential: []
+  };
 
-    // // candidates arrays.
-    await contract.methods.voteForPresident(id, 0).send({ from: accounts[0] });
-    // // Get the value from the contract to prove it worked.
-    const response = await contract.methods.getPresidentialVoteCount(id, 0).call();
-
-    const count = await contract.methods.getPresidentialCount().call();
+  async componentDidMount() {
+    const { contract, count } = this.props;
     for (var i = 1; i <= count; i++) {
       const response = await contract.methods
         .getPresidentialCandidates(0, i)
         .call();
-    this.setState({
-      Presidential:response
-    })
-	
-     }
-//this.props.history.push('/client/president')
+
+      this.setState(state => {
+        const Presidential = state.Presidential.concat(response);
+        return {
+          Presidential
+        };
+      });
+    }
+
+    console.log(this.state.Presidential[2]);
+  }
+  vote = async id => {
+    const { accounts, contract, count } = this.props;
+
+    // // candidates arrays.
+    await contract.methods.voteForPresident(id, 0).send({ from: accounts[0] });
+    // // Get the value from the contract to prove it worked.
+    const response = await contract.methods
+      .getPresidentialVoteCount(id, 0)
+      .call();
+
+      this.setState({Presidential:[]})
+
+    for (var i = 1; i <= count; i++) {
+      const response = await contract.methods
+        .getPresidentialCandidates(0, i)
+        .call();
+        this.setState(state => {
+          const Presidential = state.Presidential.concat(response);
+          return {
+            Presidential
+          };
+        });
+    }
+    //this.props.history.push('/client/president')
     console.log(response);
   };
- 
+
   render() {
-  
-   
     return (
       <div>
-        <div className="col-lg-4">
-          <span id="comment474877446628"></span>
+        {this.state.Presidential.map(data => (
+          <div className="col-lg-4">
+            <span id="comment474877446628"></span>
 
-          <div className="text-center card-box">
-            <div className="clearfix"></div>
-            <div className="member-card">
-              <div className="thumb-xl member-thumb m-b-10 center-block ">
-              <div className="container">
-                <img
-                width={283}
-                height={283}
-                  src={this.props.profile}
-                  className="img-circle img-responsive img-fluid img-thumbnail  rounded-circle " 
-                  alt="profile-image"
-                />
+            <div className="text-center card-box">
+              <div className="clearfix"></div>
+              <div className="member-card">
+                <div className="thumb-xl member-thumb m-b-10 center-block ">
+                  <div className="container">
+                    <img
+                      width={283}
+                      height={283}
+                      src={data.profile}
+                      className="img-circle img-responsive img-fluid img-thumbnail  rounded-circle "
+                      alt="profile-image"
+                    />
+                  </div>
+                  <i
+                    className="mdi mdi-star-circle member-star text-success"
+                    title="verified user"
+                  ></i>
                 </div>
-                <i
-                  className="mdi mdi-star-circle member-star text-success"
-                  title="verified user"
-                ></i>
-              </div>
 
-              <div className="">
-                <h4 className="m-b-5">{this.props.name}</h4>
-                <p className="text-danger">
-                  <i className="fa fa-thumbs-o-up"></i> {this.props.count}
-                </p>
-                <p className="text-mint">
-                  <span className="text-mint"> {this.props.party}</span>
-                </p>
+                <div className="">
+                  <h4 className="m-b-5">{data.name}</h4>
+                  <p className="text-danger">
+                    <i className="fa fa-thumbs-o-up"></i> {data.count}
+                  </p>
+                  <p className="text-mint">
+                    <span className="text-mint"> {data.party}</span>
+                  </p>
+                  <p>
+                    {" "}
+                    <span>
+                      <span className="text-muted">Running to Be: </span>
+                      <span className="text-mint">President</span>{" "}
+                    </span>
+                  </p>
+                </div>
+
                 <p>
-                  {" "}
-                  <span>
-                    <span className="text-muted">Running to Be: </span>
-                    <span className="text-mint">President</span>{" "}
+                  <span
+                    style={{
+                      fontFamily: "&quot;Abhaya Libre&quot, serif",
+                      fontSize: "15px",
+                      fontStyle: "normal",
+                      fontVariantLigatures: "normal",
+                      fontVariantCaps: "normal",
+                      fontWeight: "400",
+                      textAlign: "center"
+                    }}
+                  >
+                    {data.manifesto.substring(0, 200) + " ..."}
                   </span>
                 </p>
-              </div>
-
-              <p>
-                <span
-                  style={{
-                    fontFamily: "&quot;Abhaya Libre&quot, serif",
-                    fontSize: "15px",
-                    fontStyle: "normal",
-                    fontVariantLigatures: "normal",
-                    fontVariantCaps: "normal",
-                    fontWeight: "400",
-                    textAlign: "center"
-                  }}
+                <br />
+                <a href="" className="kafe-btn kafe-btn-mint-small">
+                  <i className="fa fa-user-secret" aria-hidden="true"></i> View
+                  Manifesto
+                </a>
+                <a
+                  href="#"
+                  className="kafe-btn kafe-btn-danger-small"
+                  onClick={this.vote.bind(this, data.id)}
                 >
-                  {this.props.manifesto}
-                </span>
-              </p>
-              <br />
-              <a href="" className="kafe-btn kafe-btn-mint-small">
-                <i className="fa fa-user-secret" aria-hidden="true"></i> View
-                Manifesto
-              </a>
-              <button
-			  type="button"
-				className="kafe-btn kafe-btn-danger-small"
-				
-                onClick={this.vote}
-              >
-                <i className="fa fa-thumbs-o-up" aria-hidden="true"></i> vote
-              </button> 
+                  <i className="fa fa-thumbs-o-up" aria-hidden="true"></i> vote
+                </a>
+              </div>
             </div>
           </div>
-        </div>
+        ))}
       </div>
     );
   }
 }
+export default CandidateCard;
