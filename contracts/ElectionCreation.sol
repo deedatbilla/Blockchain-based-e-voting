@@ -4,6 +4,7 @@ pragma experimental ABIEncoderV2;
 
 contract ElectionCreation {
 uint public candidateCount = 0;
+uint public parl_candidateCount=0;
 mapping(uint=>Ballot) public deployedBallots;
 mapping(address=>vote_right) public voters;
 address public manager;
@@ -85,6 +86,7 @@ uint amounthours, address creator)public {
         deployedBallots[ballotCount].districts[parlCands[i].id].district = parlCands[i].district;
         deployedBallots[ballotCount].presidentialCandidates[presCands[i].id].imgURL = presCands[i].imgURL;
         deployedBallots[ballotCount].districts[parlCands[i].id].voteCount = parlCands[i].voteCount;
+        parl_candidateCount++;
     
     }
 
@@ -122,14 +124,9 @@ voters[msg.sender].parl = true;
 }
 
 
-function getPresidentialVoteCount(uint candidateid,uint electionid) public view returns(uint){
-    return deployedBallots[electionid].presidentialCandidates[candidateid].voteCount;
-}
 
-function getParliamentaryVoteCount(uint candidateid,uint electionid) public view returns(uint) {
-    return deployedBallots[electionid].districts[candidateid].voteCount;
-    
-}
+
+
  function getDeployedBallots(uint id) public view returns(uint ballotid,uint creationDate,uint expirationDate) { 
      return (deployedBallots[id].ballotid,deployedBallots[id].creationDate,deployedBallots[id].expirationDate);
  }
@@ -137,6 +134,17 @@ function getParliamentaryVoteCount(uint candidateid,uint electionid) public view
  function getPresidentialCount() public view returns(uint count){
      return candidateCount;
  }
+ function getParliamentaryCount() public view returns(uint count){
+     return parl_candidateCount;
+ }
+ function getPresidentialVoteCount(uint candidateid,uint electionid) public view returns(uint){
+    return deployedBallots[electionid].presidentialCandidates[candidateid].voteCount;
+}
+
+function getParliamentaryVoteCount(uint candidateid,uint electionid) public view returns(uint) {
+    return deployedBallots[electionid].districts[candidateid].voteCount;
+    
+}
 function getPresidentialCandidates(uint electionid,uint i) public view returns(uint id,string memory name,
  string memory party, string memory manifesto,uint count, string memory imgURL){
  uint cid = deployedBallots[electionid].presidentialCandidates[i].id;
@@ -146,6 +154,14 @@ function getPresidentialCandidates(uint electionid,uint i) public view returns(u
  string memory img = deployedBallots[electionid].presidentialCandidates[i].imgURL;
  uint  votecount = deployedBallots[electionid].presidentialCandidates[i].voteCount;
  return(cid,cname,cparty,manifesto,votecount,img);
+    
+
+ }
+
+ function getParliamentaryCandidates(uint electionid,uint i) public view returns(uint id,string memory name,
+ string memory party, string memory manifesto,uint count, string memory imgURL,string memory district){
+ Parliamentary memory p = deployedBallots[electionid].parliamentaryCandidates[i];
+ return(p.id,p.name,p.party,p.manifesto,p.voteCount,p.imgURL,p.district);
     
 
  }
