@@ -28,6 +28,7 @@ struct Ballot{
      string manifesto;
      uint voteCount;
      string imgURL;
+     string partyImg;
 
  }
 
@@ -39,6 +40,7 @@ struct Ballot{
      string district;
      uint voteCount;
      string imgURL;
+     string partyImg;
      
  }
 struct district{
@@ -72,6 +74,7 @@ uint amounthours, address creator)public {
         deployedBallots[ballotCount].presidentialCandidates[presCands[i].id].manifesto = presCands[i].manifesto;
         deployedBallots[ballotCount].presidentialCandidates[presCands[i].id].voteCount = presCands[i].voteCount;
         deployedBallots[ballotCount].presidentialCandidates[presCands[i].id].imgURL = presCands[i].imgURL;
+        deployedBallots[ballotCount].presidentialCandidates[presCands[i].id].partyImg = presCands[i].partyImg;
         candidateCount++;
 
     }
@@ -85,6 +88,7 @@ uint amounthours, address creator)public {
         deployedBallots[ballotCount].parliamentaryCandidates[parlCands[i].id].voteCount = parlCands[i].voteCount;
         deployedBallots[ballotCount].districts[parlCands[i].id].district = parlCands[i].district;
         deployedBallots[ballotCount].presidentialCandidates[presCands[i].id].imgURL = presCands[i].imgURL;
+         deployedBallots[ballotCount].presidentialCandidates[presCands[i].id].partyImg = presCands[i].partyImg;
         deployedBallots[ballotCount].districts[parlCands[i].id].voteCount = parlCands[i].voteCount;
         parl_candidateCount++;
     
@@ -146,22 +150,17 @@ function getParliamentaryVoteCount(uint candidateid,uint electionid) public view
     
 }
 function getPresidentialCandidates(uint electionid,uint i) public view returns(uint id,string memory name,
- string memory party, string memory manifesto,uint count, string memory imgURL){
- uint cid = deployedBallots[electionid].presidentialCandidates[i].id;
- string memory cname = deployedBallots[electionid].presidentialCandidates[i].name;
- string memory manifesto = deployedBallots[electionid].presidentialCandidates[i].manifesto;
- string memory cparty = deployedBallots[electionid].presidentialCandidates[i].party;
- string memory img = deployedBallots[electionid].presidentialCandidates[i].imgURL;
- uint  votecount = deployedBallots[electionid].presidentialCandidates[i].voteCount;
- return(cid,cname,cparty,manifesto,votecount,img);
+ string memory party, string memory manifesto,uint count, string memory imgURL, string memory partyImg){
+ Presidential memory p = deployedBallots[electionid].presidentialCandidates[i];
+ return(p.id,p.name,p.party,p.manifesto,p.voteCount,p.imgURL,p.partyImg);
     
 
  }
 
  function getParliamentaryCandidates(uint electionid,uint i) public view returns(uint id,string memory name,
- string memory party, string memory manifesto,uint count, string memory imgURL,string memory district){
+ string memory party, string memory manifesto,uint count, string memory imgURL, string memory partyImg,string memory district){
  Parliamentary memory p = deployedBallots[electionid].parliamentaryCandidates[i];
- return(p.id,p.name,p.party,p.manifesto,p.voteCount,p.imgURL,p.district);
+ return(p.id,p.name,p.party,p.manifesto,p.voteCount,p.imgURL,p.partyImg,p.district);
     
 
  }

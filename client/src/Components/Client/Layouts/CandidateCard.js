@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import profile from "../../../assets/151713187001792.jpg";
+import axios from "axios";
+import { host } from "../../../config/config";
 class CandidateCard extends Component {
   state = {
     Presidential: []
@@ -20,7 +22,7 @@ class CandidateCard extends Component {
       });
     }
 
-    console.log(this.state.Presidential[2]);
+    console.log(this.state.Presidential);
   }
   vote = async id => {
     const { accounts, contract, count } = this.props;
@@ -32,18 +34,18 @@ class CandidateCard extends Component {
       .getPresidentialVoteCount(id, 0)
       .call();
 
-      this.setState({Presidential:[]})
+    this.setState({ Presidential: [] });
 
     for (var i = 1; i <= count; i++) {
       const response = await contract.methods
         .getPresidentialCandidates(0, i)
         .call();
-        this.setState(state => {
-          const Presidential = state.Presidential.concat(response);
-          return {
-            Presidential
-          };
-        });
+      this.setState(state => {
+        const Presidential = state.Presidential.concat(response);
+        return {
+          Presidential
+        };
+      });
     }
     //this.props.history.push('/client/president')
     console.log(response);
@@ -64,9 +66,22 @@ class CandidateCard extends Component {
                     <img
                       width={283}
                       height={283}
-                      src={data.profile}
+                      src={data.imgURL}
                       className="img-circle img-responsive img-fluid img-thumbnail  rounded-circle "
                       alt="profile-image"
+                    />
+
+                    <img
+                      width={30}
+                      height={30}
+                      src={data.partyImg}
+                      className="img-circle img-responsive img-fluid img-thumbnail  rounded-circle "
+                      alt="profile-image"
+                      style={{
+                        position: "absolute",
+                        bottom: "30px",
+                        left: "7px"
+                      }}
                     />
                   </div>
                   <i

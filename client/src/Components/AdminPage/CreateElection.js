@@ -21,7 +21,8 @@ class CreateElection extends Component {
     district: "",
     profileImg: "",
     manifesto: "",
-    parties: []
+    parties: [],
+    partyImg:''
   };
 
   
@@ -53,18 +54,30 @@ class CreateElection extends Component {
     e.preventDefault();
     var id = JSON.parse(localStorage.getItem("presCID"));
 
-    const { name, party, manifesto } = this.state;
+    const { name, party, manifesto,parties } = this.state;
+
+    for(var i=0;i<parties.length;i++){
+
+      if(parties[i].partyName==party){
+        this.setState({partyImg:parties[i].partyImg})
+        
+  
+      }
+  
+    }
 
     const formData = new FormData();
     formData.append("profileImg", this.state.profileImg);
 
     const res = await axios.post(host + "/candidate/image", formData);
     const imgURL = res.data.candidate.profileImg;
+    const {partyImg} =this.state
 
     const NewPrezCandidate = {
       id: id,
       name,
       party,
+      partyImg,
       manifesto,
       imgURL,
       voteCount: 0
@@ -74,6 +87,8 @@ class CreateElection extends Component {
     this.setState({
       name: "",
       party: "",
+      partyImg:'',
+      profileImg:'',
       district: "",
       manifesto: ""
     });
@@ -84,7 +99,16 @@ class CreateElection extends Component {
   //add parliamentary Candidates
   onSubmitParl = async e => {
     e.preventDefault();
-    const { name, party, district, manifesto } = this.state;
+    const { name, party, district, manifesto,parties } = this.state;
+    for(var i=0;i<parties.length;i++){
+
+    if(parties[i].partyName===party){
+      this.setState({partyImg:parties[i].partyImg})
+      
+
+    }
+
+  }
     var id = JSON.parse(localStorage.getItem("parlCID"));
     const formData = new FormData();
     formData.append("profileImg", this.state.profileImg);
@@ -94,12 +118,14 @@ class CreateElection extends Component {
       formData
     );
     const imgURL = res.data.candidate.profileImg;
+     const {partyImg} =this.state
 
     const NewParlCandidate = {
       id: id,
       name,
       party,
       district,
+      partyImg,
       manifesto,
       imgURL,
       voteCount: 0
@@ -109,6 +135,7 @@ class CreateElection extends Component {
       party: "",
       district: "",
       profileImg: "",
+      partyImg:'',
       manifesto: ""
     });
 
@@ -133,7 +160,7 @@ class CreateElection extends Component {
     const res =await axios.get(host + "/fetchallparties")
     this.setState({parties:[...res.data.party]})
     
-    console.log(this.props.presidential)
+    console.log(this.props.parliamentary)
   }
   render() {
     const { presidential, parliamentary } = this.props;
@@ -310,9 +337,11 @@ class CreateElection extends Component {
                         <select name="party" className="form-control validate" onChange={this.onChange}>
                         {this.state.parties.map(party=>(
                           <option value = {party.partyName}>{party.partyName}</option>
+                          
                         ))}
 
                         </select>
+                        
                       </div>
                     </div>
                     <div className="md-form mb-4">
