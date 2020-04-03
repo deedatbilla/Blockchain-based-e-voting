@@ -4,7 +4,7 @@ import { host } from "../config/config";
 
 
 export const isSignedIn = data => async dispatch => {
-  const response = await axios.post(host +"/users/login", data);
+  const response = await axios.post(host +"/admin/login", data);
   const authData = {
     isAuthenticated: true,
     token: response.data.token,
@@ -12,7 +12,7 @@ export const isSignedIn = data => async dispatch => {
   };
 
   const token = response.data.token;
-  localStorage.setItem("authdata", JSON.stringify(authData));
+  localStorage.setItem("Adminauthdata", JSON.stringify(authData));
   
   
   dispatch({
@@ -22,7 +22,7 @@ export const isSignedIn = data => async dispatch => {
 };
 
 export const isSignedOut = history => async dispatch => {
-  const t = JSON.parse(localStorage.getItem("authdata"));
+  const t = JSON.parse(localStorage.getItem("Adminauthdata"));
 
   // set header authorization token
   const config = {
@@ -34,11 +34,11 @@ export const isSignedOut = history => async dispatch => {
     config
   );
   
-  localStorage.removeItem("authdata");
+  localStorage.removeItem("Adminauthdata");
 
   dispatch({
     type: SIGN_OUT
   });
 
-  history.push("/login");
+  history.push("/admin/login");
 };

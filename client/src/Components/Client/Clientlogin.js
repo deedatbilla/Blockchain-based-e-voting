@@ -28,9 +28,9 @@ class Clientlogin extends Component {
       this.props.history.push("/");
     }
   }
-  componentWillReceiveProps(props) {
+  static getDerivedStateFromProps (props) {
     if (props.authStatus) {
-      this.props.history.push("/");
+      props.history.push("/");
     }
   }
 
@@ -42,9 +42,11 @@ class Clientlogin extends Component {
         <Header />
         <HeaderSecondary />
         <Form
-          name="Voter Login"
+          FormName="Voter Login"
           onChange={this.onChange}
           onSubmit={this.onSubmit}
+          placeholder={"voter ID"}
+          name={"IDnumber"}
         />
         <Footer />
       </div>

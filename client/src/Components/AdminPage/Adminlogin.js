@@ -6,16 +6,34 @@ import Form from "../Client/Layouts/Form";
 import HeaderSecondary from "../Client/Layouts/HeaderSecondary";
 import "../../css/login.css";
 import "../../css/style.css";
+import { isSignedIn } from "../../actions/AdminAuthAction.js";
+import { connect } from "react-redux";
 class Adminlogin extends Component {
   state = {
-    IDnumber: "",
+    email: "",
     password: ""
   };
-  onSubmit = (e) => {
-    e.preventDefault()
-    const { IDnumber, password } = this.state;
-    console.log(password)
+  onSubmit = async e => {
+    e.preventDefault();
+    const { email, password } = this.state;
+    const data = {
+      email: email,
+      password: password
+    };
+
+    this.props.isSignedIn(data);
   };
+
+  componentDidMount() {
+    if (this.props.authStatus) {
+      this.props.history.push("/admin/Dashboard");
+    }
+  }
+  static getDerivedStateFromProps(props,state) {
+    if (props.authStatus) {
+      props.history.push("/admin/Dashboard");
+    }
+  }
   onChange = e => this.setState({ [e.target.name]: e.target.value });
   render() {
     const { IDnumber, password } = this.state;
@@ -23,11 +41,17 @@ class Adminlogin extends Component {
       <div>
         <Header />
         <HeaderSecondary />
-        <Form name="Admin Login"  onChange={this.onChange} onSubmit={this.onSubmit} />
+        <Form FormName="Admin Login"  onChange={this.onChange} onSubmit={this.onSubmit} 
+          placeholder={"Email"}
+          name={"email"}
+        />
         <Footer />
       </div>
     );
   }
 }
 
-export default Adminlogin;
+const mapStateToProps = state => ({
+  authStatus: state.adminAuth.isAuthenticated
+});
+export default connect(mapStateToProps, { isSignedIn })(Adminlogin);

@@ -15,24 +15,24 @@ class Form extends Component {
                 <div className="form-sign">
                   <form onSubmit={this.props.onSubmit}>
                     <div className="form-head">
-                      <h3>{this.props.name}</h3>
+                      <h3>{this.props.FormName}</h3>
                     </div>
                     <div className="form-body">
-                      <div className="form-row">
+                      <div className="form-row col-sm-6">
                         <div className="form-controls">
                           <input
                             name="text"
-                            placeholder="ID number"
+                            placeholder={this.props.placeholder}
                             required
                             onChange={this.props.onChange}
-                            name="IDnumber"
+                            name={this.props.name}
                             className="field"
                             type="text"
                           />
                         </div>
                       </div>
 
-                      <div className="form-row">
+                      <div className="form-row ">
                         <div className="form-controls">
                           <input
                             name="password"
@@ -64,11 +64,7 @@ class Form extends Component {
 
                     <div className="form-foot">
                       <div className="form-actions">
-                        <input
-                          type="hidden"
-                          name="token"
-                          value="fb9f639da053348c4ee2bf04f2391474"
-                        />
+                        
                         <input
                           value="Login"
                           className="kafe-btn kafe-btn-default full-width"

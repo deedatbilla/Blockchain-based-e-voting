@@ -16,10 +16,10 @@ export default function Footer() {
      
       <div className="col-sm-5 col-sm-push-7 col-xs-12">
        <ul className="list-inline socialLink">
-        <li><a href="https://www.themashabrand.com/scripts/Voting/admin/login#"><i className="fa fa-facebook" aria-hidden="true"></i></a></li>
-        <li><a href="https://www.themashabrand.com/scripts/Voting/admin/login#"><i className="fa fa-twitter" aria-hidden="true"></i></a></li>
-        <li><a href="https://www.themashabrand.com/scripts/Voting/admin/login#"><i className="fa fa-pinterest-p" aria-hidden="true"></i></a></li>
-        <li><a href="https://www.themashabrand.com/scripts/Voting/admin/login#"><i className="fa fa-linkedin" aria-hidden="true"></i></a></li>
+        <li><a href=" "><i className="fa fa-facebook" aria-hidden="true"></i></a></li>
+        <li><a href=" "><i className="fa fa-twitter" aria-hidden="true"></i></a></li>
+        <li><a href=" "><i className="fa fa-pinterest-p" aria-hidden="true"></i></a></li>
+        <li><a href=" "><i className="fa fa-linkedin" aria-hidden="true"></i></a></li>
        </ul>
       </div>
       

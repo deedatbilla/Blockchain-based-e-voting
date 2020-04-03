@@ -2,13 +2,13 @@ import React, { Component } from "react";
 import profile from "../../../assets/151713187001792.jpg";
 import axios from "axios";
 import { host } from "../../../config/config";
-class CandidateCard extends Component {
+class ParlCandidateCard extends Component {
   state = {
     Presidential: []
   };
 
   async componentDidMount() {
-
+    
     const { contract, count } = this.props;
     for (var i = 1; i <= count; i++) {
       const response = await contract.methods
@@ -143,4 +143,4 @@ class CandidateCard extends Component {
     );
   }
 }
-export default CandidateCard;
+export default ParlCandidateCard;
