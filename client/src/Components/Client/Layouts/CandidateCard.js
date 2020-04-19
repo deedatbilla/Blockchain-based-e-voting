@@ -54,7 +54,7 @@ class CandidateCard extends Component {
 
   render() {
     return (
-      <div>
+      <div className="row">
         {this.state.Presidential.map(data => (
           <div className="col-lg-4">
             <span id="comment474877446628"></span>

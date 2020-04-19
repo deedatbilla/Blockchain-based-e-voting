@@ -36,6 +36,16 @@ class PresidentialVotingPage extends Component {
     // const data =
     // "";
     const { web3, accounts, contract } = this.props;
+    var latestBlock = web3.eth.blockNumber;
+    console.log(latestBlock)
+    // for (var i = 0; i < 10; i++) {
+    //   var block = web3.eth.getBlock(latestBlock - i);
+    //   var number = block.number;
+    //   var hash = block.hash;
+    //   var time = block.timestamp;
+    //   console.log(block)
+    //   //$('tbody').append("<tr><td>" + number + "</td><td>" + hash + "</td><td>" + time + "</td></tr>");
+    // }
 
     // const result= decoder.decodeData(data)
     // console.log(result)
@@ -96,7 +106,7 @@ class PresidentialVotingPage extends Component {
                   count ={this.state.count}
                 
                 />
-             
+            
             </div>
           </div>
         </div>

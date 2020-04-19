@@ -2,102 +2,56 @@ import React, { Component } from "react";
 import { isSignedOut } from "../../../actions/ClientAuthAction";
 import { connect } from "react-redux";
 class Votingpageheader extends Component {
+  onlogout = e => {
+    e.preventDefault();
 
-	onlogout = (e) =>{
-e.preventDefault()
-
-this.props.isSignedOut(this.props.hist)
-	}
+    this.props.isSignedOut(this.props.history); 
+   // this.props.history.push('/login')
+  };
   render() {
     return (
-      <div>
-        <header className="tr-header">
-          <nav className="navbar  navbar-expand-lg navbar-light">
-            <div className="container">
-              <div className="navbar-header">
-                <button
-                  type="button"
-                  className="navbar-toggle collapsed"
-                  data-toggle="collapse"
-                  data-target="#navbar-collapse"
-                >
-                  <span className="sr-only">Toggle navigation</span>
-                  <span className="icon-bar"></span>
-                  <span className="icon-bar"></span>
-                  <span className="icon-bar"></span>
-                </button>
-                <a className="navbar-brand" href="">
-                  Voting
+      <nav className="navbar navbar-expand-lg navbar-secondary black navbar-right">
+        <div className="container">
+          <a className="navbar-brand" href="#">
+            <strong>Blockchain voting</strong>
+          </a>
+          <button
+            className="navbar-toggler"
+            type="button"
+            data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span className="navbar-toggler-icon"></span>
+          </button>
+          <div className="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul className="navbar-nav mr-auto">
+              <li className="nav-item active">
+                <a className="nav-link" href="#">
+                  Home <span className="sr-only">(current)</span>
                 </a>
-              </div>
-              <div className="navbar-left">
-                <div className="collapse navbar-collapse" id="navbar-collapse">
-                  <ul className="nav navbar-nav">
-                    <li className="active nav-item">
-                      <a href="" className="nav-link">Home</a>
-                    </li>
-                    <li className="mav-item">
-                      <a href=""  className="nav-link">How it works</a>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-              <div className="navbar-right">
-                <ul className="nav navbar-nav">
-                  <li className="dropdown mega-avatar">
-                    <a
-                      href=""  className="nav-link"
-                      className="dropdown-toggle"
-                      data-toggle="dropdown"
-                      aria-expanded="true"
-                    >
-                      <span className="avatar w-32">
-                        <img
-                          src="./voting page_files/1515503485.jpg"
-                          className="img-resonsive img-circle"
-                          width="25"
-                          height="25"
-                          alt="..."
-                        />
-                      </span>
-
-                      <span>Avatar Twenty </span>
-                    </a>
-                    <div className="dropdown-menu w dropdown-menu-scale pull-right">
-                      <a className="dropdown-item" href="">
-                        <span>Dashboard</span>
-                      </a>
-                      <a className="dropdown-item" href="">
-                        <span>Profile</span>
-                      </a>
-                      <a className="dropdown-item" href="">
-                        Logout
-                      </a>
-                    </div>
-                  </li>
-                </ul>
-
-                <ul className="nav navbar-nav">
-                  <li className="dropdown user user-menu">
-                    <a
-                      href="#"
-                      className="dropdown-toggle"
-                      data-toggle="dropdown"
-                    >
-                      <span
-                        className="hidden-xs "
-                        onClick={this.onlogout}
-                      >
-                        Logout{" "}
-                      </span>
-                    </a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </nav>
-        </header>
-      </div>
+              </li>
+              <li className="nav-item">
+                <a className="nav-link" href="#">
+                  Block Explorer
+                </a>
+              </li>
+              <li className="nav-item">
+                <a className="nav-link" href="#">
+                  Voting History
+                </a>
+              </li>
+              <li className="nav-item">
+                <a className="nav-link" href="#" onClick={this.onlogout}>
+                  Logout
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
     );
   }
 }

@@ -4,7 +4,7 @@ import axios from "axios";
 import { host } from "../../../config/config";
 class ParlCandidateCard extends Component {
   state = {
-    Presidential: []
+    Parliamentary: []
   };
 
   async componentDidMount() {
@@ -12,39 +12,39 @@ class ParlCandidateCard extends Component {
     const { contract, count } = this.props;
     for (var i = 1; i <= count; i++) {
       const response = await contract.methods
-        .getPresidentialCandidates(0, i)
+        .getParliamentaryCandidates(0, i)
         .call();
 
       this.setState(state => {
-        const Presidential = state.Presidential.concat(response);
+        const Parliamentary = state.Parliamentary.concat(response);
         return {
-          Presidential
+          Parliamentary
         };
       });
     }
 
-    console.log(this.state.Presidential);
+    console.log(this.state.Parliamentary);
   }
   vote = async id => {
     const { accounts, contract, count } = this.props;
 
     // // candidates arrays.
-    await contract.methods.voteForPresident(id, 0).send({ from: accounts[0] });
+    await contract.methods.voteForParliament(id, 0).send({ from: accounts[0] });
     // // Get the value from the contract to prove it worked.
     const response = await contract.methods
-      .getPresidentialVoteCount(id, 0)
+      .getParliamentaryVoteCount(id, 0)
       .call();
 
-    this.setState({ Presidential: [] });
+    this.setState({ Parliamentary: [] });
 
     for (var i = 1; i <= count; i++) {
       const response = await contract.methods
-        .getPresidentialCandidates(0, i)
+        .getParliamentaryVoteCount(0, i)
         .call();
       this.setState(state => {
-        const Presidential = state.Presidential.concat(response);
+        const Parliamentary = state.Parliamentary.concat(response);
         return {
-          Presidential
+          Parliamentary
         };
       });
     }
@@ -55,7 +55,7 @@ class ParlCandidateCard extends Component {
   render() {
     return (
       <div>
-        {this.state.Presidential.map(data => (
+        {this.state.Parliamentary.map(data => (
           <div className="col-lg-4">
             <span id="comment474877446628"></span>
 

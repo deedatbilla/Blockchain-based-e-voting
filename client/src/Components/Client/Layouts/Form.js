@@ -1,31 +1,29 @@
-import React, { Component } from "react";
+import React from 'react'
 
-
-
-class Form extends Component {
+ function Form(props){
   
 
-  render() {
+  
     return (
-      <div>
+     
         <section className="banner-login">
           <div className="row">
             <main className="main main-signup col-lg-12">
               <div className="col-lg-6 col-lg-offset-3 text-center">
                 <div className="form-sign">
-                  <form onSubmit={this.props.onSubmit}>
+                  <form onSubmit={props.onSubmit}>
                     <div className="form-head">
-                      <h3>{this.props.FormName}</h3>
+                      <h3>{props.FormName}</h3>
                     </div>
                     <div className="form-body">
                       <div className="form-row col-sm-6">
                         <div className="form-controls">
                           <input
                             name="text"
-                            placeholder={this.props.placeholder}
+                            placeholder={props.placeholder}
                             required
-                            onChange={this.props.onChange}
-                            name={this.props.name}
+                            onChange={props.onChange}
+                            name={props.name}
                             className="field"
                             type="text"
                           />
@@ -37,7 +35,7 @@ class Form extends Component {
                           <input
                             name="password"
                             required
-                            onChange={this.props.onChange}
+                            onChange={props.onChange}
                             placeholder="Password"
                             name="password"
                             className="field"
@@ -79,10 +77,10 @@ class Form extends Component {
             </main>
           </div>
         </section>
-      </div>
+    
     );
   }
-}
+
 
 
 export default Form
