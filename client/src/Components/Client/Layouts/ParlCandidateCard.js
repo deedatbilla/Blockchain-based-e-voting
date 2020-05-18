@@ -4,58 +4,68 @@ import axios from "axios";
 import { host } from "../../../config/config";
 class ParlCandidateCard extends Component {
   state = {
-    Parliamentary: []
+    Parliamentary: [],
   };
 
   async componentDidMount() {
-    
     const { contract, count } = this.props;
     for (var i = 1; i <= count; i++) {
       const response = await contract.methods
         .getParliamentaryCandidates(0, i)
         .call();
 
-      this.setState(state => {
+      this.setState((state) => {
         const Parliamentary = state.Parliamentary.concat(response);
         return {
-          Parliamentary
+          Parliamentary,
         };
       });
     }
 
     console.log(this.state.Parliamentary);
   }
-  vote = async id => {
+  vote = async (id) => {
     const { accounts, contract, count } = this.props;
+    const data = JSON.parse(localStorage.getItem("authdata"));
+    const district = data.user.constituency;
 
     // // candidates arrays.
-    await contract.methods.voteForParliament(id, 0).send({ from: accounts[0] });
+    const trx = await contract.methods
+      .voteForParliament(id, 0, district)
+      .send({ from: accounts[0] });
+    //will be changed in future. trx data must be stored in the database not in localstorage.
+    //this will be used temporarily for project defense purpose.
+    //the plan now is to delete the trx data once voter logs out. if they decide to log back in the trx data will
+    // be lost
+    localStorage.removeItem("parltrx");
+    localStorage.setItem("parltrx", JSON.stringify(trx));
     // // Get the value from the contract to prove it worked.
     const response = await contract.methods
       .getParliamentaryVoteCount(id, 0)
       .call();
 
-    this.setState({ Parliamentary: [] });
+    // this.setState({ Parliamentary: [] });
 
-    for (var i = 1; i <= count; i++) {
-      const response = await contract.methods
-        .getParliamentaryVoteCount(0, i)
-        .call();
-      this.setState(state => {
-        const Parliamentary = state.Parliamentary.concat(response);
-        return {
-          Parliamentary
-        };
-      });
-    }
-    this.props.history.push('/')
+    // for (var i = 1; i <= count; i++) {
+    //   const response = await contract.methods
+    //     .getParliamentaryVoteCount(id, 0)
+    //     .call();
+    //   this.setState((state) => {
+    //     const Parliamentary = state.Parliamentary.concat(response);
+    //     return {
+    //       Parliamentary,
+    //     };
+    //   });
+    // }
+    this.props.history.push("/");
     //console.log(response);
   };
 
   render() {
     return (
-      <div>
-        {this.state.Parliamentary.map(data => (
+      <div className="row">
+        {" "}
+        {this.state.Parliamentary.map((data) => (
           <div className="col-lg-4">
             <span id="comment474877446628"></span>
 
@@ -81,7 +91,7 @@ class ParlCandidateCard extends Component {
                       style={{
                         position: "absolute",
                         bottom: "30px",
-                        left: "7px"
+                        left: "7px",
                       }}
                     />
                   </div>
@@ -99,11 +109,17 @@ class ParlCandidateCard extends Component {
                   <p className="text-mint">
                     <span className="text-mint"> {data.party}</span>
                   </p>
+                  <p className="text-mint">
+                    <span className="text-muted">constituency: </span>
+                    <span className="text-mint"> {data.district}</span>
+                  </p>
                   <p>
                     {" "}
                     <span>
                       <span className="text-muted">Running to Be: </span>
-                      <span className="text-mint">President</span>{" "}
+                      <span className="text-mint">
+                        Parliamentary candidate
+                      </span>{" "}
                     </span>
                   </p>
                 </div>
@@ -117,7 +133,7 @@ class ParlCandidateCard extends Component {
                       fontVariantLigatures: "normal",
                       fontVariantCaps: "normal",
                       fontWeight: "400",
-                      textAlign: "center"
+                      textAlign: "center",
                     }}
                   >
                     {data.manifesto.substring(0, 200) + " ..."}

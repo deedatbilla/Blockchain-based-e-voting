@@ -22,14 +22,13 @@ class CreateElection extends Component {
     profileImg: "",
     manifesto: "",
     parties: [],
-    partyImg:''
+    partyImg: "",
+    cand_address: 0,
   };
 
-  
-  onSubmitToBlockchain = async e => {
+  onSubmitToBlockchain = async (e) => {
     e.preventDefault();
     const { accounts, contract, presidential, parliamentary } = this.props;
-
 
     // // candidates arrays.
     await contract.methods
@@ -47,23 +46,28 @@ class CreateElection extends Component {
     console.log(response);
   };
 
-  onChange = e => this.setState({ [e.target.name]: e.target.value });
+  onChange = (e) => this.setState({ [e.target.name]: e.target.value });
 
   //Add presidential Candidates
-  onSubmitPrez = async e => {
+  onSubmitPrez = async (e) => {
     e.preventDefault();
+    const { web3 } = this.props;
+    const { privateKey, address } = web3.eth.accounts.create();
+    
+     var addr=address
+   
+   
     var id = JSON.parse(localStorage.getItem("presCID"));
 
-    const { name, party, manifesto,parties } = this.state;
+    const { name, party, manifesto,parties,cand_address } = this.state;
 
     for(var i=0;i<parties.length;i++){
 
       if(parties[i].partyName==party){
         this.setState({partyImg:parties[i].partyImg})
-        
-  
+
       }
-  
+
     }
 
     const formData = new FormData();
@@ -80,7 +84,8 @@ class CreateElection extends Component {
       partyImg,
       manifesto,
       imgURL,
-      voteCount: 0
+      cand_address:addr,
+      voteCount: 0,
     };
 
     this.props.AddPresCand(NewPrezCandidate);
@@ -90,35 +95,39 @@ class CreateElection extends Component {
       partyImg:'',
       profileImg:'',
       district: "",
-      manifesto: ""
+      manifesto: "",
+      cand_address:0
     });
     id++;
     localStorage.setItem("presCID", JSON.stringify(id));
   };
 
   //add parliamentary Candidates
-  onSubmitParl = async e => {
+  onSubmitParl = async (e) => {
     e.preventDefault();
-    const { name, party, district, manifesto,parties } = this.state;
-    for(var i=0;i<parties.length;i++){
-
-    if(parties[i].partyName===party){
-      this.setState({partyImg:parties[i].partyImg})
-      
-
+    const { web3 } = this.props;
+    const { privateKey, address } = web3.eth.accounts.create();
+    var addr=address
+    const {
+      name,
+      party,
+      district,
+      manifesto,
+      parties,
+      cand_address,
+    } = this.state;
+    for (var i = 0; i < parties.length; i++) {
+      if (parties[i].partyName === party) {
+        this.setState({ partyImg: parties[i].partyImg });
+      }
     }
-
-  }
     var id = JSON.parse(localStorage.getItem("parlCID"));
     const formData = new FormData();
     formData.append("profileImg", this.state.profileImg);
 
-    const res = await axios.post(
-      host + "/candidate/image",
-      formData
-    );
+    const res = await axios.post(host + "/candidate/image", formData);
     const imgURL = res.data.candidate.profileImg;
-     const {partyImg} =this.state
+    const { partyImg } = this.state;
 
     const NewParlCandidate = {
       id: id,
@@ -128,15 +137,17 @@ class CreateElection extends Component {
       partyImg,
       manifesto,
       imgURL,
-      voteCount: 0
+      voteCount: 0,
+      cand_address:addr
     };
     this.setState({
       name: "",
       party: "",
       district: "",
       profileImg: "",
-      partyImg:'',
-      manifesto: ""
+      partyImg: "",
+      manifesto: "",
+      cand_address: 0,
     });
 
     this.props.AddParlCand(NewParlCandidate);
@@ -144,7 +155,7 @@ class CreateElection extends Component {
     localStorage.setItem("parlCID", JSON.stringify(id));
   };
 
-  onFileChange = e => {
+  onFileChange = (e) => {
     this.setState({ profileImg: e.target.files[0] });
   };
 
@@ -157,10 +168,10 @@ class CreateElection extends Component {
 
     document.body.appendChild(script);
 
-    const res =await axios.get(host + "/fetchallparties")
-    this.setState({parties:[...res.data.party]})
-    
-    console.log(this.props.parliamentary)
+    const res = await axios.get(host + "/fetchallparties");
+    this.setState({ parties: [...res.data.party] });
+
+    console.log(this.props.parliamentary);
   }
   render() {
     const { presidential, parliamentary } = this.props;
@@ -240,13 +251,17 @@ class CreateElection extends Component {
                           Party
                         </label>
 
-                        <select name="party" className="form-control validate" onChange={this.onChange}>
-                        {this.state.parties.map(party=>(
-                          <option value = {party.partyName}>{party.partyName}</option>
-                        ))}
-
+                        <select
+                          name="party"
+                          className="form-control validate"
+                          onChange={this.onChange}
+                        >
+                          {this.state.parties.map((party) => (
+                            <option value={party.partyName}>
+                              {party.partyName}
+                            </option>
+                          ))}
                         </select>
-                        
                       </div>
                     </div>
                     <div className="md-form mb-4">
@@ -334,14 +349,17 @@ class CreateElection extends Component {
                         >
                           Party
                         </label>
-                        <select name="party" className="form-control validate" onChange={this.onChange}>
-                        {this.state.parties.map(party=>(
-                          <option value = {party.partyName}>{party.partyName}</option>
-                          
-                        ))}
-
+                        <select
+                          name="party"
+                          className="form-control validate"
+                          onChange={this.onChange}
+                        >
+                          {this.state.parties.map((party) => (
+                            <option value={party.partyName}>
+                              {party.partyName}
+                            </option>
+                          ))}
                         </select>
-                        
                       </div>
                     </div>
                     <div className="md-form mb-4">
@@ -393,15 +411,15 @@ class CreateElection extends Component {
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   accounts: state.connect.accounts,
   web3: state.connect.web3,
   contract: state.connect.contract,
   presidential: state.createElection.presidential,
-  parliamentary: state.createElection.parliamentary
+  parliamentary: state.createElection.parliamentary,
 });
 export default connect(mapStateToProps, {
   AddPresCand,
   AddParlCand,
-  setconnection
+  setconnection,
 })(CreateElection);

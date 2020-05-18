@@ -54,7 +54,7 @@ class ParliamentaryVotingPage extends Component {
     if (!thereIsElection) {
       return (
         <div className="container ">
-          <Votingpageheader hist={this.props.history} />
+          <Votingpageheader history={this.props.history} />
           <div>No election today</div>
 
           <Footer/>
@@ -64,7 +64,7 @@ class ParliamentaryVotingPage extends Component {
     const { contract, accounts } = this.props;
     return (
       <div>
-        <Votingpageheader hist={this.props.history} />
+        <Votingpageheader history={this.props.history} />
         <div className="featured-users">
           <div className="container">
             <div >

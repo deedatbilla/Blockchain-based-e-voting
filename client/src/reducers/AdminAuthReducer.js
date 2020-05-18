@@ -16,7 +16,8 @@ export default function(state = initialState, action) {
     case SIGN_IN:
       return {
         ...state,
-        isAuthenticated: true
+        isAuthenticated: action.hasAccess,
+        error:action.error
       };
     case SIGN_OUT:
       return {

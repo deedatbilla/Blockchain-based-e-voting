@@ -3,7 +3,7 @@ import axios from "axios";
 import { host } from "../config/config";
 
 
-export const isSignedIn = data => async dispatch => {
+export const isSignedIn = (data,history) => async dispatch => {
   const response = await axios.post(host +"/users/login", data);
   const authData = {
     isAuthenticated: true,
@@ -19,20 +19,22 @@ export const isSignedIn = data => async dispatch => {
     type: SIGN_IN,
     payload:response.data.user
   });
+  history.push("/")
 };
 
 export const isSignedOut = history => async dispatch => {
-  const t = JSON.parse(localStorage.getItem("authdata"));
+ // const t = JSON.parse(localStorage.getItem("authdata"));
+  console.log("actiom")
 
   // set header authorization token
-  const config = {
-    headers: { Authorization: `Bearer ${t.token}` }
-  };
-  const response = await axios.post(
-    host +"users/me/logout",
-    t.user,
-    config
-  );
+  // const config = {
+  //   headers: { Authorization: `Bearer ${t.token}` }
+  // };
+  // const response = await axios.post(
+  //   host +"users/me/logout",
+  //   t.user,
+  //   config
+  // );
   
   localStorage.removeItem("authdata");
 

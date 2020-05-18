@@ -68,6 +68,7 @@ export default function CandidatesListTable(props) {
                       <th>Candidate Name</th>
                       <th>Candidate Party</th>
                       <th>Manifesto</th>
+                      <th>Wallet Address</th>
                       {props.isparl ? districtHeader : empty}
                       <th>Image</th>
                     </tr>
@@ -79,6 +80,7 @@ export default function CandidatesListTable(props) {
                         <td>{data.name}</td>
                         <td>{data.party}</td>
                         <td>{data.manifesto}</td>
+                        <td>{data.cand_address}</td>
 
                     {props.isparl ? (<td>{data.district}</td>) : empty}
                         <td><img src={data.imgURL} width={40} height={40} style={{borderRadius:'50px'}}/></td>

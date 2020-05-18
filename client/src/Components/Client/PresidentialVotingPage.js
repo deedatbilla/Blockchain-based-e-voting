@@ -82,17 +82,17 @@ class PresidentialVotingPage extends Component {
     if (!thereIsElection) {
       return (
         <div className="container ">
-          <Votingpageheader hist={this.props.history} />
+          <Votingpageheader  history={this.props.history} />
           <div>No election today</div>
 
           <Footer/>
         </div>
       );
     }
-    const { contract, accounts } = this.props;
+    const { contract, accounts,web3 } = this.props;
     return (
       <div>
-        <Votingpageheader hist={this.props.history} />
+        <Votingpageheader history={this.props.history} />
         <div className="featured-users">
           <div className="container">
             <div >
@@ -103,7 +103,9 @@ class PresidentialVotingPage extends Component {
                 <CandidateCard
                   contract={contract}
                   accounts={accounts}
+                  web3={web3}
                   count ={this.state.count}
+                  history={this.props.history}
                 
                 />
             

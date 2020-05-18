@@ -20,19 +20,19 @@ class Clientlogin extends Component {
       password: password
     };
 
-    this.props.isSignedIn(data);
+    this.props.isSignedIn(data,this.props.history);
   };
 
-  componentDidMount() {
-    if (this.props.authStatus) {
-      this.props.history.push("/");
-    }
-  }
-  static getDerivedStateFromProps (props) {
-    if (props.authStatus) {
-      props.history.push("/");
-    }
-  }
+  // componentDidMount() {
+  //   if (this.props.authStatus) {
+  //     this.props.history.push("/");
+  //   }
+  // }
+  // static getDerivedStateFromProps (props) {
+  //   if (props.authStatus) {
+  //     props.history.push("/");
+  //   }
+  // }
 
   onChange = e => this.setState({ [e.target.name]: e.target.value });
 

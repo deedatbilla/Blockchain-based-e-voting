@@ -1,10 +1,7 @@
 import React from "react";
-import { useToast, immediateToast } from 'izitoast-react'
 
 export default function AddpartyForm(props) {
-  const showMessage = useToast({
-    message: 'party added successfully',
-  });
+  
  
   return (
     <div className="content-wrapper" style={{ minHeight: "475px" }}>

@@ -25,15 +25,28 @@ class CandidateCard extends Component {
 
     console.log(this.state.Presidential);
   }
-  vote = async id => {
-    const { accounts, contract, count } = this.props;
+  vote = async (id,candidateAddress) => {
+    const { accounts, contract, count,web3 } = this.props;
 
     // // candidates arrays.
-    await contract.methods.voteForPresident(id, 0).send({ from: accounts[0] });
+   const trx= await contract.methods.voteForPresident(id, 0).send({ from: accounts[0] });
+   const trx_data={
+    from : this.props.accounts[0],
+    to: candidateAddress,
+    value:web3.utils.toWei("0.005", "ether"),
+    data:"",
+  }
+const res=  await web3.eth.sendTransaction(trx_data)
+   //will be changed in future. trx data must be stored in the database not in localstorage.
+   //this will be used temporarily for project defense purpose.
+   //the plan now is to delete the trx data once voter logs out. if they decide to log back in the trx data will
+   // be lost
+   localStorage.setItem("prestrx",JSON.stringify(trx))
     // // Get the value from the contract to prove it worked.
     const response = await contract.methods
       .getPresidentialVoteCount(id, 0)
       .call();
+      
 
     this.setState({ Presidential: [] });
 
@@ -131,7 +144,7 @@ class CandidateCard extends Component {
                 <a
                   href="#"
                   className="kafe-btn kafe-btn-danger-small"
-                  onClick={this.vote.bind(this, data.id)}
+                  onClick={this.vote.bind(this, data.id,data.cand_addr)}
                 >
                   <i className="fa fa-thumbs-o-up" aria-hidden="true"></i> vote
                 </a>

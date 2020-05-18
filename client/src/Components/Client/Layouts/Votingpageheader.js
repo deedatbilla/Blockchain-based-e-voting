@@ -1,9 +1,11 @@
 import React, { Component } from "react";
 import { isSignedOut } from "../../../actions/ClientAuthAction";
 import { connect } from "react-redux";
+import {Link} from 'react-router-dom';
 class Votingpageheader extends Component {
   onlogout = e => {
     e.preventDefault();
+    //console.log(this.props.history)
 
     this.props.isSignedOut(this.props.history); 
    // this.props.history.push('/login')
@@ -34,9 +36,9 @@ class Votingpageheader extends Component {
                 </a>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="#">
+                <Link to={'/explorer'} className="nav-link">
                   Block Explorer
-                </a>
+                </Link>
               </li>
               <li className="nav-item">
                 <a className="nav-link" href="#">

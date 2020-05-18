@@ -13,6 +13,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import PresidentialVotingPage from "./Client/PresidentialVotingPage";
 import ElectionCategoryPage from "./Client/ElectionCategoryPage";
 import ParliamentaryVotingPage from './Client/ParliamentaryVotingPage'
+import BlockExplorer from './Client/BlockExplorer';
 import {
   BrowserRouter as Router,
   Switch,
@@ -49,6 +50,12 @@ class rootComponent extends Component {
               path="/presidential"
               component={PresidentialVotingPage}
             />
+             <PrivateRouteClient
+              exact
+              path="/explorer"
+              component={BlockExplorer}
+            />
+            
              <PrivateRouteClient
               exact
               path="/parliamentary"

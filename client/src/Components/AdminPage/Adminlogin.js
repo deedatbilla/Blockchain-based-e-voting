@@ -11,17 +11,24 @@ import { connect } from "react-redux";
 class Adminlogin extends Component {
   state = {
     email: "",
-    password: ""
+    password: "",
+    loading: false,
   };
-  onSubmit = async e => {
+  onSubmit = async (e) => {
+    this.setState({ loading: true });
     e.preventDefault();
     const { email, password } = this.state;
     const data = {
       email: email,
-      password: password
+      password: password,
     };
 
-    this.props.isSignedIn(data);
+    await this.props.isSignedIn(data);
+    if(this.props.error){
+      alert(this.props.error)
+    }
+    
+    this.setState({ loading: false });
   };
 
   componentDidMount() {
@@ -29,21 +36,25 @@ class Adminlogin extends Component {
       this.props.history.push("/admin/Dashboard");
     }
   }
-  static getDerivedStateFromProps(props,state) {
+  static getDerivedStateFromProps(props, state) {
     if (props.authStatus) {
       props.history.push("/admin/Dashboard");
     }
   }
-  onChange = e => this.setState({ [e.target.name]: e.target.value });
+  onChange = (e) => this.setState({ [e.target.name]: e.target.value });
   render() {
     const { IDnumber, password } = this.state;
     return (
       <div>
         <Header />
         <HeaderSecondary />
-        <Form FormName="Admin Login"  onChange={this.onChange} onSubmit={this.onSubmit} 
+        <Form
+          FormName="Admin Login"
+          onChange={this.onChange}
+          onSubmit={this.onSubmit}
           placeholder={"Email"}
           name={"email"}
+          loading={this.state.loading}
         />
         <Footer />
       </div>
@@ -51,7 +62,8 @@ class Adminlogin extends Component {
   }
 }
 
-const mapStateToProps = state => ({
-  authStatus: state.adminAuth.isAuthenticated
+const mapStateToProps = (state) => ({
+  authStatus: state.adminAuth.isAuthenticated,
+  error: state.adminAuth.error,
 });
 export default connect(mapStateToProps, { isSignedIn })(Adminlogin);
