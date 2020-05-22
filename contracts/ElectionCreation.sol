@@ -110,8 +110,11 @@ ballotid++;
 
 }
 
+function send(address payable _receiver) payable public{
+    _receiver.send(msg.value);
+  }
 
-function voteForPresident(uint candidateid, uint electionid)public { 
+function voteForPresident(uint candidateid, uint electionid) payable public { 
 
    require(!voters[msg.sender].pres, "Already voted."); 
 
@@ -119,8 +122,15 @@ function voteForPresident(uint candidateid, uint electionid)public {
     if(now > deployedBallots[electionid].expirationDate){ 
         revert();
  } 
+//end(deployedBallots[electionid].presidentialCandidates[candidateid].cand_address);
+//require(address(this).balance >  1);
+//deployedBallots[electionid].presidentialCandidates[candidateid].cand_address.send(10);
 deployedBallots[electionid].presidentialCandidates[candidateid].voteCount += 1;
 voters[msg.sender].pres = true; 
+}
+
+function getbalance()payable public  returns(uint tt,address add){
+    return (address(this).balance,msg.sender);
 }
 
 function voteForParliament(uint candidateid, uint electionid,string memory districtname)public { 
@@ -136,7 +146,6 @@ deployedBallots[electionid].districts[districtVoteCount].district = districtname
 deployedBallots[electionid].districts[districtVoteCount].voteCount += 1;
 voters[msg.sender].parl = true; 
 }
-
 
 
 

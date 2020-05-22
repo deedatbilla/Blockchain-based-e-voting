@@ -10,6 +10,29 @@ class BlockExplorer extends Component {
     data: [],
     search: "",
   };
+  convertTimestamp=(time)=> {
+    var d = new Date(time * 1000), // Convert the passed timestamp to milliseconds
+        yyyy = d.getFullYear(),
+        mm = ('0' + (d.getMonth() + 1)).slice(-2),  // Months are zero based. Add leading 0.
+        dd = ('0' + d.getDate()).slice(-2),         // Add leading 0.
+        hh = d.getHours(),
+        h = hh,
+        min = ('0' + d.getMinutes()).slice(-2),     // Add leading 0.
+        ampm = 'AM',
+        time;
+        if (hh > 12) {
+          h = hh - 12;
+          ampm = 'PM';
+      } else if (hh === 12) {
+          h = 12;
+          ampm = 'PM';
+      } else if (hh == 0) {
+          h = 12;
+      }
+      // ie: 2014-03-24, 3:00 PM
+    var  time1 = yyyy + '-' + mm + '-' + dd + ', ' + h + ':' + min + ' ' + ampm;
+      return time1;
+      }
   componentDidMount = async () => {
     this.props.setconnection();
 
@@ -21,22 +44,24 @@ class BlockExplorer extends Component {
     const decoder = new InputDataDecoder(abi);
     const data = ``;
     const { web3, accounts, contract } = this.props;
-    const temp =await web3.eth.getBlock(42)
-    const k = await web3.eth.getTransaction(40,0)
-    console.log(k);
+    
+    
+    const temp =await web3.eth.getBlock(2)
+    const k = await web3.eth.getTransaction(temp)
+   console.log(temp.transactions);
     var latestBlock = await web3.eth.getBlockNumber();
     // console.log(web3.eth);
     var temparr = [];
     for (var i = 0; i < latestBlock; i++) {
       var block = await web3.eth.getBlock(latestBlock - i);
       var number = block.number;
-      var hash = block.hash;
-      var time = block.timestamp;
+      var hash = block.transactions[ 0];
+      var time = this.convertTimestamp(block.timestamp);
       var to = "34"
       const bl = {
         hash: hash,
         number: number,
-        to: to,
+        time:time
       };
       temparr.push(bl);
 
@@ -60,9 +85,9 @@ class BlockExplorer extends Component {
   default() {
     return this.state.data.map((data) => (
       <tr key={data.number}>
-        <td>{data.hash.substring(0,20)}...</td>
+        <td>{data.hash}</td>
         <td>{data.number}</td>
-        <td>{data.to}...</td>
+        <td>{data.time}</td>
         <td>1</td>
       </tr>
     ));
@@ -81,9 +106,9 @@ class BlockExplorer extends Component {
     if (newtable.length > 0) {
       return newtable.map((data) => (
         <tr>
-          <td>{data.hash.substring(0,20)}...</td>
+          <td>{data.hash}</td>
           <td>{data.number}</td>
-          <td>{data.to}...</td>>
+          <td>{data.time}</td>>
           <td>1</td>
         </tr>
       ));
@@ -114,7 +139,7 @@ class BlockExplorer extends Component {
                     <tr>
                       <th>Transaction id</th>
                       <th>Block number</th>
-                      <th>To</th>
+                      <th>Timestamp</th>
 
                       <th>Vote value</th>
                       <th></th>

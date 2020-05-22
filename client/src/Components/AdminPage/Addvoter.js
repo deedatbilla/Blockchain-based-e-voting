@@ -36,6 +36,7 @@ class Addvoter extends Component {
           privateKey,
           address,
         };
+        console.log(privateKey)
         this.setState({
           name: "",
           voter_id: "",

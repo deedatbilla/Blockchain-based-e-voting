@@ -4,49 +4,53 @@ import axios from "axios";
 import { host } from "../../../config/config";
 class CandidateCard extends Component {
   state = {
-    Presidential: []
+    Presidential: [],
   };
 
   async componentDidMount() {
-
     const { contract, count } = this.props;
     for (var i = 1; i <= count; i++) {
       const response = await contract.methods
         .getPresidentialCandidates(0, i)
         .call();
 
-      this.setState(state => {
+      this.setState((state) => {
         const Presidential = state.Presidential.concat(response);
         return {
-          Presidential
+          Presidential,
         };
       });
     }
 
     console.log(this.state.Presidential);
   }
-  vote = async (id,candidateAddress) => {
-    const { accounts, contract, count,web3 } = this.props;
+  vote = async (id, candidateAddress) => {
+    const { accounts, contract, count, web3 } = this.props;
 
     // // candidates arrays.
-   const trx= await contract.methods.voteForPresident(id, 0).send({ from: accounts[0] });
-   const trx_data={
-    from : this.props.accounts[0],
-    to: candidateAddress,
-    value:web3.utils.toWei("0.005", "ether"),
-    data:"",
-  }
-const res=  await web3.eth.sendTransaction(trx_data)
-   //will be changed in future. trx data must be stored in the database not in localstorage.
-   //this will be used temporarily for project defense purpose.
-   //the plan now is to delete the trx data once voter logs out. if they decide to log back in the trx data will
-   // be lost
-   localStorage.setItem("prestrx",JSON.stringify(trx))
+    const trx = await contract.methods
+      .voteForPresident(id, 0)
+      .send({
+        from: accounts[0],
+        to: candidateAddress,
+        value: web3.utils.toWei("0.05", "ether"),
+        data: "",
+      });
+    //    const trx_data={
+    //     from : this.props.accounts[0],
+
+    //   }
+    // const res=  await web3.eth.sendTransaction(trx_data)
+    //will be changed in future. trx data must be stored in the database not in localstorage.
+    //this will be used temporarily for project defense purpose.
+    //the plan now is to delete the trx data once voter logs out. if they decide to log back in the trx data will
+    // be lost
+    localStorage.removeItem("prestrx")
+    localStorage.setItem("prestrx", JSON.stringify(trx));
     // // Get the value from the contract to prove it worked.
     const response = await contract.methods
       .getPresidentialVoteCount(id, 0)
       .call();
-      
 
     this.setState({ Presidential: [] });
 
@@ -54,21 +58,21 @@ const res=  await web3.eth.sendTransaction(trx_data)
       const response = await contract.methods
         .getPresidentialCandidates(0, i)
         .call();
-      this.setState(state => {
+      this.setState((state) => {
         const Presidential = state.Presidential.concat(response);
         return {
-          Presidential
+          Presidential,
         };
       });
     }
-    this.props.history.push('/')
+    this.props.history.push("/");
     //console.log(response);
   };
 
   render() {
     return (
       <div className="row">
-        {this.state.Presidential.map(data => (
+        {this.state.Presidential.map((data) => (
           <div className="col-lg-4">
             <span id="comment474877446628"></span>
 
@@ -94,7 +98,7 @@ const res=  await web3.eth.sendTransaction(trx_data)
                       style={{
                         position: "absolute",
                         bottom: "30px",
-                        left: "7px"
+                        left: "7px",
                       }}
                     />
                   </div>
@@ -130,7 +134,7 @@ const res=  await web3.eth.sendTransaction(trx_data)
                       fontVariantLigatures: "normal",
                       fontVariantCaps: "normal",
                       fontWeight: "400",
-                      textAlign: "center"
+                      textAlign: "center",
                     }}
                   >
                     {data.manifesto.substring(0, 200) + " ..."}
@@ -144,7 +148,7 @@ const res=  await web3.eth.sendTransaction(trx_data)
                 <a
                   href="#"
                   className="kafe-btn kafe-btn-danger-small"
-                  onClick={this.vote.bind(this, data.id,data.cand_addr)}
+                  onClick={this.vote.bind(this, data.id, data.cand_addr)}
                 >
                   <i className="fa fa-thumbs-o-up" aria-hidden="true"></i> vote
                 </a>
