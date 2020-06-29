@@ -40,11 +40,11 @@ class Votingpageheader extends Component {
                   Block Explorer
                 </Link>
               </li>
-              <li className="nav-item">
+              {/* <li className="nav-item">
                 <a className="nav-link" href="#">
                   Voting History
                 </a>
-              </li>
+              </li> */}
               <li className="nav-item">
                 <a className="nav-link" href="#" onClick={this.onlogout}>
                   Logout

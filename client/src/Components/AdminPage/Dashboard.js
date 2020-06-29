@@ -26,6 +26,12 @@ class Dashboard extends Component {
       const response = await contract.methods
         .getParliamentaryCandidates(0, i)
         .call();
+        console.log(response)
+
+        const ct = await contract.methods
+        .getVoteCountForDistrict(i, 0,response.district)
+        .call();
+        console.log(ct)
 
       this.setState(state => {
         const parlstatistics = state.parlstatistics.concat(response);

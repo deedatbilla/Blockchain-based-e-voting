@@ -6,6 +6,7 @@ import Sidebar from "./Layouts/Sidebar";
 import AdminHeader from "./Layouts/AdminHeader";
 import Footer from "./Layouts/Footer";
 import { host } from "../../config/config";
+
 import axios from "axios";
 import { setconnection } from "../../actions/connectActions";
 import { connect } from "react-redux";
@@ -15,14 +16,15 @@ class Addvoter extends Component {
     voter_id: "",
     email: "",
     constituency: "",
-    password: "",
+
     loading: 0,
   };
+  
   render() {
     onchange = (e) => {
       this.setState({ [e.target.name]: e.target.value });
     };
-
+  
     onsubmit = async (e) => {
       e.preventDefault();
       this.setState({ loading: 1 });
@@ -31,35 +33,32 @@ class Addvoter extends Component {
 
         const { privateKey, address } = web3.eth.accounts.create();
         const cred = this.state;
+        var code = Math.floor(1000 + Math.random() * 9000);
         const user_data = {
           ...cred,
           privateKey,
           address,
+          password: code,
         };
-        console.log(privateKey)
         this.setState({
           name: "",
           voter_id: "",
           email: "",
           constituency: "",
           password: "",
-          loading: 2
+          loading: 2,
         });
-        const trx_data={
-              from : this.props.accounts[0],
-              to: address,
-              value:web3.utils.toWei("1.5", "ether"),
-              data:"",
-            }
-          const res=  await web3.eth.sendTransaction(trx_data)
-         
-        // await web3.eth.sendTransaction({
-        //   to: web3.utils.toHex(0x13511be7d04d9529d4c19dbcdb421c1074d714bc),
-        //   from: this.props.accounts[0],
-        //   value: web3.utils.toHex(web3.utils.toWei(0.5, "ether")),
-        //});
-        // const response = await axios.post(host + "/users", user_data);
-        // 
+        const trx_data = {
+          from: this.props.accounts[0],
+          to: address,
+          value: web3.utils.toWei("1.5", "ether"),
+          data: "",
+        };
+        //const res = await web3.eth.sendTransaction(trx_data);
+
+        const response = await axios.post(host + "/users", user_data);
+       
+        //
       } catch (err) {
         console.log(err);
       }
@@ -70,12 +69,7 @@ class Addvoter extends Component {
           <div className="wrapper">
             <AdminHeader />
             <Sidebar />
-            <AddvoterForm
-              onchange={this.onchange}
-              onsubmit={this.onsubmit}
-              state={this.state}
-              loading={this.state.loading}
-            />
+            <AddvoterForm onchange={this.onchange} onsubmit={this.onsubmit} state={this.state} loading={this.state.loading} />
             <Footer />
           </div>
         </div>

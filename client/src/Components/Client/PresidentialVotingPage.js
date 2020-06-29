@@ -1,30 +1,25 @@
 import React, { Component } from "react";
 import Votingpageheader from "./Layouts/Votingpageheader";
 import CandidateCard from "./Layouts/CandidateCard";
-import Footer  from "../Client/Layouts/Footer"
+import Footer from "../Client/Layouts/Footer";
 import { createElection } from "../../actions/createElectionAction";
 import { setconnection } from "../../actions/connectActions";
 import { connect } from "react-redux";
 import InputDataDecoder from "ethereum-input-data-decoder";
-import {host} from '../../config/config'
+import { host } from "../../config/config";
 import { abi } from "./abi.json";
-import axios from 'axios'
-
+import axios from "axios";
 
 class PresidentialVotingPage extends Component {
   state = {
     Presidential: [],
-    count:0,
-    thereIsElection: false
+    count: 0,
+    thereIsElection: false,
   };
 
-
-  
-
-  
   async componentDidMount() {
     this.props.setconnection();
-   
+
     // this.setState({
     //   profile: this.state.profile.concat(...res.data.candidate)
     // })
@@ -37,7 +32,7 @@ class PresidentialVotingPage extends Component {
     // "";
     const { web3, accounts, contract } = this.props;
     var latestBlock = web3.eth.blockNumber;
-    console.log(latestBlock)
+    console.log(latestBlock);
     // for (var i = 0; i < 10; i++) {
     //   var block = web3.eth.getBlock(latestBlock - i);
     //   var number = block.number;
@@ -61,19 +56,17 @@ class PresidentialVotingPage extends Component {
       name: "",
       party: "",
       manifesto: "",
-      votecount: ""
+      votecount: "",
     };
     // fetch the list of all presidential candidates
 
     const count = await contract.methods.getPresidentialCount().call();
-    this.setState({count:count})
-    console.log(count)
+    this.setState({ count: count });
+    console.log(count);
     if (count > 0) {
       this.setState({
-        thereIsElection: true
+        thereIsElection: true,
       });
-
-     
     }
   }
 
@@ -81,48 +74,44 @@ class PresidentialVotingPage extends Component {
     const { thereIsElection } = this.state;
     if (!thereIsElection) {
       return (
-        <div className="container ">
-          <Votingpageheader  history={this.props.history} />
+        <div className="container " style={{ position: "absolute", right: 0, left: 0, top: 0, bottom: 0 }}>
+          <Votingpageheader history={this.props.history} />
           <div>No election today</div>
 
-          <Footer/>
+          <Footer />
         </div>
       );
     }
-    const { contract, accounts,web3 } = this.props;
+    const { contract, accounts, web3 } = this.props;
     return (
       <div>
         <Votingpageheader history={this.props.history} />
         <div className="featured-users">
           <div className="container">
-            <div >
+            <div>
               <div className="section-title" style={{ paddingTop: "20px" }}>
                 <h1>Presidential Candidates</h1>
               </div>
-              
-                <CandidateCard
-                  contract={contract}
-                  accounts={accounts}
-                  web3={web3}
-                  count ={this.state.count}
-                  history={this.props.history}
-                
-                />
-            
+
+              <CandidateCard
+                contract={contract}
+                accounts={accounts}
+                web3={web3}
+                count={this.state.count}
+                history={this.props.history}
+              />
             </div>
           </div>
         </div>
 
-        <Footer/>
+        <Footer />
       </div>
     );
   }
 }
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   accounts: state.connect.accounts,
   web3: state.connect.web3,
-  contract: state.connect.contract
+  contract: state.connect.contract,
 });
-export default connect(mapStateToProps, { setconnection })(
-  PresidentialVotingPage
-);
+export default connect(mapStateToProps, { setconnection })(PresidentialVotingPage);

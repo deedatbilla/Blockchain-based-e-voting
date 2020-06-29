@@ -41,7 +41,7 @@ class ElectionCategoryPage extends Component {
                   />
 
                   <h3>Presidential Candidates</h3>
-                  <p>Candidates : 5</p>
+                  {/* <p>Candidates : 5</p> */}
                 </div>
               </div>
 
@@ -54,7 +54,7 @@ class ElectionCategoryPage extends Component {
                     className="img-resonsive"
                   />
                   <h3>Parliamentary Candidates</h3>
-                  <p>Candidates : 3</p>
+                  {/* <p>Candidates : 3</p> */}
                 </div>
               </div>
             </div>

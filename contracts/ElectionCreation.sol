@@ -161,7 +161,7 @@ voters[msg.sender].parl = true;
      return parl_candidateCount;
  }
  function getVoteCountForDistrict(uint candid,uint electionid,string memory district) public view returns(uint count) {
-     uint counter = 0;
+     uint counter = 1;
    
        for (uint i = 0;i < districtVoteCount ; i++){
              uint cid = deployedBallots[electionid].districts[i].id;

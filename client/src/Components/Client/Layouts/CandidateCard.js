@@ -141,10 +141,10 @@ class CandidateCard extends Component {
                   </span>
                 </p>
                 <br />
-                <a href="" className="kafe-btn kafe-btn-mint-small">
+                {/* <a href="" className="kafe-btn kafe-btn-mint-small">
                   <i className="fa fa-user-secret" aria-hidden="true"></i> View
                   Manifesto
-                </a>
+                </a> */}
                 <a
                   href="#"
                   className="kafe-btn kafe-btn-danger-small"

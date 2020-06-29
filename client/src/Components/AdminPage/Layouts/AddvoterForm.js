@@ -176,7 +176,7 @@ export default function AddvoterForm(props) {
                       </select>
                     </div>
 
-                    <div className="form-group">
+                    {/* <div className="form-group">
                       <input
                         required
                         type="password"
@@ -185,7 +185,7 @@ export default function AddvoterForm(props) {
                         placeholder="Pin"
                         onChange={props.onChange}
                       />
-                    </div>
+                    </div> */}
 
                     <br></br>
 
